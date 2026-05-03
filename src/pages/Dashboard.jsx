@@ -21,8 +21,9 @@ const chartData = [
 
 export default function Dashboard() {
   const { user, isPro } = useAuth()
-  const { totalBalance, totalIncome, totalExpense, transactions, budgets, getBudgetUsed } = useData()
-  const wallets = [wallet]
+  const { wallet, totalIncome, totalExpense, transactions, budgets, getBudgetUsed } = useData()
+  const totalBalance = wallet?.balance || 0
+  const wallets = wallet ? [wallet] : []
   const [showModal, setShowModal] = useState(false)
 
   const recentTx = transactions.slice(0, 5)
