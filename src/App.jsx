@@ -23,7 +23,15 @@ function AppLayout() {
 }
 
 function RequireAuth() {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
+  if (loading) return (
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--navy)' }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{ width: 40, height: 40, background: 'var(--mint)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 14, color: 'var(--navy)', margin: '0 auto 16px' }}>mt</div>
+        <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 13 }}>Memuat...</p>
+      </div>
+    </div>
+  )
   if (!user) return <Navigate to="/login" replace />
   return <Outlet />
 }

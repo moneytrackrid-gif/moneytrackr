@@ -1,52 +1,43 @@
 import { createContext, useContext, useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
+import { useAuth } from './AuthContext'
 
 const DataContext = createContext(null)
 
-const INIT_WALLET = { id: 'w1', name: 'BCA Tabungan', type: 'Bank', balance: 3847200, icon: '🏦' }
-
-const INIT_TRANSACTIONS = [
-  { id: 't1', type: 'expense', name: 'Alfamart', amount: 87500, category: 'Belanja', date: new Date().toISOString(), icon: '🛒' },
-  { id: 't2', type: 'expense', name: 'Grab', amount: 35000, category: 'Transportasi', date: new Date(Date.now() - 3600000).toISOString(), icon: '🚗' },
-  { id: 't3', type: 'income', name: 'Gaji Mei', amount: 5500000, category: 'Pemasukan', date: new Date(Date.now() - 86400000).toISOString(), icon: '💼' },
-  { id: 't4', type: 'expense', name: 'Warteg Bu Yati', amount: 18000, category: 'Makan', date: new Date(Date.now() - 2 * 86400000).toISOString(), icon: '🍜' },
-  { id: 't5', type: 'expense', name: 'Netflix', amount: 54000, category: 'Hiburan', date: new Date(Date.now() - 3 * 86400000).toISOString(), icon: '📱' },
-  { id: 't6', type: 'expense', name: 'PLN Token', amount: 150000, category: 'Tagihan', date: new Date(Date.now() - 4 * 86400000).toISOString(), icon: '⚡' },
-  { id: 't7', type: 'expense', name: 'Indomaret', amount: 45000, category: 'Belanja', date: new Date(Date.now() - 5 * 86400000).toISOString(), icon: '🛒' },
-  { id: 't8', type: 'expense', name: 'Gojek', amount: 22000, category: 'Transportasi', date: new Date(Date.now() - 6 * 86400000).toISOString(), icon: '🚗' },
-  { id: 't9', type: 'expense', name: 'Ayam Geprek', amount: 25000, category: 'Makan', date: new Date(Date.now() - 7 * 86400000).toISOString(), icon: '🍜' },
-  { id: 't10', type: 'income', name: 'Freelance Design', amount: 800000, category: 'Pemasukan', date: new Date(Date.now() - 8 * 86400000).toISOString(), icon: '💻' },
-  { id: 't11', type: 'expense', name: 'Spotify', amount: 54000, category: 'Hiburan', date: new Date(Date.now() - 9 * 86400000).toISOString(), icon: '🎵' },
-  { id: 't12', type: 'expense', name: 'PDAM', amount: 85000, category: 'Tagihan', date: new Date(Date.now() - 10 * 86400000).toISOString(), icon: '⚡' },
-]
-
-const INIT_BUDGETS = [
-  { id: 'b1', category: 'Makan', limit: 600000, icon: '🍜' },
-  { id: 'b2', category: 'Transportasi', limit: 200000, icon: '🚗' },
-  { id: 'b3', category: 'Hiburan', limit: 150000, icon: '🎬' },
-  { id: 'b4', category: 'Belanja', limit: 300000, icon: '🛒' },
-  { id: 'b5', category: 'Tagihan', limit: 500000, icon: '⚡' },
-]
-
-const INIT_GOALS = [
-  { id: 'g1', name: 'Dana Darurat', icon: '🛡️', target: 10000000, saved: 3500000, deadline: '2025-12-31' },
-  { id: 'g2', name: 'Liburan Bali', icon: '🏖️', target: 5000000, saved: 1200000, deadline: '2025-08-01' },
-  { id: 'g3', name: 'Laptop Baru', icon: '💻', target: 15000000, saved: 4000000, deadline: '2026-03-01' },
-]
-
-function load(key, fallback) {
-  try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback } catch { return fallback }
-}
-
 export function DataProvider({ children }) {
-  const [wallet, setWallet] = useState(() => load('mt_wallet', INIT_WALLET))
-  const [transactions, setTransactions] = useState(() => load('mt_transactions', INIT_TRANSACTIONS))
-  const [budgets, setBudgets] = useState(() => load('mt_budgets', INIT_BUDGETS))
-  const [goals, setGoals] = useState(() => load('mt_goals', INIT_GOALS))
+  const { rawUser } = useAuth()
+  const [wallet, setWallet] = useState(null)
+  const [transactions, setTransactions] = useState([])
+  const [budgets, setBudgets] = useState([])
+  const [goals, setGoals] = useState([])
+  const [loadingData, setLoadingData] = useState(true)
 
-  useEffect(() => { localStorage.setItem('mt_wallet', JSON.stringify(wallet)) }, [wallet])
-  useEffect(() => { localStorage.setItem('mt_transactions', JSON.stringify(transactions)) }, [transactions])
-  useEffect(() => { localStorage.setItem('mt_budgets', JSON.stringify(budgets)) }, [budgets])
-  useEffect(() => { localStorage.setItem('mt_goals', JSON.stringify(goals)) }, [goals])
+  useEffect(() => {
+    if (rawUser) {
+      fetchAll(rawUser.id)
+    } else {
+      setWallet(null)
+      setTransactions([])
+      setBudgets([])
+      setGoals([])
+      setLoadingData(false)
+    }
+  }, [rawUser])
+
+  const fetchAll = async (userId) => {
+    setLoadingData(true)
+    const [w, t, b, g] = await Promise.all([
+      supabase.from('wallets').select('*').eq('user_id', userId).single(),
+      supabase.from('transactions').select('*').eq('user_id', userId).order('date', { ascending: false }),
+      supabase.from('budgets').select('*').eq('user_id', userId),
+      supabase.from('goals').select('*').eq('user_id', userId).order('created_at', { ascending: true }),
+    ])
+    setWallet(w.data)
+    setTransactions(t.data || [])
+    setBudgets(b.data || [])
+    setGoals(g.data || [])
+    setLoadingData(false)
+  }
 
   const now = new Date()
   const thisMonthTx = transactions.filter(t => {
@@ -59,30 +50,92 @@ export function DataProvider({ children }) {
   const getBudgetUsed = (category) =>
     thisMonthTx.filter(t => t.category === category && t.type === 'expense').reduce((s, t) => s + t.amount, 0)
 
-  const addTransaction = (tx) => {
-    const newTx = { ...tx, id: 't' + Date.now() }
-    setTransactions(prev => [newTx, ...prev])
-    setWallet(prev => ({ ...prev, balance: prev.balance + (tx.type === 'income' ? tx.amount : -tx.amount) }))
+  const addTransaction = async (tx) => {
+    if (!rawUser || !wallet) return
+    const newTx = {
+      user_id: rawUser.id,
+      type: tx.type,
+      name: tx.name,
+      amount: tx.amount,
+      category: tx.category,
+      icon: tx.icon,
+      date: tx.date || new Date().toISOString(),
+    }
+    const { data } = await supabase.from('transactions').insert(newTx).select().single()
+    if (data) setTransactions(prev => [data, ...prev])
+
+    const newBalance = wallet.balance + (tx.type === 'income' ? tx.amount : -tx.amount)
+    await supabase.from('wallets').update({ balance: newBalance }).eq('id', wallet.id)
+    setWallet(prev => ({ ...prev, balance: newBalance }))
   }
 
-  const deleteTransaction = (id) => {
+  const deleteTransaction = async (id) => {
     const tx = transactions.find(t => t.id === id)
-    if (!tx) return
+    if (!tx || !wallet) return
+    await supabase.from('transactions').delete().eq('id', id)
     setTransactions(prev => prev.filter(t => t.id !== id))
-    setWallet(prev => ({ ...prev, balance: prev.balance + (tx.type === 'income' ? -tx.amount : tx.amount) }))
+
+    const newBalance = wallet.balance + (tx.type === 'income' ? -tx.amount : tx.amount)
+    await supabase.from('wallets').update({ balance: newBalance }).eq('id', wallet.id)
+    setWallet(prev => ({ ...prev, balance: newBalance }))
   }
 
-  const updateWallet = (data) => setWallet(prev => ({ ...prev, ...data }))
-  const saveBudgets = (newBudgets) => setBudgets(newBudgets)
+  const updateWallet = async (data) => {
+    if (!wallet) return
+    await supabase.from('wallets').update(data).eq('id', wallet.id)
+    setWallet(prev => ({ ...prev, ...data }))
+  }
 
-  const addGoal = (goal) => setGoals(prev => [...prev, { ...goal, id: 'g' + Date.now(), saved: 0 }])
-  const updateGoal = (id, data) => setGoals(prev => prev.map(g => g.id === id ? { ...g, ...data } : g))
-  const deleteGoal = (id) => setGoals(prev => prev.filter(g => g.id !== id))
-  const topUpGoal = (id, amount) => {
+  const saveBudgets = async (newBudgets) => {
+    if (!rawUser) return
+    await supabase.from('budgets').delete().eq('user_id', rawUser.id)
+    const toInsert = newBudgets.map(b => ({
+      user_id: rawUser.id,
+      category: b.category,
+      icon: b.icon,
+      limit_amount: b.limit || b.limit_amount,
+    }))
+    const { data } = await supabase.from('budgets').insert(toInsert).select()
+    if (data) setBudgets(data)
+  }
+
+  const addGoal = async (goal) => {
+    if (!rawUser) return
+    const { data } = await supabase.from('goals').insert({
+      user_id: rawUser.id,
+      name: goal.name,
+      icon: goal.icon,
+      target: goal.target,
+      saved: 0,
+      deadline: goal.deadline || null,
+    }).select().single()
+    if (data) setGoals(prev => [...prev, data])
+  }
+
+  const updateGoal = async (id, data) => {
+    await supabase.from('goals').update(data).eq('id', id)
+    setGoals(prev => prev.map(g => g.id === id ? { ...g, ...data } : g))
+  }
+
+  const deleteGoal = async (id) => {
+    await supabase.from('goals').delete().eq('id', id)
+    setGoals(prev => prev.filter(g => g.id !== id))
+  }
+
+  const topUpGoal = async (id, amount) => {
     const goal = goals.find(g => g.id === id)
-    if (!goal) return
-    setGoals(prev => prev.map(g => g.id === id ? { ...g, saved: Math.min(g.target, g.saved + amount) } : g))
-    addTransaction({ type: 'expense', name: `Tabungan: ${goal.name}`, amount, category: 'Tabungan', date: new Date().toISOString(), icon: '🎯' })
+    if (!goal || !wallet) return
+    const newSaved = Math.min(goal.target, goal.saved + amount)
+    await supabase.from('goals').update({ saved: newSaved }).eq('id', id)
+    setGoals(prev => prev.map(g => g.id === id ? { ...g, saved: newSaved } : g))
+    await addTransaction({
+      type: 'expense',
+      name: `Tabungan: ${goal.name}`,
+      amount,
+      category: 'Tabungan',
+      icon: '🎯',
+      date: new Date().toISOString(),
+    })
   }
 
   const getMonthlyData = () => {
@@ -111,11 +164,14 @@ export function DataProvider({ children }) {
     return Object.entries(cats).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value)
   }
 
+  // Normalize budgets (db uses limit_amount, UI uses limit)
+  const normalizedBudgets = budgets.map(b => ({ ...b, limit: b.limit_amount }))
+
   return (
     <DataContext.Provider value={{
-      wallet, updateWallet,
+      wallet, updateWallet, loadingData,
       transactions, addTransaction, deleteTransaction,
-      budgets, saveBudgets, getBudgetUsed,
+      budgets: normalizedBudgets, saveBudgets, getBudgetUsed,
       goals, addGoal, updateGoal, deleteGoal, topUpGoal,
       totalIncome, totalExpense, thisMonthTx,
       getMonthlyData, getCategoryBreakdown,
