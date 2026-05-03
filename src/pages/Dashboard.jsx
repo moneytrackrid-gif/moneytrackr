@@ -8,16 +8,6 @@ import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'rec
 const fmt = (n) => n >= 1000000 ? `Rp ${(n/1000000).toFixed(1)} jt` : n >= 1000 ? `Rp ${(n/1000).toFixed(0)} rb` : `Rp ${n.toLocaleString('id-ID')}`
 const fmtFull = (n) => `Rp ${n.toLocaleString('id-ID')}`
 
-const chartData = [
-  { day: '24', income: 0, expense: 45000 },
-  { day: '25', income: 0, expense: 120000 },
-  { day: '26', income: 0, expense: 32000 },
-  { day: '27', income: 0, expense: 87000 },
-  { day: '28', income: 0, expense: 210000 },
-  { day: '29', income: 0, expense: 18000 },
-  { day: '30', income: 5500000, expense: 54000 },
-  { day: '1', income: 0, expense: 122500 },
-]
 
 export default function Dashboard() {
   const { user, isPro } = useAuth()
@@ -26,6 +16,17 @@ export default function Dashboard() {
   const wallets = wallet ? [wallet] : []
   const [showModal, setShowModal] = useState(false)
 
+  const chartData = (() => {
+  const days = []
+  for (let i = 7; i >= 0; i--) {
+    const d = new Date()
+    d.setDate(d.getDate() - i)
+    const label = d.getDate().toString()
+    const dayTx = transactions.filter(t => new Date(t.date).toDateString() === d.toDateString())
+    days.push({ day: label, income: dayTx.filter(t => t.type === "income").reduce((s, t) => s + t.amount, 0), expense: dayTx.filter(t => t.type === "expense").reduce((s, t) => s + t.amount, 0) })
+  }
+  return days
+})()
   const recentTx = transactions.slice(0, 5)
   const now = new Date()
   const timeGreet = now.getHours() < 12 ? 'Selamat pagi' : now.getHours() < 17 ? 'Selamat siang' : 'Selamat malam'
