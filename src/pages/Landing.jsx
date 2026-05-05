@@ -36,7 +36,11 @@ export default function Landing() {
     try {
       const res = await fetch(
         `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/midtrans`,
-        { method: 'POST', headers: { 'Content-Type': 'application/json' } }
+        { method: 'POST', headers: { 
+          'Content-Type': 'application/json',
+          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
+        }}
       )
       const data = await res.json()
       if (!data.token) throw new Error('Gagal membuat transaksi')
