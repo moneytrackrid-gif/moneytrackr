@@ -14,6 +14,8 @@ import ProGate from './components/ProGate'
 import { Settings } from './pages/Other'
 import Syarat from './pages/Syarat'
 import Privasi from './pages/Privasi'
+import Syarat from './pages/Syarat'
+import Privasi from './pages/Privasi'
 import './index.css'
 
 function AppLayout() {
