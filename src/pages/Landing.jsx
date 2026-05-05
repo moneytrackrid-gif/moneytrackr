@@ -2,26 +2,26 @@ import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 const features = [
-  { icon: '🎯', title: 'Goals dengan Deadline', desc: 'Set target nabung — liburan, laptop, dana darurat. Pantau progress tiap bulan, otomatis.' },
-  { icon: '📊', title: 'Budget Otomatis', desc: 'Setup budget sekali, moneytrackr yang remind kalau kamu udah mau over. Ga perlu spreadsheet.' },
-  { icon: '📸', title: 'Scan Struk', desc: 'Foto struk belanja, langsung tercatat otomatis. Ga perlu ketik manual satu-satu.' },
-  { icon: '📈', title: 'Laporan Bulanan', desc: 'Lihat ke mana duit kamu pergi tiap bulan. Grafik yang gampang dibaca, bukan tabel membingungkan.' },
-  { icon: '🔒', title: 'Data Kamu, Privasi Kamu', desc: 'Tidak ada iklan. Tidak ada penjualan data. Mode privasi untuk sembunyikan saldo.' },
-  { icon: '📱', title: 'Semua Device', desc: 'Install dari browser di HP atau laptop. Tidak perlu App Store. Data selalu sinkron.' },
+  { icon: '🎯', title: 'Target nabung yang beneran jalan', desc: 'Mau liburan? Beli gadget? Numpuk dana darurat? Tinggal set angka dan deadline-nya — moneytrackr yang pantau progressnya.' },
+  { icon: '📊', title: 'Budget yang ga bikin pusing', desc: 'Ga perlu rumus Excel yang error melulu. Tinggal tentuin limitnya, nanti kamu dikasih tau kalau udah mepet.' },
+  { icon: '📸', title: 'Males ketik? Foto aja struk-nya', desc: 'Habis belanja tinggal jepret struk-nya. Otomatis terbaca dan masuk ke catatan transaksi kamu.' },
+  { icon: '📈', title: 'Akhirnya tau duit kamu kemana', desc: 'Di akhir bulan, kamu bisa liat breakdown jelas pengeluaran kamu. Seringnya kaget sendiri ngeliatnya.' },
+  { icon: '🔒', title: 'Data kamu, bukan urusan siapa-siapa', desc: 'Ga ada iklan, ga ada data yang dijual ke pihak ketiga. Bahkan ada mode sembunyiin saldo kalau lagi mau privasi.' },
+  { icon: '📱', title: 'Buka di HP, lanjut di laptop', desc: 'Ga perlu download app. Buka lewat browser, data langsung sinkron di semua device kamu.' },
 ]
 
 const testimonials = [
-  { name: 'Ayu R.', job: 'Fresh Graduate', text: 'Baru 2 minggu pakai, udah sadar kemana aja duit gajian gue selama ini. Ternyata kebanyakan jajan 😅', avatar: '🧕' },
-  { name: 'Rafi M.', job: 'Freelancer', text: 'Penghasilan ga tetap jadi susah ngatur. Sejak pakai moneytrackr, akhirnya bisa nabung tiap bulan.', avatar: '👨‍💻' },
-  { name: 'Sinta K.', job: 'Karyawan Swasta', text: 'Goals-nya keren banget. Nabung buat liburan Bali jadi berasa ada tujuannya, ga cuma "sisain duit"', avatar: '👩‍💼' },
+  { name: 'Dika S.', job: 'Content Creator', text: 'Gue kira masalahnya di penghasilan yang kurang. Ternyata setelah pakai moneytrackr, ketauan gue terlalu boros di hal-hal ga penting 😭', avatar: '🧑‍💻' },
+  { name: 'Nadia F.', job: 'Marketing Executive', text: 'Sebelumnya tiap akhir bulan selalu nanya ke diri sendiri: "duit gue kemana ya?" Sekarang udah ga pernah nanya itu lagi.', avatar: '👩‍💼' },
+  { name: 'Bagas P.', job: 'Desainer Freelance', text: 'Penghasilan gue ga menentu tiap bulan. moneytrackr bantu gue aware kapan harus ngerem dan kapan bisa agak santai.', avatar: '👨‍🎨' },
 ]
 
 const faqs = [
-  { q: 'Apakah data keuanganku aman?', a: 'Ya. Data kamu dienkripsi dan disimpan di server aman. Kami tidak pernah menjual data ke pihak ketiga.' },
-  { q: 'Apakah bisa dipakai di HP?', a: 'Bisa! moneytrackr bisa diinstall langsung dari browser di HP kamu, tanpa perlu download dari App Store.' },
-  { q: 'Kalau tidak bermanfaat, bisa refund?', a: 'Ada garansi 7 hari. Kalau kamu merasa moneytrackr tidak bermanfaat dalam 7 hari pertama, refund penuh — tidak ada pertanyaan, tidak ada ribet.' },
-  { q: 'Harus bayar berapa?', a: 'Rp 99.000 untuk 3 bulan penuh. Semua fitur langsung aktif — Goals, Budget, Laporan, Scan Struk, semuanya.' },
-  { q: 'Bisa cancel kapan aja?', a: 'Bisa. Tidak ada kontrak, tidak ada biaya tersembunyi. Cancel kapan aja kamu mau.' },
+  { q: 'Emang aman masukin data keuangan di sini?', a: 'Aman. Data kamu dienkripsi dan disimpan di server yang aman. Kita ga pernah jual atau kasih data kamu ke siapapun. Plus ada mode privasi buat sembunyiin saldo kalau perlu.' },
+  { q: 'Harus download app dulu?', a: 'Ga perlu! moneytrackr bisa langsung dibuka dari browser HP atau laptop kamu. Bisa juga di-install kayak app biasa tanpa perlu App Store.' },
+  { q: 'Kalau ga cocok gimana?', a: 'Ada garansi 7 hari. Kalau kamu ngerasa moneytrackr ga membantu, bilang ke kita dan kita refund penuh. Serius, ga ada pertanyaan aneh-aneh.' },
+  { q: 'Rp 99.000 dapet apa aja?', a: 'Semua fitur, 3 bulan penuh. Budget otomatis, Goals dengan deadline, Laporan bulanan, Scan struk, Financial Health Score — semuanya langsung aktif begitu bayar.' },
+  { q: 'Bisa berhenti langganan kapan aja?', a: 'Bisa banget. Ga ada kontrak, ga ada biaya tersembunyi. Kalau mau stop ya stop aja, simpel.' },
 ]
 
 const DashboardMockup = () => (
@@ -162,13 +162,13 @@ export default function Landing() {
       {/* PAIN POINTS */}
       <section style={{ padding: '100px 6vw', background: '#fff' }}>
         <div style={{ maxWidth: 960, margin: '0 auto' }}>
-          <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Jujur deh</p>
-          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 48, lineHeight: 1.2 }}>Kamu pernah ngerasain<br />salah satu ini?</h2>
+          <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Eh, ini familiar ga?</p>
+          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 48, lineHeight: 1.2 }}>Duit selalu habis,<br />padahal merasa udah hemat.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
             {[
-              { emoji: '😵', title: '"Gajian, seminggu kemudian bingung duitnya kemana."', desc: 'Punya banyak e-wallet dan rekening, tapi ga bisa lihat total semua di satu tempat.' },
-              { emoji: '📊', title: '"Udah coba bikin budget di spreadsheet, nyerah minggu pertama."', desc: 'Ribet, rumusnya error, zoom in-out di HP — akhirnya males dan dibiarkan.' },
-              { emoji: '💸', title: '"Niat nabung ada, tapi duitnya selalu habis duluan."', desc: 'Kalau nunggu sisa baru nabung, ga akan pernah ada sisanya.' },
+              { emoji: '🫠', title: '"Tanggal 20 udah ketar-ketir nunggu gajian."', desc: 'Padahal awal bulan kayaknya masih ada duit. Entah kemana perginya, ga ada jejaknya sama sekali.' },
+              { emoji: '📱', title: '"GoPay, OVO, Dana, rekening — duitnya ada di mana-mana."', desc: 'Pas mau bayar sesuatu malah bingung ada di mana, dan berapa total semuanya. Ribet banget.' },
+              { emoji: '🔁', title: '"Tiap bulan plan-nya sama: nabung lebih banyak. Hasilnya sama juga."', desc: 'Niat ada, tapi tanpa sistem yang jelas, niat doang ga kemana-mana.' },
             ].map(p => (
               <div key={p.title} style={{ background: '#f8faff', border: '0.5px solid #eef2ff', borderRadius: 16, padding: '24px 22px' }}>
                 <div style={{ fontSize: 32, marginBottom: 12 }}>{p.emoji}</div>
@@ -178,8 +178,8 @@ export default function Landing() {
             ))}
           </div>
           <p style={{ textAlign: 'center', fontSize: 15, color: '#5a7a9a', marginTop: 48, lineHeight: 1.8 }}>
-            Bukan karena kamu ga disiplin.<br />
-            <strong style={{ color: '#0d2137' }}>Kamu cuma belum ketemu sistem yang pas — dan moneytrackr dibuat untuk itu.</strong>
+            Bukan salah kamu. Emang ga ada yang ngajarin cara ngatur duit yang beneran simpel.<br />
+            <strong style={{ color: '#0d2137' }}>moneytrackr dibuat buat ngisi gap itu.</strong>
           </p>
         </div>
       </section>
@@ -187,14 +187,14 @@ export default function Landing() {
       {/* HOW IT WORKS */}
       <section style={{ padding: '100px 6vw', background: '#f8faff' }}>
         <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Cara Kerja</p>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 12 }}>Cuma butuh 5 menit.<br />Serius.</h2>
-          <p style={{ fontSize: 15, color: '#5a7a9a', marginBottom: 60 }}>Setup sekali, jalan selamanya.</p>
+          <p style={{ fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Mulainya Gampang</p>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 12 }}>Setup 5 menit,<br />manfaatnya seumur hidup.</h2>
+          <p style={{ fontSize: 15, color: '#5a7a9a', marginBottom: 60 }}>Ga perlu baca manual. Ga perlu kursus keuangan dulu.</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 32 }}>
             {[
-              { num: '1', title: 'Masukkan semua dompet kamu', desc: 'Rekening bank, e-wallet — cukup masukin jumlah saldo. Saldo tidak otomatis sinkron, jadi sangat aman.' },
-              { num: '2', title: 'Tentukan budget kamu', desc: 'Masukkan penghasilan dan tentukan limit masing-masing pos pengeluaran.' },
-              { num: '3', title: 'Catat pengeluaran, lihat polanya', desc: 'Setiap kali belanja, catat. Di akhir bulan, kamu bisa lihat uang kamu kemana aja.' },
+              { num: '1', title: 'Catat semua dompet kamu', desc: 'Rekening, GoPay, OVO, Dana — masukin saldonya sekali. Beres. Kamu langsung tau total duit kamu berapa.' },
+              { num: '2', title: 'Set berapa yang boleh keluar', desc: 'Tentuin budget tiap kategori sesuai kemampuan. Kalau udah mepet, kamu langsung dikasih tau.' },
+              { num: '3', title: 'Catat, lihat, dan perbaiki', desc: 'Setiap transaksi dicatat, setiap bulan kamu liat polanya. Lama-lama kamu makin pinter ngatur duit sendiri.' },
             ].map(s => (
               <div key={s.num} style={{ textAlign: 'center' }}>
                 <div style={{ width: 48, height: 48, background: '#0d2137', borderRadius: 14, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, fontWeight: 800, color: '#00e676', margin: '0 auto 16px' }}>{s.num}</div>
@@ -209,9 +209,9 @@ export default function Landing() {
       {/* FEATURES */}
       <section style={{ padding: '100px 6vw', background: '#fff' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
-          <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Fitur Lengkap</p>
-          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 12 }}>Semua yang kamu butuhkan<br />untuk kontrol penuh.</h2>
-          <p style={{ textAlign: 'center', fontSize: 15, color: '#5a7a9a', marginBottom: 60 }}>Bukan cuma catat pengeluaran — moneytrackr bantu kamu <strong>paham pola</strong> dan <strong>ambil keputusan yang lebih baik.</strong></p>
+          <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Yang Ada di Dalamnya</p>
+          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 12 }}>Bukan sekadar catatan pengeluaran.</h2>
+          <p style={{ textAlign: 'center', fontSize: 15, color: '#5a7a9a', marginBottom: 60 }}>moneytrackr dirancang buat yang udah capek nyoba cara lama tapi ga ada hasilnya.</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
             {features.map(f => (
               <div key={f.title} style={{ background: '#f8faff', border: '0.5px solid #eef2ff', borderRadius: 16, padding: '24px 22px' }}>
@@ -227,8 +227,8 @@ export default function Landing() {
       {/* TESTIMONIALS */}
       <section style={{ padding: '100px 6vw', background: '#f8faff' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Testimoni</p>
-          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 48 }}>Yang udah pakai,<br />ngomong apa?</h2>
+          <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Kata Mereka</p>
+          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 48 }}>Orang-orang yang dulunya<br />sama kayak kamu.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
             {testimonials.map(t => (
               <div key={t.name} style={{ background: '#fff', border: '0.5px solid #eef2ff', borderRadius: 16, padding: '24px 22px', boxShadow: '0 1px 8px rgba(13,33,55,0.04)' }}>
@@ -282,7 +282,8 @@ export default function Landing() {
       {/* FAQ */}
       <section style={{ padding: '100px 6vw', background: '#f8faff' }}>
         <div style={{ maxWidth: 680, margin: '0 auto' }}>
-          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 800, letterSpacing: -1, marginBottom: 48 }}>Ada yang mau ditanya?</h2>
+          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 800, letterSpacing: -1, marginBottom: 8 }}>Masih ada yang penasaran?</h2>
+          <p style={{ textAlign: 'center', fontSize: 15, color: '#5a7a9a', marginBottom: 48 }}>Tanya deh, kita jawab jujur.</p>
           {faqs.map((faq, i) => (
             <div key={i} style={{ borderBottom: '0.5px solid #ddeeff' }}>
               <button onClick={() => setOpenFaq(openFaq === i ? null : i)} style={{ width: '100%', padding: '20px 0', display: 'flex', alignItems: 'center', justifyContent: 'space-between', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' }}>
@@ -297,15 +298,15 @@ export default function Landing() {
 
       {/* FINAL CTA */}
       <section style={{ padding: '100px 6vw', background: '#0d2137', textAlign: 'center' }}>
-        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginBottom: 16 }}>☕ Harga segelas es kopsu. Dampaknya? Seumur hidup.</p>
+        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginBottom: 16 }}>☕ Lebih murah dari es kopsu. Lebih berguna juga.</p>
         <h2 style={{ fontSize: 'clamp(32px, 5vw, 60px)', fontWeight: 800, color: '#fff', letterSpacing: -2, marginBottom: 16, lineHeight: 1.08 }}>
-          Akhirnya, kamu<br /><span style={{ color: '#00e676' }}>ga boncos lagi.</span>
+          Kapan lagi mau mulai<br />kalau bukan <span style={{ color: '#00e676' }}>sekarang?</span>
         </h2>
-        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 40 }}>Rp 99.000 untuk 3 bulan. Garansi 7 hari.</p>
+        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 40 }}>Rp 99.000 untuk 3 bulan. Kalau ga worth it, refund.</p>
         <button onClick={() => navigate('/login')} style={{ padding: '18px 48px', borderRadius: 30, border: 'none', background: '#00e676', color: '#0d2137', fontSize: 17, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 40px rgba(0,230,118,0.35)' }}>
-          Mulai Sekarang — Rp 99.000 →
+          Yuk Mulai — Rp 99.000 →
         </button>
-        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', marginTop: 16 }}>Tidak perlu kartu kredit · Setup 2 menit · Garansi refund 7 hari</p>
+        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', marginTop: 16 }}>Ga perlu kartu kredit · Setup 2 menit · Garansi refund 7 hari</p>
       </section>
 
       {/* FOOTER */}
