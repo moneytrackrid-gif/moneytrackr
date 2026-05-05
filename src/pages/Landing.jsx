@@ -20,7 +20,7 @@ const faqs = [
   { q: 'Apakah data keuanganku aman?', a: 'Ya. Data kamu dienkripsi dan disimpan di server aman. Kami tidak pernah menjual data ke pihak ketiga.' },
   { q: 'Apakah bisa dipakai di HP?', a: 'Bisa! moneytrackr bisa diinstall langsung dari browser di HP kamu, tanpa perlu download dari App Store.' },
   { q: 'Kalau ga cocok, bisa refund?', a: 'Ada garansi 7 hari. Kalau ga puas dalam 7 hari pertama, refund penuh — tidak ada pertanyaan.' },
-  { q: 'Harus bayar berapa?', a: 'Rp 147.000 untuk 6 bulan penuh. Semua fitur langsung aktif — Goals, Budget, Laporan, Scan Struk, semuanya.' },
+  { q: 'Harus bayar berapa?', a: 'Rp 147.000 untuk 3 bulan penuh. Semua fitur langsung aktif — Goals, Budget, Laporan, Scan Struk, semuanya.' },
   { q: 'Bisa cancel kapan aja?', a: 'Bisa. Tidak ada kontrak, tidak ada biaya tersembunyi. Cancel kapan aja kamu mau.' },
 ]
 
@@ -69,7 +69,7 @@ export default function Landing() {
         </p>
 
         <p style={{ fontSize: 14, color: '#00b85c', fontWeight: 700, marginBottom: 40 }}>
-          Rp 147.000 / 6 bulan · Semua fitur · Garansi 7 hari
+          Rp 147.000 / 3 bulan · Semua fitur · Garansi 7 hari
         </p>
 
         <button onClick={() => document.getElementById('harga').scrollIntoView({behavior:'smooth'})} style={{ padding: '16px 40px', borderRadius: 30, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 16, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 8px 32px rgba(13,33,55,0.2)', transition: 'transform 0.15s, box-shadow 0.15s' }}
@@ -103,7 +103,7 @@ export default function Landing() {
               Segelas es kopsu = <span style={{ color: '#ff8a65' }}>Rp 30.000–40.000</span>
             </p>
             <p style={{ fontSize: 18, fontWeight: 700, color: '#fff', lineHeight: 1.6 }}>
-              moneytrackr 3 bulan = <span style={{ color: '#00e676' }}>Rp 99.000</span>
+              moneytrackr 3 bulan = <span style={{ color: '#00e676' }}>Rp 147.000</span>
             </p>
             <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginTop: 8 }}>
               Rp 1.100/hari. Lebih murah dari es kopsu. Dan hasilnya? Kamu ga boncos lagi.
@@ -162,7 +162,7 @@ export default function Landing() {
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 60 }}>Setup dalam 5 menit.<br />Hasilnya seumur hidup.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 32 }}>
             {[
-              { num: '1', title: 'Daftar & bayar', desc: 'Buat akun, bayar Rp 147.000. Semua fitur langsung aktif selama 6 bulan.' },
+              { num: '1', title: 'Daftar & bayar', desc: 'Buat akun, bayar Rp 147.000. Semua fitur langsung aktif selama 3 bulan.' },
               { num: '2', title: 'Set budget kamu', desc: 'Masukkan penghasilan, tentukan limit tiap kategori dalam 2 menit.' },
               { num: '3', title: 'Catat & lihat polanya', desc: 'Catat pengeluaran harian, lihat laporan, ambil keputusan lebih baik.' },
             ].map(s => (
@@ -204,16 +204,16 @@ export default function Landing() {
         <div style={{ maxWidth: 520, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 12, fontWeight: 700, color: '#00e676', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Harga</p>
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#fff', letterSpacing: -1, marginBottom: 12 }}>Satu harga.<br />Semua fitur.</h2>
-          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 48 }}>Tidak ada tier, tidak ada hidden fee. Bayar sekali, nikmati semua.</p>
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 48 }}>Tidak ada hidden fee. Bayar sekali, nikmati semua fiturnya.</p>
 
           <div style={{ background: '#00e676', borderRadius: 24, padding: '36px 32px', position: 'relative', marginBottom: 20 }}>
             <div style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', background: '#0d2137', color: '#00e676', fontSize: 10, fontWeight: 800, padding: '5px 16px', borderRadius: 20, whiteSpace: 'nowrap', letterSpacing: 1 }}>
               ☕ LEBIH MURAH DARI ES KOPSU
             </div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 4 }}>moneytrackr PRO</div>
-            <div style={{ fontSize: 56, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1 }}>Rp 99.000</div>
-            <div style={{ fontSize: 14, color: '#064a22', marginBottom: 6 }}>untuk 6 bulan penuh</div>
-            <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 32 }}>= Rp 820/hari · Lebih murah dari es kopsu</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 4 }}>moneytrackr</div>
+            <div style={{ fontSize: 56, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1 }}>Rp 147.000</div>
+            <div style={{ fontSize: 14, color: '#064a22', marginBottom: 6 }}>untuk 3 bulan penuh</div>
+            <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 32 }}>= Rp 1.633/hari · Lebih murah dari es kopsu</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 28, textAlign: 'left' }}>
               {['Budget otomatis', 'Goals dengan deadline', 'AI Financial Advisor', 'Scan struk otomatis', 'Laporan visual', 'Financial Health Score', 'Data privat & aman', 'Akses semua platform'].map(f => (
                 <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -255,7 +255,7 @@ export default function Landing() {
         <h2 style={{ fontSize: 'clamp(32px, 5vw, 60px)', fontWeight: 800, color: '#fff', letterSpacing: -2, marginBottom: 16, lineHeight: 1.08 }}>
           Kapan lagi mau mulai kalau bukan <span style={{ color: '#00e676' }}>sekarang?</span>
         </h2>
-        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 40 }}>Rp 147.000 untuk 6 bulan. Kalau ga worth it, refund.</p>
+        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 40 }}>Rp 147.000 untuk 3 bulan. Kalau ga worth it, refund.</p>
         <button onClick={() => document.getElementById('harga').scrollIntoView({behavior:'smooth'})} style={{ padding: '18px 48px', borderRadius: 30, border: 'none', background: '#00e676', color: '#0d2137', fontSize: 17, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 40px rgba(0,230,118,0.35)' }}>
           Coba Sekarang
         </button>
