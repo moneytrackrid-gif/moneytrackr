@@ -113,42 +113,37 @@ export default function Landing() {
         </div>
       </nav>
 
-      {/* HERO — 2 kolom */}
-      <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '100px 6vw 80px', gap: '5vw', flexWrap: 'wrap' }}>
-        {/* Left */}
-        <div style={{ flex: 1, minWidth: 300, maxWidth: 560 }}>
+      {/* HERO — center */}
+      <section style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '100px 6vw 80px', textAlign: 'center' }}>
+        <div style={{ maxWidth: 800, width: '100%' }}>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(0,230,118,0.1)', border: '1px solid rgba(0,230,118,0.25)', borderRadius: 20, padding: '5px 14px', marginBottom: 28, fontSize: 12, fontWeight: 700, color: '#064a22' }}>
             ☕ Lebih murah dari secangkir es kopsu
           </div>
           <h1 style={{ fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 800, lineHeight: 1.1, letterSpacing: -2, marginBottom: 20 }}>
             Akhirnya, kamu <span style={{ color: '#00e676' }}>ga boncos lagi</span> tiap bulan.
           </h1>
-          <p style={{ fontSize: 17, color: '#4a6a8a', lineHeight: 1.7, marginBottom: 14, maxWidth: 460 }}>
+          <p style={{ fontSize: 18, color: '#4a6a8a', lineHeight: 1.7, marginBottom: 14, maxWidth: 560, margin: '0 auto 14px' }}>
             moneytrackr bantu kamu track pengeluaran, atur budget, dan capai goals finansial — semua di satu tempat.
           </p>
-          <p style={{ fontSize: 13, color: '#00b85c', fontWeight: 700, marginBottom: 32 }}>
+          <p style={{ fontSize: 13, color: '#00b85c', fontWeight: 700, marginBottom: 36 }}>
             Rp 99.000 / 3 bulan · Semua fitur · Garansi 7 hari
           </p>
-          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 32 }}>
-            <button onClick={() => navigate('/login')} style={{ padding: '14px 32px', borderRadius: 30, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 24px rgba(13,33,55,0.18)' }}>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', marginBottom: 40, justifyContent: 'center' }}>
+            <button onClick={() => navigate('/login')} style={{ padding: '14px 36px', borderRadius: 30, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 24px rgba(13,33,55,0.18)' }}>
               Mulai Atur Keuanganku →
             </button>
           </div>
-          <div style={{ display: 'flex', gap: 32 }}>
+          <div style={{ display: 'flex', gap: 40, justifyContent: 'center' }}>
             {[
               { value: '1.200+', label: 'User aktif' },
               { value: '4.9 ⭐', label: 'Rating rata-rata' },
             ].map(s => (
-              <div key={s.label}>
-                <div style={{ fontSize: 22, fontWeight: 800, color: '#0d2137', letterSpacing: -0.5 }}>{s.value}</div>
+              <div key={s.label} style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 24, fontWeight: 800, color: '#0d2137', letterSpacing: -0.5 }}>{s.value}</div>
                 <div style={{ fontSize: 12, color: '#7a9ab8', fontWeight: 500, marginTop: 2 }}>{s.label}</div>
               </div>
             ))}
           </div>
-        </div>
-        {/* Right — mockup */}
-        <div style={{ flex: 1, minWidth: 300, display: 'flex', justifyContent: 'center' }}>
-          <DashboardMockup />
         </div>
       </section>
 
