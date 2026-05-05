@@ -3,6 +3,7 @@ import { AuthProvider, useAuth } from './context/AuthContext'
 import { DataProvider } from './context/DataContext'
 import Sidebar from './components/Sidebar'
 import Login from './pages/Login'
+import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
 import Pricing from './pages/Pricing'
 import Transactions from './pages/Transactions'
@@ -49,6 +50,7 @@ function App() {
       <DataProvider>
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Landing />} />
             <Route path="/login" element={<Login />} />
             <Route element={<RequireAuth />}>
               <Route element={<AppLayout />}>
@@ -63,7 +65,7 @@ function App() {
                 <Route path="/pricing" element={<Pricing />} />
               </Route>
             </Route>
-            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </DataProvider>
