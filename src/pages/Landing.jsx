@@ -79,6 +79,18 @@ export default function Landing() {
         </button>
 
         <p style={{ fontSize: 12, color: '#7a9ab8', marginTop: 16 }}>Sudah 1.200+ Gen Z & Millennial pakai moneytrackr ⭐⭐⭐⭐⭐</p>
+
+        <div style={{ display: 'flex', gap: 48, justifyContent: 'center', marginTop: 40 }}>
+          {[
+            { value: '1.200+', label: 'User aktif' },
+            { value: '4.9 ⭐', label: 'Rating rata-rata' },
+          ].map(s => (
+            <div key={s.label} style={{ textAlign: 'center' }}>
+              <div style={{ fontSize: 26, fontWeight: 800, color: '#0d2137', letterSpacing: -0.5 }}>{s.value}</div>
+              <div style={{ fontSize: 12, color: '#7a9ab8', fontWeight: 500, marginTop: 2 }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* KOPSU PRICING HIGHLIGHT */}
@@ -103,13 +115,13 @@ export default function Landing() {
       {/* PAIN POINTS */}
       <section style={{ padding: '80px 5vw', background: '#0d2137' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
-          <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00e676', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Jujur deh</p>
-          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#fff', letterSpacing: -1, marginBottom: 48, lineHeight: 1.2 }}>Kamu pernah ngerasain salah satu ini?</h2>
+          <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00e676', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Eh, ini familiar ga?</p>
+          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#fff', letterSpacing: -1, marginBottom: 48, lineHeight: 1.2 }}>Duit selalu habis padahal merasa udah hemat.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
             {[
-              { emoji: '😵', title: '"Gajian, seminggu kemudian bingung duitnya kemana."', desc: 'Punya banyak e-wallet dan rekening, tapi ga bisa lihat total semua di satu tempat.' },
-              { emoji: '📊', title: '"Udah coba bikin budget di spreadsheet, nyerah minggu pertama."', desc: 'Ribet, rumusnya error, zoom in-out di HP — akhirnya males dan dibiarkan.' },
-              { emoji: '💸', title: '"Niat nabung ada, tapi duitnya selalu habis duluan."', desc: 'Kalau nunggu sisa baru nabung, ga akan pernah ada sisanya.' },
+              { emoji: '🫠', title: '"Tanggal 15 udah ketar-ketir nunggu gajian."', desc: 'Padahal awal bulan kayaknya masih ada duit. Entah kemana perginya, ga ada jejaknya sama sekali.' },
+              { emoji: '📱', title: '"GoPay, OVO, Dana, rekening — duitnya ada di mana-mana."', desc: 'Pas mau bayar sesuatu malah bingung ada di mana, dan berapa total semuanya. Ribet banget.' },
+              { emoji: '🔁', title: '"Tiap bulan plan-nya sama: nabung lebih banyak. Hasilnya sama juga."', desc: 'Niat ada, tapi tanpa sistem yang jelas, niat doang ga kemana-mana.' },
             ].map(p => (
               <div key={p.title} style={{ background: 'rgba(255,255,255,0.05)', border: '0.5px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '24px 22px' }}>
                 <div style={{ fontSize: 32, marginBottom: 12 }}>{p.emoji}</div>
@@ -119,8 +131,8 @@ export default function Landing() {
             ))}
           </div>
           <p style={{ textAlign: 'center', fontSize: 15, color: 'rgba(255,255,255,0.55)', marginTop: 48, lineHeight: 1.8 }}>
-            Bukan karena kamu ga disiplin.<br />
-            <strong style={{ color: '#00e676', fontSize: 17 }}>Kamu cuma belum ketemu sistem yang pas. moneytrackr dibuat untuk itu.</strong>
+            Bukan salah kamu. Emang ga ada yang ngajarin cara ngatur duit yang beneran simpel.<br />
+            <strong style={{ color: '#00e676', fontSize: 17 }}>moneytrackr dibuat buat ngisi gap itu.</strong>
           </p>
         </div>
       </section>
@@ -239,15 +251,15 @@ export default function Landing() {
 
       {/* FINAL CTA */}
       <section style={{ padding: '100px 5vw', background: '#0d2137', textAlign: 'center' }}>
-        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginBottom: 16 }}>☕ Harga segelas es kopsu. Dampaknya? Seumur hidup.</p>
+        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginBottom: 16 }}>☕ Lebih murah dari es kopsu. Lebih berguna juga.</p>
         <h2 style={{ fontSize: 'clamp(32px, 5vw, 60px)', fontWeight: 800, color: '#fff', letterSpacing: -2, marginBottom: 16, lineHeight: 1.08 }}>
-          Akhirnya, kamu<br /><span style={{ color: '#00e676' }}>ga boncos lagi.</span>
+          Kapan lagi mau mulai kalau bukan <span style={{ color: '#00e676' }}>sekarang?</span>
         </h2>
-        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 40 }}>Rp 99.000 untuk 3 bulan. Garansi 7 hari.</p>
+        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 40 }}>Rp 99.000 untuk 3 bulan. Kalau ga worth it, refund.</p>
         <button onClick={() => navigate('/login')} style={{ padding: '18px 48px', borderRadius: 30, border: 'none', background: '#00e676', color: '#0d2137', fontSize: 17, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 40px rgba(0,230,118,0.35)' }}>
-          Mulai Sekarang — Rp 99.000 →
+          Yuk Mulai — Rp 99.000 →
         </button>
-        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', marginTop: 16 }}>Tidak perlu kartu kredit · Setup 2 menit · Garansi refund 7 hari</p>
+        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', marginTop: 16 }}>Ga perlu kartu kredit · Setup 2 menit · Garansi refund 7 hari</p>
       </section>
 
       {/* FOOTER */}
