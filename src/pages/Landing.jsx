@@ -163,7 +163,7 @@ export default function Landing() {
       <section style={{ padding: '100px 6vw', background: '#fff' }}>
         <div style={{ maxWidth: 960, margin: '0 auto' }}>
           <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Eh, ini familiar ga?</p>
-          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 48, lineHeight: 1.2 }}>Duit selalu habis,<br />padahal merasa udah hemat.</h2>
+          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 48, lineHeight: 1.2 }}>Duit selalu habis padahal merasa udah hemat.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
             {[
               { emoji: '🫠', title: '"Tanggal 20 udah ketar-ketir nunggu gajian."', desc: 'Padahal awal bulan kayaknya masih ada duit. Entah kemana perginya, ga ada jejaknya sama sekali.' },
@@ -188,7 +188,7 @@ export default function Landing() {
       <section style={{ padding: '100px 6vw', background: '#f8faff' }}>
         <div style={{ maxWidth: 800, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Mulainya Gampang</p>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 12 }}>Setup 5 menit,<br />manfaatnya seumur hidup.</h2>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 12 }}>Setup 5 menit, manfaatnya seumur hidup.</h2>
           <p style={{ fontSize: 15, color: '#5a7a9a', marginBottom: 60 }}>Ga perlu baca manual. Ga perlu kursus keuangan dulu.</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 32 }}>
             {[
@@ -228,7 +228,7 @@ export default function Landing() {
       <section style={{ padding: '100px 6vw', background: '#f8faff' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
           <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Kata Mereka</p>
-          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 48 }}>Orang-orang yang dulunya<br />sama kayak kamu.</h2>
+          <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 48 }}>Orang-orang yang dulunya sama kayak kamu.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
             {testimonials.map(t => (
               <div key={t.name} style={{ background: '#fff', border: '0.5px solid #eef2ff', borderRadius: 16, padding: '24px 22px', boxShadow: '0 1px 8px rgba(13,33,55,0.04)' }}>
@@ -251,7 +251,7 @@ export default function Landing() {
       <section style={{ padding: '100px 6vw', background: '#0d2137' }}>
         <div style={{ maxWidth: 520, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 12, fontWeight: 700, color: '#00e676', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Harga</p>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#fff', letterSpacing: -1, marginBottom: 12 }}>Investasi kecil,<br />dampak besar.</h2>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#fff', letterSpacing: -1, marginBottom: 12 }}>Investasi kecil, dampak besar.</h2>
           <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 48 }}>Tidak ada hidden fee. Bayar sekali, nikmati semua fiturnya.</p>
           <div style={{ background: '#00e676', borderRadius: 24, padding: '36px 32px', position: 'relative', marginBottom: 20 }}>
             <div style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', background: '#0d2137', color: '#00e676', fontSize: 10, fontWeight: 800, padding: '5px 16px', borderRadius: 20, whiteSpace: 'nowrap', letterSpacing: 1 }}>☕ LEBIH MURAH DARI ES KOPSU</div>
@@ -300,7 +300,7 @@ export default function Landing() {
       <section style={{ padding: '100px 6vw', background: '#0d2137', textAlign: 'center' }}>
         <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.4)', marginBottom: 16 }}>☕ Lebih murah dari es kopsu. Lebih berguna juga.</p>
         <h2 style={{ fontSize: 'clamp(32px, 5vw, 60px)', fontWeight: 800, color: '#fff', letterSpacing: -2, marginBottom: 16, lineHeight: 1.08 }}>
-          Kapan lagi mau mulai<br />kalau bukan <span style={{ color: '#00e676' }}>sekarang?</span>
+          Kapan lagi mau mulai kalau bukan <span style={{ color: '#00e676' }}>sekarang?</span>
         </h2>
         <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 40 }}>Rp 99.000 untuk 3 bulan. Kalau ga worth it, refund.</p>
         <button onClick={() => navigate('/login')} style={{ padding: '18px 48px', borderRadius: 30, border: 'none', background: '#00e676', color: '#0d2137', fontSize: 17, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 40px rgba(0,230,118,0.35)' }}>
