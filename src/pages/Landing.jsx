@@ -138,7 +138,7 @@ export default function Landing() {
       </section>
 
       {/* FEATURES */}
-      <section style={{ padding: '100px 5vw', background: '#f8faff' }}>
+      <section id='fitur' style={{ padding: '100px 5vw', background: '#f8faff' }}>
         <div style={{ maxWidth: 1000, margin: '0 auto' }}>
           <p style={{ textAlign: 'center', fontSize: 12, fontWeight: 700, color: '#00b85c', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Fitur Lengkap</p>
           <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 12 }}>Semua yang kamu butuhkan<br />untuk kontrol penuh.</h2>
@@ -200,7 +200,7 @@ export default function Landing() {
       </section>
 
       {/* PRICING — 1 PLAN ONLY */}
-      <section style={{ padding: '100px 5vw', background: '#0d2137' }}>
+      <section id='harga' style={{ padding: '100px 5vw', background: '#0d2137' }}>
         <div style={{ maxWidth: 520, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 12, fontWeight: 700, color: '#00e676', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Harga</p>
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#fff', letterSpacing: -1, marginBottom: 12 }}>Satu harga.<br />Semua fitur.</h2>
@@ -232,7 +232,7 @@ export default function Landing() {
       </section>
 
       {/* FAQ */}
-      <section style={{ padding: '100px 5vw', background: '#f8faff' }}>
+      <section id='faq' style={{ padding: '100px 5vw', background: '#f8faff' }}>
         <div style={{ maxWidth: 680, margin: '0 auto' }}>
           <h2 style={{ textAlign: 'center', fontSize: 'clamp(28px, 4vw, 40px)', fontWeight: 800, letterSpacing: -1, marginBottom: 48 }}>Ada yang mau ditanya?</h2>
           {faqs.map((faq, i) => (
@@ -286,15 +286,30 @@ export default function Landing() {
             {/* Produk */}
             <div>
               <p style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 16 }}>Produk</p>
-              {['Fitur', 'Harga', 'FAQ', 'Masuk'].map(l => (
-                <p key={l} style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 10, cursor: 'pointer' }}>{l}</p>
+              {[
+                { label: 'Fitur', href: '#fitur' },
+                { label: 'Harga', href: '#harga' },
+                { label: 'FAQ', href: '#faq' },
+                { label: 'Masuk', href: '/login' },
+              ].map(l => (
+                <a key={l.label} href={l.href} style={{ display: 'block', fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 10, textDecoration: 'none' }}
+                  onMouseEnter={e => e.target.style.color='#00e676'}
+                  onMouseLeave={e => e.target.style.color='rgba(255,255,255,0.4)'}
+                >{l.label}</a>
               ))}
             </div>
             {/* Sumber Daya */}
             <div>
               <p style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 16 }}>Sumber Daya</p>
-              {['Bantuan', 'Syarat & Ketentuan', 'Kebijakan Privasi'].map(l => (
-                <p key={l} style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 10, cursor: 'pointer' }}>{l}</p>
+              {[
+                { label: 'Bantuan', href: 'https://wa.me/6285777066441' },
+                { label: 'Syarat & Ketentuan', href: '/syarat' },
+                { label: 'Kebijakan Privasi', href: '/privasi' },
+              ].map(l => (
+                <a key={l.label} href={l.href} target={l.href.startsWith('http') ? '_blank' : '_self'} rel="noreferrer" style={{ display: 'block', fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 10, textDecoration: 'none' }}
+                  onMouseEnter={e => e.target.style.color='#00e676'}
+                  onMouseLeave={e => e.target.style.color='rgba(255,255,255,0.4)'}
+                >{l.label}</a>
               ))}
             </div>
           </div>
