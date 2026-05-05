@@ -6,14 +6,14 @@ const sections = [
   { title: '3. Perubahan Layanan', content: 'moneytrackr berhak untuk mengubah, memodifikasi, memperbarui, atau menghentikan layanan sewaktu-waktu tanpa pemberitahuan sebelumnya. Dengan terus menggunakan layanan setelah perubahan dilakukan, Anda dianggap menyetujui perubahan tersebut.' },
   { title: '4. Pemberian Lisensi', content: 'moneytrackr memberikan Anda hak terbatas, non-eksklusif, dan tidak dapat dipindahtangankan untuk mengakses dan menggunakan platform ini untuk keperluan pribadi selama masa berlangganan. Anda tidak diperkenankan memodifikasi, menduplikasi, atau mendistribusikan platform kepada pihak lain.' },
   { title: '5. Biaya Berlangganan', content: 'Biaya berlangganan adalah sebesar Rp 147.000 untuk periode 6 (enam) bulan, setara dengan Rp 820/hari. Biaya ini belum termasuk pajak yang berlaku. Tagihan akan dikirimkan ke alamat email yang Anda daftarkan.' },
-  { title: '6. Garansi Pengembalian Dana', content: 'moneytrackr menawarkan garansi pengembalian dana penuh dalam 7 (tujuh) hari pertama sejak tanggal pembayaran. Permintaan refund dapat diajukan melalui WhatsApp ke +6285777066441 atau email ke hilmaannn@gmail.com. Setelah periode 7 hari, pembayaran tidak dapat dikembalikan.' },
+  { title: '6. Garansi Pengembalian Dana', content: 'moneytrackr menawarkan garansi pengembalian dana penuh dalam 7 (tujuh) hari pertama sejak tanggal pembayaran. Permintaan refund dapat diajukan melalui WhatsApp ke +62 857-7706-6441 atau email ke moneytrackr.id@gmail.com. Setelah periode 7 hari, pembayaran tidak dapat dikembalikan.' },
   { title: '7. Kerahasiaan Data', content: 'Data keuangan yang Anda masukkan ke dalam moneytrackr bersifat rahasia dan pribadi. moneytrackr berkomitmen untuk tidak membagikan, menjual, atau mengungkapkan data Anda kepada pihak ketiga manapun tanpa persetujuan eksplisit dari Anda.' },
   { title: '8. Kebijakan Privasi', content: 'Informasi Anda aman bersama kami. moneytrackr tidak akan menyalahgunakan atau menjual data Anda kepada pihak manapun. Kami hanya menggunakan informasi pribadi Anda untuk keperluan operasional layanan.' },
   { title: '9. Keamanan', content: 'moneytrackr mengambil langkah-langkah yang wajar untuk mencegah pelanggaran keamanan. Data Anda dienkripsi dan disimpan di server yang aman.' },
   { title: '10. Penghentian Layanan', content: 'moneytrackr dapat menghentikan akses Anda terhadap layanan apabila Anda melanggar ketentuan yang berlaku, menggunakan layanan untuk tujuan yang melanggar hukum, atau tidak memenuhi kewajiban pembayaran.' },
   { title: '11. Hak Cipta', content: 'Platform ini dimiliki dan dioperasikan oleh moneytrackr. Seluruh materi pada platform ini dilindungi oleh hukum hak cipta Indonesia. Tidak ada materi yang boleh disalin atau didistribusikan tanpa izin tertulis.' },
   { title: '12. Hukum yang Berlaku', content: 'Syarat dan Ketentuan ini diatur oleh dan ditafsirkan sesuai dengan hukum yang berlaku di Republik Indonesia.' },
-  { title: '13. Kontak', content: 'Untuk pertanyaan atau permintaan refund, silakan hubungi kami melalui WhatsApp: +6285777066441 atau email: hilmaannn@gmail.com.' },
+  { title: '13. Kontak', content: 'Untuk pertanyaan atau permintaan refund, silakan hubungi kami melalui WhatsApp: +62 857-7706-6441 atau email: moneytrackr.id@gmail.com.' },
 ]
 
 export default function Syarat() {

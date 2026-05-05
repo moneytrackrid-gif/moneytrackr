@@ -10,7 +10,7 @@ const sections = [
   { title: 'Penghapusan Data', content: 'Anda dapat meminta penghapusan seluruh data akun Anda kapan saja dengan menghubungi kami melalui WhatsApp atau email. Data akan dihapus secara permanen dalam 7 hari kerja.' },
   { title: 'Cookie', content: 'moneytrackr menggunakan cookie dan local storage hanya untuk keperluan autentikasi dan menyimpan preferensi tampilan Anda. Kami tidak menggunakan cookie untuk pelacakan atau iklan.' },
   { title: 'Perubahan Kebijakan', content: 'Kami dapat memperbarui kebijakan privasi ini sewaktu-waktu. Jika ada perubahan signifikan, kami akan memberitahu Anda melalui email yang terdaftar.' },
-  { title: 'Kontak', content: 'Jika Anda memiliki pertanyaan tentang kebijakan privasi ini atau ingin mengajukan permintaan penghapusan data, silakan hubungi kami melalui WhatsApp: +6285777066441 atau email: hilmaannn@gmail.com.' },
+  { title: 'Kontak', content: 'Jika Anda memiliki pertanyaan tentang kebijakan privasi ini atau ingin mengajukan permintaan penghapusan data, silakan hubungi kami melalui WhatsApp: +62 857-7706-6441 atau email: moneytrackr.id@gmail.com.' },
 ]
 
 export default function Privasi() {
@@ -47,7 +47,7 @@ export default function Privasi() {
 
         <div style={{ background: '#0d2137', borderRadius: 16, padding: '24px', marginTop: 40 }}>
           <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', marginBottom: 4 }}>Pertanyaan tentang privasi?</p>
-          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', lineHeight: 1.7 }}>Hubungi kami via WhatsApp <a href="https://wa.me/6285777066441" style={{ color: '#00e676' }}>+6285777066441</a> atau email <a href="mailto:hilmaannn@gmail.com" style={{ color: '#00e676' }}>hilmaannn@gmail.com</a></p>
+          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.7)', lineHeight: 1.7 }}>Hubungi kami via WhatsApp <a href="https://wa.me/6285777066441" style={{ color: '#00e676' }}>+62 857-7706-6441</a> atau email <a href="mailto:moneytrackr.id@gmail.com" style={{ color: '#00e676' }}>moneytrackr.id@gmail.com</a></p>
         </div>
       </div>
     </div>
