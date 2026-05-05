@@ -20,7 +20,7 @@ const faqs = [
   { q: 'Apakah data keuanganku aman?', a: 'Ya. Data kamu dienkripsi dan disimpan di server aman. Kami tidak pernah menjual data ke pihak ketiga.' },
   { q: 'Apakah bisa dipakai di HP?', a: 'Bisa! moneytrackr bisa diinstall langsung dari browser di HP kamu, tanpa perlu download dari App Store.' },
   { q: 'Kalau ga cocok, bisa refund?', a: 'Ada garansi 7 hari. Kalau ga puas dalam 7 hari pertama, refund penuh — tidak ada pertanyaan.' },
-  { q: 'Harus bayar berapa?', a: 'Rp 99.000 untuk 3 bulan penuh. Semua fitur langsung aktif — AI Advisor, Goals, Budget, Laporan, semuanya.' },
+  { q: 'Harus bayar berapa?', a: 'Rp 147.000 untuk 6 bulan penuh. Semua fitur langsung aktif — Goals, Budget, Laporan, Scan Struk, semuanya.' },
   { q: 'Bisa cancel kapan aja?', a: 'Bisa. Tidak ada kontrak, tidak ada biaya tersembunyi. Cancel kapan aja kamu mau.' },
 ]
 
@@ -69,7 +69,7 @@ export default function Landing() {
         </p>
 
         <p style={{ fontSize: 14, color: '#00b85c', fontWeight: 700, marginBottom: 40 }}>
-          Rp 99.000 / 3 bulan · Semua fitur · Garansi 7 hari
+          Rp 147.000 / 6 bulan · Semua fitur · Garansi 7 hari
         </p>
 
         <button onClick={() => navigate('/login')} style={{ padding: '16px 40px', borderRadius: 30, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 16, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 8px 32px rgba(13,33,55,0.2)', transition: 'transform 0.15s, box-shadow 0.15s' }}
@@ -162,7 +162,7 @@ export default function Landing() {
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, letterSpacing: -1, marginBottom: 60 }}>Setup dalam 5 menit.<br />Hasilnya seumur hidup.</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 32 }}>
             {[
-              { num: '1', title: 'Daftar & bayar', desc: 'Buat akun, bayar Rp 99.000. Semua fitur langsung aktif.' },
+              { num: '1', title: 'Daftar & bayar', desc: 'Buat akun, bayar Rp 147.000. Semua fitur langsung aktif selama 6 bulan.' },
               { num: '2', title: 'Set budget kamu', desc: 'Masukkan penghasilan, tentukan limit tiap kategori dalam 2 menit.' },
               { num: '3', title: 'Catat & lihat polanya', desc: 'Catat pengeluaran harian, lihat laporan, ambil keputusan lebih baik.' },
             ].map(s => (
@@ -212,8 +212,8 @@ export default function Landing() {
             </div>
             <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 4 }}>moneytrackr PRO</div>
             <div style={{ fontSize: 56, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1 }}>Rp 99.000</div>
-            <div style={{ fontSize: 14, color: '#064a22', marginBottom: 6 }}>untuk 3 bulan penuh</div>
-            <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 32 }}>= Rp 1.100/hari · Lebih murah dari es kopsu</div>
+            <div style={{ fontSize: 14, color: '#064a22', marginBottom: 6 }}>untuk 6 bulan penuh</div>
+            <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 32 }}>= Rp 820/hari · Lebih murah dari es kopsu</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 28, textAlign: 'left' }}>
               {['Budget otomatis', 'Goals dengan deadline', 'AI Financial Advisor', 'Scan struk otomatis', 'Laporan visual', 'Financial Health Score', 'Data privat & aman', 'Akses semua platform'].map(f => (
                 <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -223,7 +223,7 @@ export default function Landing() {
               ))}
             </div>
             <button onClick={() => navigate('/login')} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
-              Mulai Sekarang — Rp 99.000 →
+              Mulai Sekarang — Rp 147.000 →
             </button>
           </div>
 
@@ -255,23 +255,52 @@ export default function Landing() {
         <h2 style={{ fontSize: 'clamp(32px, 5vw, 60px)', fontWeight: 800, color: '#fff', letterSpacing: -2, marginBottom: 16, lineHeight: 1.08 }}>
           Kapan lagi mau mulai kalau bukan <span style={{ color: '#00e676' }}>sekarang?</span>
         </h2>
-        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 40 }}>Rp 99.000 untuk 3 bulan. Kalau ga worth it, refund.</p>
+        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 40 }}>Rp 147.000 untuk 6 bulan. Kalau ga worth it, refund.</p>
         <button onClick={() => navigate('/login')} style={{ padding: '18px 48px', borderRadius: 30, border: 'none', background: '#00e676', color: '#0d2137', fontSize: 17, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 40px rgba(0,230,118,0.35)' }}>
-          Yuk Mulai — Rp 99.000 →
+          Yuk Mulai — Rp 147.000 →
         </button>
         <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', marginTop: 16 }}>Ga perlu kartu kredit · Setup 2 menit · Garansi refund 7 hari</p>
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: '32px 5vw', background: '#07112a', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{ width: 24, height: 24, background: '#00e676', borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 9, fontWeight: 800, color: '#0d2137' }}>mt</div>
-          <span style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.4)' }}>moneytrackr © 2025 · Dari Indonesia, untuk Indonesia 🇮🇩</span>
-        </div>
-        <div style={{ display: 'flex', gap: 24 }}>
-          {['Privasi', 'Syarat & Ketentuan', 'Kontak'].map(l => (
-            <span key={l} style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', cursor: 'pointer' }}>{l}</span>
-          ))}
+      <footer style={{ background: '#07112a', padding: '48px 6vw 28px' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 40, marginBottom: 40, flexWrap: 'wrap' }}>
+            {/* Brand */}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
+                <div style={{ width: 28, height: 28, background: '#00e676', borderRadius: 7, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 10, fontWeight: 800, color: '#0d2137' }}>mt</div>
+                <span style={{ fontSize: 15, fontWeight: 800, color: '#fff' }}>money<span style={{ color: '#00e676' }}>trackr</span></span>
+              </div>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, marginBottom: 16, maxWidth: 260 }}>
+                moneytrackr adalah aplikasi keuangan buat kamu yang ingin ngatur keuangan tanpa ribet.
+              </p>
+              <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', marginBottom: 6 }}>Layanan Pelanggan:</p>
+              <a href='https://wa.me/6285777066441' style={{ fontSize: 13, color: '#00e676', fontWeight: 600, textDecoration: 'none' }}>+62 857-7706-6441</a>
+              <div style={{ display: 'flex', gap: 12, marginTop: 16 }}>
+                {['ig', 'tt', 'fb'].map(s => (
+                  <div key={s} style={{ width: 32, height: 32, borderRadius: 8, background: 'rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: 'rgba(255,255,255,0.5)', cursor: 'pointer' }}>{s === 'ig' ? '📸' : s === 'tt' ? '🎵' : '👤'}</div>
+                ))}
+              </div>
+            </div>
+            {/* Produk */}
+            <div>
+              <p style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 16 }}>Produk</p>
+              {['Fitur', 'Harga', 'FAQ', 'Masuk'].map(l => (
+                <p key={l} style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 10, cursor: 'pointer' }}>{l}</p>
+              ))}
+            </div>
+            {/* Sumber Daya */}
+            <div>
+              <p style={{ fontSize: 13, fontWeight: 700, color: '#fff', marginBottom: 16 }}>Sumber Daya</p>
+              {['Bantuan', 'Syarat & Ketentuan', 'Kebijakan Privasi'].map(l => (
+                <p key={l} style={{ fontSize: 13, color: 'rgba(255,255,255,0.4)', marginBottom: 10, cursor: 'pointer' }}>{l}</p>
+              ))}
+            </div>
+          </div>
+          <div style={{ borderTop: '0.5px solid rgba(255,255,255,0.08)', paddingTop: 20, display: 'flex', justifyContent: 'center' }}>
+            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)' }}>© 2025 moneytrackr. Hak cipta dilindungi.</span>
+          </div>
         </div>
       </footer>
     </div>
