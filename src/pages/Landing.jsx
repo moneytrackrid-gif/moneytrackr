@@ -46,7 +46,7 @@ export default function Landing() {
           <span style={{ fontSize: 16, fontWeight: 800, color: '#0d2137', letterSpacing: -0.5 }}>money<span style={{ color: '#00e676' }}>trackr</span></span>
         </div>
         <button onClick={() => navigate('/login')} style={{ padding: '10px 22px', borderRadius: 20, border: 'none', background: '#0d2137', fontSize: 13, fontWeight: 700, color: '#00e676', cursor: 'pointer', fontFamily: 'inherit' }}>
-          Mulai Sekarang →
+          Coba Sekarang
         </button>
       </nav>
 
@@ -72,10 +72,10 @@ export default function Landing() {
           Rp 147.000 / 6 bulan · Semua fitur · Garansi 7 hari
         </p>
 
-        <button onClick={() => navigate('/login')} style={{ padding: '16px 40px', borderRadius: 30, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 16, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 8px 32px rgba(13,33,55,0.2)', transition: 'transform 0.15s, box-shadow 0.15s' }}
+        <button onClick={() => document.getElementById('harga').scrollIntoView({behavior:'smooth'})} style={{ padding: '16px 40px', borderRadius: 30, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 16, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 8px 32px rgba(13,33,55,0.2)', transition: 'transform 0.15s, box-shadow 0.15s' }}
           onMouseEnter={e => { e.target.style.transform='translateY(-2px)'; e.target.style.boxShadow='0 12px 40px rgba(13,33,55,0.3)' }}
           onMouseLeave={e => { e.target.style.transform='translateY(0)'; e.target.style.boxShadow='0 8px 32px rgba(13,33,55,0.2)' }}>
-          Mulai Atur Keuanganku →
+          Coba Sekarang
         </button>
 
         <p style={{ fontSize: 12, color: '#7a9ab8', marginTop: 16 }}>Sudah 1.200+ Gen Z & Millennial pakai moneytrackr ⭐⭐⭐⭐⭐</p>
@@ -222,8 +222,8 @@ export default function Landing() {
                 </div>
               ))}
             </div>
-            <button onClick={() => navigate('/login')} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
-              Mulai Sekarang — Rp 147.000 →
+            <button onClick={() => navigate('/pricing')} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
+              Coba Sekarang
             </button>
           </div>
 
@@ -256,8 +256,8 @@ export default function Landing() {
           Kapan lagi mau mulai kalau bukan <span style={{ color: '#00e676' }}>sekarang?</span>
         </h2>
         <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 40 }}>Rp 147.000 untuk 6 bulan. Kalau ga worth it, refund.</p>
-        <button onClick={() => navigate('/login')} style={{ padding: '18px 48px', borderRadius: 30, border: 'none', background: '#00e676', color: '#0d2137', fontSize: 17, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 40px rgba(0,230,118,0.35)' }}>
-          Yuk Mulai — Rp 147.000 →
+        <button onClick={() => document.getElementById('harga').scrollIntoView({behavior:'smooth'})} style={{ padding: '18px 48px', borderRadius: 30, border: 'none', background: '#00e676', color: '#0d2137', fontSize: 17, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 4px 40px rgba(0,230,118,0.35)' }}>
+          Coba Sekarang
         </button>
         <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.2)', marginTop: 16 }}>Ga perlu kartu kredit · Setup 2 menit · Garansi refund 7 hari</p>
       </section>
