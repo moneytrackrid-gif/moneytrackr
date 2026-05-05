@@ -120,10 +120,8 @@ export default function Landing() {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: 'rgba(0,230,118,0.1)', border: '1px solid rgba(0,230,118,0.25)', borderRadius: 20, padding: '5px 14px', marginBottom: 28, fontSize: 12, fontWeight: 700, color: '#064a22' }}>
             ☕ Lebih murah dari secangkir es kopsu
           </div>
-          <h1 style={{ fontSize: 'clamp(36px, 5vw, 64px)', fontWeight: 800, lineHeight: 1.1, letterSpacing: -2, marginBottom: 20 }}>
-            Akhirnya, kamu<br />
-            <span style={{ color: '#00e676' }}>ga boncos lagi</span><br />
-            tiap bulan.
+          <h1 style={{ fontSize: 'clamp(28px, 4vw, 52px)', fontWeight: 800, lineHeight: 1.1, letterSpacing: -2, marginBottom: 20 }}>
+            Akhirnya, kamu <span style={{ color: '#00e676' }}>ga boncos lagi</span> tiap bulan.
           </h1>
           <p style={{ fontSize: 17, color: '#4a6a8a', lineHeight: 1.7, marginBottom: 14, maxWidth: 460 }}>
             moneytrackr bantu kamu track pengeluaran, atur budget, dan capai goals finansial — semua di satu tempat.
@@ -136,16 +134,16 @@ export default function Landing() {
               Mulai Atur Keuanganku →
             </button>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <div style={{ display: 'flex' }}>
-              {['🧕','👨‍💻','👩‍💼','👨‍🎓','👩‍💻'].map((a, i) => (
-                <div key={i} style={{ width: 28, height: 28, borderRadius: '50%', background: '#e8f5ff', border: '2px solid #fff', marginLeft: i > 0 ? -8 : 0, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14 }}>{a}</div>
-              ))}
-            </div>
-            <div>
-              <div style={{ display: 'flex', gap: 1 }}>{'⭐⭐⭐⭐⭐'.split('').map((s, i) => <span key={i} style={{ fontSize: 11 }}>{s}</span>)}</div>
-              <div style={{ fontSize: 12, color: '#7a9ab8', marginTop: 2 }}>1.200+ Gen Z & Millennial udah pakai</div>
-            </div>
+          <div style={{ display: 'flex', gap: 32 }}>
+            {[
+              { value: '1.200+', label: 'User aktif' },
+              { value: '4.9 ⭐', label: 'Rating rata-rata' },
+            ].map(s => (
+              <div key={s.label}>
+                <div style={{ fontSize: 22, fontWeight: 800, color: '#0d2137', letterSpacing: -0.5 }}>{s.value}</div>
+                <div style={{ fontSize: 12, color: '#7a9ab8', fontWeight: 500, marginTop: 2 }}>{s.label}</div>
+              </div>
+            ))}
           </div>
         </div>
         {/* Right — mockup */}
