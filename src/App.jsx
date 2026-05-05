@@ -12,6 +12,8 @@ import Goals from './pages/Goals'
 import Reports from './pages/Reports'
 import ProGate from './components/ProGate'
 import { Settings } from './pages/Other'
+import Syarat from './pages/Syarat'
+import Privasi from './pages/Privasi'
 import './index.css'
 
 function AppLayout() {
