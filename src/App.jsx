@@ -67,6 +67,8 @@ function App() {
                 <Route path="/pricing" element={<Pricing />} />
               </Route>
             </Route>
+            <Route path="/syarat" element={<Syarat />} />
+            <Route path="/privasi" element={<Privasi />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
