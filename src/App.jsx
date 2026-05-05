@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate, Outlet } from 'react-router-dom'
 import { AuthProvider, useAuth } from './context/AuthContext'
 import { DataProvider } from './context/DataContext'
+import { supabase } from './lib/supabase'
+import { useState, useEffect } from 'react'
 import Sidebar from './components/Sidebar'
 import Login from './pages/Login'
 import Landing from './pages/Landing'
@@ -14,6 +16,7 @@ import ProGate from './components/ProGate'
 import { Settings } from './pages/Other'
 import Syarat from './pages/Syarat'
 import Privasi from './pages/Privasi'
+import Register from './pages/Register'
 import './index.css'
 
 function AppLayout() {
@@ -27,7 +30,25 @@ function AppLayout() {
 
 function RequireAuth() {
   const { user, loading } = useAuth()
-  if (loading) return (
+  const [subLoading, setSubLoading] = useState(true)
+  const [isSubscribed, setIsSubscribed] = useState(false)
+
+  useEffect(() => {
+    if (!user) { setSubLoading(false); return }
+    supabase.from('profiles')
+      .select('subscription_status, subscription_end_date')
+      .eq('id', user.id)
+      .single()
+      .then(({ data }) => {
+        const active = data?.subscription_status === 'active' &&
+          data?.subscription_end_date &&
+          new Date(data.subscription_end_date) > new Date()
+        setIsSubscribed(active)
+        setSubLoading(false)
+      })
+  }, [user])
+
+  if (loading || subLoading) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--navy)' }}>
       <div style={{ textAlign: 'center' }}>
         <div style={{ width: 40, height: 40, background: 'var(--mint)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 14, color: 'var(--navy)', margin: '0 auto 16px' }}>mt</div>
@@ -36,6 +57,7 @@ function RequireAuth() {
     </div>
   )
   if (!user) return <Navigate to="/login" replace />
+  if (!isSubscribed) return <Navigate to="/pricing" replace />
   return <Outlet />
 }
 
@@ -64,12 +86,13 @@ function App() {
                 <Route path="/ai-advisor" element={<AiAdvisor />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/settings" element={<Settings />} />
+                <Route path="/pricing" element={<Pricing />} />
               </Route>
             </Route>
-            <Route path="/pricing" element={<Pricing />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/syarat" element={<Syarat />} />
             <Route path="/privasi" element={<Privasi />} />
-            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </BrowserRouter>
       </DataProvider>

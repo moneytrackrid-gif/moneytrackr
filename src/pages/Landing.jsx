@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { supabase } from '../lib/supabase'
 
 const features = [
   { icon: '🎯', title: 'Goals dengan Deadline', desc: 'Set target nabung — liburan, laptop, dana darurat. Pantau progress tiap bulan, otomatis.', pro: false },
@@ -28,6 +29,41 @@ export default function Landing() {
   const navigate = useNavigate()
   const [openFaq, setOpenFaq] = useState(null)
   const [scrolled, setScrolled] = useState(false)
+  const [paying, setPaying] = useState(false)
+
+  const handleBayar = async () => {
+    setPaying(true)
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/midtrans`,
+        { method: 'POST', headers: { 'Content-Type': 'application/json' } }
+      )
+      const data = await res.json()
+      if (!data.token) throw new Error('Gagal membuat transaksi')
+      window.snap.pay(data.token, {
+        onSuccess: (result) => {
+          // Simpan order_id dan email ke localStorage
+          localStorage.setItem('mt_order_id', result.order_id)
+          if (result.customer_details?.email) {
+            localStorage.setItem('mt_email', result.customer_details.email)
+          }
+          navigate('/register')
+        },
+        onPending: (result) => {
+          localStorage.setItem('mt_order_id', result.order_id)
+          if (result.customer_details?.email) {
+            localStorage.setItem('mt_email', result.customer_details.email)
+          }
+          navigate('/register')
+        },
+        onError: () => setPaying(false),
+        onClose: () => setPaying(false),
+      })
+    } catch (err) {
+      alert(err.message)
+      setPaying(false)
+    }
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
@@ -222,8 +258,8 @@ export default function Landing() {
                 </div>
               ))}
             </div>
-            <button onClick={() => navigate('/pricing')} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
-              Coba Sekarang
+            <button onClick={handleBayar} disabled={paying} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: paying ? 'rgba(13,33,55,0.5)' : '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: paying ? 'not-allowed' : 'pointer', fontFamily: 'inherit' }}>
+              {paying ? 'Memproses...' : 'Coba Sekarang'}
             </button>
           </div>
 
