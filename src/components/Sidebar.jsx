@@ -1,3 +1,4 @@
+import { useTheme } from '../context/ThemeContext'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { LayoutDashboard, ArrowUpDown, Target, Wallet, Flag, Sparkles, BarChart2, Settings, LogOut, Crown } from 'lucide-react'
@@ -17,6 +18,7 @@ const bottomItems = [
 ]
 
 export default function Sidebar() {
+  const { dark, toggleTheme } = useTheme()
   const { user, logout, isPro, daysLeft } = useAuth()
   const navigate = useNavigate()
 
@@ -65,6 +67,7 @@ export default function Sidebar() {
             <div style={{ fontSize: 12, fontWeight: 600, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name}</div>
             <div style={{ fontSize: 10, color: 'var(--mint)', opacity: 0.8 }}>{user?.plan?.toUpperCase()}</div>
           </div>
+          <button onClick={toggleTheme} style={{ background: "none", border: "none", cursor: "pointer", padding: 4, display: "flex", color: "rgba(255,255,255,0.3)", flexShrink: 0 }} title="Dark mode">{dark ? "☀️" : "🌙"}</button>
           <button onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'flex', color: 'rgba(255,255,255,0.3)', flexShrink: 0 }} title="Logout">
             <LogOut size={14} />
           </button>
