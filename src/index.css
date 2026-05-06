@@ -29,7 +29,7 @@
 
 html, body, #root { height: 100%; }
 html { font-size: 16px; }
-@media (min-width: 769px) { .app-main { zoom: 1.1; } }
+
 body { font-family: var(--font); background: var(--white); color: var(--text); -webkit-font-smoothing: antialiased; }
 
 /* Scrollbar */
@@ -253,4 +253,13 @@ body { font-family: var(--font); background: var(--white); color: var(--text); -
   .mobile-only {
     display: none !important;
   }
+}
+
+/* Desktop font scale */
+@media (min-width: 769px) {
+  .app-main h1 { font-size: 26px !important; }
+  .app-main h2 { font-size: 22px !important; }
+  .app-main h3 { font-size: 18px !important; }
+  .app-main p, .app-main span, .app-main button, .app-main input, .app-main select { font-size: 15px !important; }
+  .app-main .text-xs { font-size: 13px !important; }
 }
