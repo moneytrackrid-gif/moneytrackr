@@ -57,7 +57,7 @@ export function DataProvider({ children }) {
       const pct = limit > 0 ? Math.round((used / limit) * 100) : 0
       return { ...b, used, limit, pct }
     })
-    .filter(b => b.pct >= 80)
+    .filter(b => b.pct >= 80 && b.category !== 'Tabungan')
 
   const addTransaction = async (tx) => {
     if (!rawUser || !wallet) return
