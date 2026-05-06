@@ -124,9 +124,9 @@ export default function Dashboard() {
                     <stop offset="95%" stopColor="#00e676" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="day" tick={{ fontSize: 9, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
+                <XAxis dataKey="day" tick={{ fontSize: 11, fill: 'var(--text)' }} axisLine={false} tickLine={false} />
                 <YAxis hide />
-                <Tooltip formatter={v => fmtFull(v)} contentStyle={{ fontSize: 11, borderRadius: 8, border: '0.5px solid var(--border)', background: 'var(--card)', color: 'var(--text)' }} />
+                <Tooltip formatter={(v) => [fmtFull(v), 'Pengeluaran']} contentStyle={{ fontSize: 12, borderRadius: 8, border: '0.5px solid var(--border)', background: 'var(--card)', color: 'var(--text)' }} />
                 <Area type="monotone" dataKey="expense" stroke="var(--mint)" strokeWidth={2} fill="url(#gMint)" dot={false} activeDot={{ r: 3, fill: 'var(--mint)' }} />
               </AreaChart>
             </ResponsiveContainer>
