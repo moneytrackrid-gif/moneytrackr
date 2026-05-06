@@ -43,7 +43,7 @@ export default function Sidebar() {
         {/* Logo */}
         <div style={{ padding: '0 18px 24px', display: 'flex', alignItems: 'center', gap: 9 }}>
           <div style={{ width: 30, height: 30, background: 'var(--mint)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, color: 'var(--navy)', flexShrink: 0 }}>mt</div>
-          <span style={{ fontSize: 15, fontWeight: 800, color: '#fff', letterSpacing: -0.3 }}>money<span style={{ color: 'var(--mint)' }}>trackr</span></span>
+          <span style={{ fontSize: 17, fontWeight: 800, color: '#fff', letterSpacing: -0.3 }}>money<span style={{ color: 'var(--mint)' }}>trackr</span></span>
         </div>
 
         {/* Nav */}
@@ -57,10 +57,10 @@ export default function Sidebar() {
           <div style={{ margin: '0 10px 12px', background: 'rgba(0,230,118,0.1)', border: '0.5px solid rgba(0,230,118,0.25)', borderRadius: 'var(--radius-md)', padding: '12px 14px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
               <Crown size={13} color="var(--mint)" />
-              <span style={{ fontSize: 11, fontWeight: 700, color: 'var(--mint)' }}>Upgrade ke PRO</span>
+              <span style={{ fontSize: 13, fontWeight: 700, color: 'var(--mint)' }}>Upgrade ke PRO</span>
             </div>
-            <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.5)', marginBottom: 8, lineHeight: 1.4 }}>Unlock AI Advisor, Goals, dan semua fitur premium</p>
-            <NavLink to="/pricing" style={{ display: 'block', background: 'var(--mint)', color: 'var(--navy)', borderRadius: 6, padding: '6px 0', fontSize: 11, fontWeight: 700, textAlign: 'center', textDecoration: 'none' }}>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.5)', marginBottom: 8, lineHeight: 1.4 }}>Unlock AI Advisor, Goals, dan semua fitur premium</p>
+            <NavLink to="/pricing" style={{ display: 'block', background: 'var(--mint)', color: 'var(--navy)', borderRadius: 6, padding: '6px 0', fontSize: 13, fontWeight: 700, textAlign: 'center', textDecoration: 'none' }}>
               Lihat Harga →
             </NavLink>
           </div>
@@ -70,7 +70,7 @@ export default function Sidebar() {
         <div style={{ padding: '12px 10px 0', borderTop: '0.5px solid rgba(255,255,255,0.08)' }}>
           {isPro && daysLeft <= 30 && (
             <div style={{ padding: '6px 10px', background: 'rgba(0,230,118,0.08)', borderRadius: 6, marginBottom: 8 }}>
-              <p style={{ fontSize: 10, color: 'var(--mint)', opacity: 0.8 }}>PRO aktif · {daysLeft} hari lagi</p>
+              <p style={{ fontSize: 12, color: 'var(--mint)', opacity: 0.8 }}>PRO aktif · {daysLeft} hari lagi</p>
             </div>
           )}
           <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '8px 10px', borderRadius: 'var(--radius-md)' }}>
@@ -78,8 +78,8 @@ export default function Sidebar() {
               {user?.avatar || user?.name?.[0]}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 12, fontWeight: 600, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name}</div>
-              <div style={{ fontSize: 10, color: 'var(--mint)', opacity: 0.8 }}>{user?.plan?.toUpperCase()}</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name}</div>
+              <div style={{ fontSize: 12, color: 'var(--mint)', opacity: 0.8 }}>{user?.plan?.toUpperCase()}</div>
             </div>
             <button onClick={toggleTheme} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'flex', color: 'rgba(255,255,255,0.3)', flexShrink: 0 }} title="Dark mode">{dark ? '☀️' : '🌙'}</button>
             <button onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'flex', color: 'rgba(255,255,255,0.3)', flexShrink: 0 }} title="Logout">
@@ -141,7 +141,7 @@ export default function Sidebar() {
 function NavSection({ label, items, isPro }) {
   return (
     <>
-      <p style={{ fontSize: 9, fontWeight: 600, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: 1.2, padding: '0 8px', margin: '10px 0 3px' }}>{label}</p>
+      <p style={{ fontSize: 11, fontWeight: 600, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: 1.2, padding: '0 8px', margin: '10px 0 3px' }}>{label}</p>
       {items.map(({ to, icon: Icon, label, pro }) => (
         <NavLink key={to} to={to} style={({ isActive }) => ({
           display: 'flex', alignItems: 'center', gap: 10, padding: '7px 10px',
