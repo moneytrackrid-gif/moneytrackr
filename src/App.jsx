@@ -17,6 +17,8 @@ import { Settings } from './pages/Other'
 import Syarat from './pages/Syarat'
 import Privasi from './pages/Privasi'
 import Register from './pages/Register'
+import { ThemeProvider } from './context/ThemeContext'
+import Recurring from './pages/Recurring'
 import './index.css'
 
 function AppLayout() {
@@ -68,7 +70,7 @@ function AiAdvisor() {
 
 function App() {
   return (
-    <AuthProvider>
+    <ThemeProvider><AuthProvider>
       <DataProvider>
         <BrowserRouter>
           <Routes>
@@ -94,7 +96,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </DataProvider>
-    </AuthProvider>
+    </AuthProvider></ThemeProvider>
   )
 }
 
