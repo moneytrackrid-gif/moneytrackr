@@ -19,8 +19,6 @@ import Privasi from './pages/Privasi'
 import Register from './pages/Register'
 import { ThemeProvider } from './context/ThemeContext'
 import Recurring from './pages/Recurring'
-import { ThemeProvider } from './context/ThemeContext'
-import Recurring from './pages/Recurring'
 import './index.css'
 
 function AppLayout() {
