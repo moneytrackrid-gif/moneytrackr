@@ -10,32 +10,31 @@ export function DataProvider({ children }) {
   const [transactions, setTransactions] = useState([])
   const [budgets, setBudgets] = useState([])
   const [goals, setGoals] = useState([])
+  const [recurringList, setRecurringList] = useState([])
   const [loadingData, setLoadingData] = useState(true)
 
   useEffect(() => {
     if (rawUser) {
       fetchAll(rawUser.id)
     } else {
-      setWallet(null)
-      setTransactions([])
-      setBudgets([])
-      setGoals([])
-      setLoadingData(false)
+      setWallet(null); setTransactions([]); setBudgets([]); setGoals([]); setRecurringList([]); setLoadingData(false)
     }
   }, [rawUser])
 
   const fetchAll = async (userId) => {
     setLoadingData(true)
-    const [w, t, b, g] = await Promise.all([
+    const [w, t, b, g, r] = await Promise.all([
       supabase.from('wallets').select('*').eq('user_id', userId).single(),
       supabase.from('transactions').select('*').eq('user_id', userId).order('date', { ascending: false }),
       supabase.from('budgets').select('*').eq('user_id', userId),
       supabase.from('goals').select('*').eq('user_id', userId).order('created_at', { ascending: true }),
+      supabase.from('recurring').select('*').eq('user_id', userId).order('created_at', { ascending: true }),
     ])
     setWallet(w.data)
     setTransactions(t.data || [])
     setBudgets(b.data || [])
     setGoals(g.data || [])
+    setRecurringList(r.data || [])
     setLoadingData(false)
   }
 
@@ -50,6 +49,16 @@ export function DataProvider({ children }) {
   const getBudgetUsed = (category) =>
     thisMonthTx.filter(t => t.category === category && t.type === 'expense').reduce((s, t) => s + t.amount, 0)
 
+  // Budget warnings — categories at >= 80%
+  const budgetWarnings = budgets
+    .map(b => {
+      const used = getBudgetUsed(b.category)
+      const limit = b.limit_amount || b.limit || 0
+      const pct = limit > 0 ? Math.round((used / limit) * 100) : 0
+      return { ...b, used, limit, pct }
+    })
+    .filter(b => b.pct >= 80)
+
   const addTransaction = async (tx) => {
     if (!rawUser || !wallet) return
     const newTx = {
@@ -63,7 +72,6 @@ export function DataProvider({ children }) {
     }
     const { data } = await supabase.from('transactions').insert(newTx).select().single()
     if (data) setTransactions(prev => [data, ...prev])
-
     const newBalance = wallet.balance + (tx.type === 'income' ? tx.amount : -tx.amount)
     await supabase.from('wallets').update({ balance: newBalance }).eq('id', wallet.id)
     setWallet(prev => ({ ...prev, balance: newBalance }))
@@ -74,7 +82,6 @@ export function DataProvider({ children }) {
     if (!tx || !wallet) return
     await supabase.from('transactions').delete().eq('id', id)
     setTransactions(prev => prev.filter(t => t.id !== id))
-
     const newBalance = wallet.balance + (tx.type === 'income' ? -tx.amount : tx.amount)
     await supabase.from('wallets').update({ balance: newBalance }).eq('id', wallet.id)
     setWallet(prev => ({ ...prev, balance: newBalance }))
@@ -102,12 +109,8 @@ export function DataProvider({ children }) {
   const addGoal = async (goal) => {
     if (!rawUser) return
     const { data } = await supabase.from('goals').insert({
-      user_id: rawUser.id,
-      name: goal.name,
-      icon: goal.icon,
-      target: goal.target,
-      saved: 0,
-      deadline: goal.deadline || null,
+      user_id: rawUser.id, name: goal.name, icon: goal.icon,
+      target: goal.target, saved: 0, deadline: goal.deadline || null,
     }).select().single()
     if (data) setGoals(prev => [...prev, data])
   }
@@ -128,14 +131,32 @@ export function DataProvider({ children }) {
     const newSaved = Math.min(goal.target, goal.saved + amount)
     await supabase.from('goals').update({ saved: newSaved }).eq('id', id)
     setGoals(prev => prev.map(g => g.id === id ? { ...g, saved: newSaved } : g))
-    await addTransaction({
-      type: 'expense',
-      name: `Tabungan: ${goal.name}`,
-      amount,
-      category: 'Tabungan',
-      icon: '🎯',
-      date: new Date().toISOString(),
-    })
+    await addTransaction({ type: 'expense', name: `Tabungan: ${goal.name}`, amount, category: 'Tabungan', icon: '🎯', date: new Date().toISOString() })
+  }
+
+  // --- Recurring ---
+  const addRecurring = async (item) => {
+    if (!rawUser) return
+    const { data } = await supabase.from('recurring').insert({
+      user_id: rawUser.id,
+      name: item.name,
+      icon: item.icon,
+      amount: item.amount,
+      category: item.category,
+      billing_date: item.billing_date, // day of month 1-31
+      active: true,
+    }).select().single()
+    if (data) setRecurringList(prev => [...prev, data])
+  }
+
+  const updateRecurring = async (id, updates) => {
+    await supabase.from('recurring').update(updates).eq('id', id)
+    setRecurringList(prev => prev.map(r => r.id === id ? { ...r, ...updates } : r))
+  }
+
+  const deleteRecurring = async (id) => {
+    await supabase.from('recurring').delete().eq('id', id)
+    setRecurringList(prev => prev.filter(r => r.id !== id))
   }
 
   const getMonthlyData = () => {
@@ -164,7 +185,6 @@ export function DataProvider({ children }) {
     return Object.entries(cats).map(([name, value]) => ({ name, value })).sort((a, b) => b.value - a.value)
   }
 
-  // Normalize budgets (db uses limit_amount, UI uses limit)
   const normalizedBudgets = budgets.map(b => ({ ...b, limit: b.limit_amount }))
 
   return (
@@ -173,8 +193,10 @@ export function DataProvider({ children }) {
       transactions, addTransaction, deleteTransaction,
       budgets: normalizedBudgets, saveBudgets, getBudgetUsed,
       goals, addGoal, updateGoal, deleteGoal, topUpGoal,
+      recurringList, addRecurring, updateRecurring, deleteRecurring,
       totalIncome, totalExpense, thisMonthTx,
       getMonthlyData, getCategoryBreakdown,
+      budgetWarnings,
     }}>
       {children}
     </DataContext.Provider>

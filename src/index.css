@@ -42,3 +42,53 @@ body { font-family: var(--font); background: var(--white); color: var(--text); -
 
 .fade-in { animation: fadeIn 0.3s ease forwards; }
 .slide-in { animation: slideIn 0.25s ease forwards; }
+
+/* === DARK MODE ADDITIONS === */
+/* Tambahkan ini di AKHIR file index.css yang sudah ada */
+
+[data-theme="dark"] {
+  --navy: #0a0f1e;
+  --navy-mid: #1a2236;
+  --card: #111827;
+  --white: #1e2535;
+  --border: rgba(255,255,255,0.08);
+  --border-light: rgba(255,255,255,0.04);
+  --text: #f0f4ff;
+  --text-sub: #94a3b8;
+  --text-muted: #64748b;
+  --mint-dim: rgba(0,230,118,0.12);
+  --mint-text: #4ade80;
+  --warn-bg: rgba(255,165,0,0.12);
+  --warn: #fb923c;
+  --danger: #f87171;
+  background: #0d1117;
+  color: #f0f4ff;
+}
+
+[data-theme="dark"] body {
+  background: #0d1117;
+}
+
+[data-theme="light"] {
+  --navy: #0f2444;
+  --navy-mid: #1a3a5c;
+  --card: #ffffff;
+  --white: #f8fafc;
+  --border: rgba(0,0,0,0.08);
+  --border-light: rgba(0,0,0,0.04);
+  --text: #0f172a;
+  --text-sub: #475569;
+  --text-muted: #94a3b8;
+  --mint-dim: rgba(0,200,100,0.1);
+  --mint-text: #16a34a;
+  --warn-bg: rgba(255,165,0,0.1);
+  --warn: #ea580c;
+  --danger: #dc2626;
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Smooth theme transition */
+*, *::before, *::after {
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.1s ease;
+}
