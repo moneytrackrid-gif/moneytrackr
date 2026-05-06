@@ -189,3 +189,66 @@ body { font-family: var(--font); background: var(--white); color: var(--text); -
 *, *::before, *::after {
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.1s ease;
 }
+/* === MOBILE RESPONSIVE === */
+/* Tambahkan di akhir index.css */
+
+@media (max-width: 768px) {
+  /* Main content area */
+  .app-main {
+    padding-top: 56px !important;
+    padding-bottom: 80px !important;
+  }
+
+  /* Dashboard grid — stack jadi 1 kolom */
+  .dashboard-grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-grid-2 {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Padding halaman */
+  .page-content {
+    padding: 16px 16px 100px !important;
+  }
+
+  /* Modal full width di mobile */
+  .modal-content {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 20px 20px 0 0 !important;
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+  }
+
+  /* FAB button positioning */
+  .fab-button {
+    bottom: 80px !important;
+    right: 16px !important;
+  }
+
+  /* Chart height mobile */
+  .recharts-responsive-container {
+    height: 100px !important;
+  }
+
+  /* Balance card font size */
+  .balance-amount {
+    font-size: 26px !important;
+  }
+
+  /* Hide desktop-only elements */
+  .desktop-only {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none !important;
+  }
+}

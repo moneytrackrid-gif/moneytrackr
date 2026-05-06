@@ -23,9 +23,9 @@ import './index.css'
 
 function AppLayout() {
   return (
-    <div style={{ display: 'flex', minHeight: '100vh' }}>
+    <div style={{ display: "flex", minHeight: "100vh" }} className="app-layout">
       <Sidebar />
-      <Outlet />
+      <div style={{ flex: 1, overflow: "auto" }} className="app-main"><Outlet /></div>
     </div>
   )
 }
