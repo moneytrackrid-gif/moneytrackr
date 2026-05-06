@@ -5,6 +5,7 @@ import { Plus, TrendingUp, TrendingDown, PiggyBank, Crown, Camera } from 'lucide
 import AddTransactionModal from '../components/AddTransactionModal'
 import BudgetAlert from '../components/BudgetAlert'
 import ReceiptScanner from '../components/ReceiptScanner'
+import SetInitialBalance from '../components/SetInitialBalance'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts'
 
 const fmt = (n) => n >= 1000000 ? `Rp ${(n/1000000).toFixed(1)} jt` : n >= 1000 ? `Rp ${(n/1000).toFixed(0)} rb` : `Rp ${n.toLocaleString('id-ID')}`
@@ -17,6 +18,8 @@ export default function Dashboard() {
   const wallets = wallet ? [wallet] : []
   const [showModal, setShowModal] = useState(false)
   const [showScanner, setShowScanner] = useState(false)
+  const [showInitialBalance, setShowInitialBalance] = useState(() => !localStorage.getItem('mt-balance-set'))
+  const handleInitialBalanceClose = () => { localStorage.setItem('mt-balance-set', '1'); setShowInitialBalance(false) }
 
   // Chart — real data from last 7 days
   const chartData = (() => {
@@ -220,6 +223,7 @@ export default function Dashboard() {
 
       {showModal && <AddTransactionModal onClose={() => setShowModal(false)} />}
       {showScanner && <ReceiptScanner onClose={() => setShowScanner(false)} />}
+      {showInitialBalance && wallet && wallet.balance === 0 && transactions.length === 0 && <SetInitialBalance onClose={handleInitialBalanceClose} />}
     </div>
   )
 }
