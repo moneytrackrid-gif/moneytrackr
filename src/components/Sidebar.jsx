@@ -141,12 +141,12 @@ export default function Sidebar() {
 function NavSection({ label, items, isPro }) {
   return (
     <>
-      <p style={{ fontSize: 9, fontWeight: 600, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: 1.2, padding: '0 8px', margin: '16px 0 4px' }}>{label}</p>
+      <p style={{ fontSize: 9, fontWeight: 600, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: 1.2, padding: '0 8px', margin: '10px 0 3px' }}>{label}</p>
       {items.map(({ to, icon: Icon, label, pro }) => (
         <NavLink key={to} to={to} style={({ isActive }) => ({
-          display: 'flex', alignItems: 'center', gap: 10, padding: '9px 10px',
+          display: 'flex', alignItems: 'center', gap: 10, padding: '7px 10px',
           borderRadius: 'var(--radius-sm)', marginBottom: 1, textDecoration: 'none',
-          fontSize: 13, fontWeight: isActive ? 600 : 400,
+          fontSize: 15, fontWeight: isActive ? 600 : 400,
           background: isActive ? 'rgba(0,230,118,0.15)' : 'transparent',
           color: isActive ? 'var(--mint)' : 'rgba(255,255,255,0.5)',
           transition: 'all 0.15s',
