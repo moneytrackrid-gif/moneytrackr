@@ -40,9 +40,7 @@ function RequireAuth() {
       .eq('id', user.id)
       .single()
       .then(({ data }) => {
-        const active = data?.subscription_status === 'active' &&
-          data?.subscription_end_date &&
-          new Date(data.subscription_end_date) > new Date()
+        const active = data?.subscription_status === 'active'
         setIsSubscribed(active)
         setSubLoading(false)
       })
