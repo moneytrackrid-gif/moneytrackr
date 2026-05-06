@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useData } from '../context/DataContext'
-import { Plus, Trash2, Check, ChevronRight } from 'lucide-react'
+import { Trash2, Check } from 'lucide-react'
 
 const fmt = (n) => n >= 1000000 ? `Rp ${(n/1000000).toFixed(1)} jt` : `Rp ${(n/1000).toFixed(0)} rb`
 const fmtFull = (n) => `Rp ${n.toLocaleString('id-ID')}`
@@ -13,24 +13,26 @@ const ALL_CATS = [
   { label: 'Lainnya', icon: '📦' },
 ]
 
+const PCTS = { Makan: 0.3, Transportasi: 0.1, Belanja: 0.1, Hiburan: 0.05, Tagihan: 0.15, Kesehatan: 0.05, Pendidikan: 0.05, Tabungan: 0.1, Lainnya: 0.1 }
+
 export default function Budget() {
-  const { budgets, saveBudgets, getBudgetUsed, totalExpense, totalIncome } = useData()
+  const { budgets, saveBudgets, getBudgetUsed } = useData()
   const [showWizard, setShowWizard] = useState(false)
   const [wizardStep, setWizardStep] = useState(0)
   const [income, setIncome] = useState('')
-  const [method, setMethod] = useState('custom') // 'percentage' | 'custom'
+  const [method, setMethod] = useState('custom')
   const [draft, setDraft] = useState([])
 
   const openWizard = () => {
-    setDraft(budgets.map(b => ({ ...b })))
+    // Custom: mulai dari 0 semua. Percentage: mulai dari semua cats dengan 0
+    setDraft(ALL_CATS.map((c, i) => ({ id: 'b' + i, category: c.label, icon: c.icon, limit: 0 })))
     setWizardStep(0)
     setShowWizard(true)
   }
 
   const applyPercentage = () => {
     const inc = parseInt(income.replace(/\D/g, '')) || 0
-    const pcts = { Makan: 0.3, Transportasi: 0.1, Belanja: 0.1, Hiburan: 0.05, Tagihan: 0.15, Kesehatan: 0.05, Pendidikan: 0.05, Tabungan: 0.1, Lainnya: 0.1 }
-    setDraft(ALL_CATS.map((c, i) => ({ id: 'b' + i, category: c.label, icon: c.icon, limit: Math.round(inc * (pcts[c.label] || 0.05)) })))
+    setDraft(ALL_CATS.map((c, i) => ({ id: 'b' + i, category: c.label, icon: c.icon, limit: Math.round(inc * (PCTS[c.label] || 0.05)) })))
   }
 
   const updateDraftLimit = (idx, val) => {
@@ -53,9 +55,11 @@ export default function Budget() {
   const totalBudget = budgets.reduce((s, b) => s + b.limit, 0)
   const totalUsed = budgets.reduce((s, b) => s + getBudgetUsed(b.category), 0)
 
+  // Sisa budget dari draft (untuk tampilan real-time di wizard)
+  const draftTotal = draft.reduce((s, b) => s + b.limit, 0)
+
   return (
     <div style={{ flex: 1, overflow: 'auto', padding: '24px 28px 40px' }}>
-      {/* Header */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
           <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text)', letterSpacing: -0.5 }}>Budget</h1>
@@ -66,7 +70,6 @@ export default function Budget() {
         </button>
       </div>
 
-      {/* Overview card */}
       <div style={{ background: 'var(--navy)', borderRadius: 'var(--radius-xl)', padding: '22px 26px', marginBottom: 20, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
         {[
           { label: 'Total Budget', value: totalBudget, color: '#fff' },
@@ -80,7 +83,6 @@ export default function Budget() {
         ))}
       </div>
 
-      {/* Budget bars */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))', gap: 12 }}>
         {budgets.map(b => {
           const used = getBudgetUsed(b.category)
@@ -94,9 +96,7 @@ export default function Budget() {
                 <div style={{ width: 34, height: 34, background: isOver ? 'var(--danger-bg)' : 'var(--white)', borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>{b.icon}</div>
                 <div style={{ flex: 1 }}>
                   <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)' }}>{b.category}</p>
-                  <p style={{ fontSize: 11, color: isOver ? 'var(--danger)' : 'var(--text-muted)' }}>
-                    {fmtFull(used)} / {fmtFull(b.limit)}
-                  </p>
+                  <p style={{ fontSize: 11, color: isOver ? 'var(--danger)' : 'var(--text-muted)' }}>{fmtFull(used)} / {fmtFull(b.limit)}</p>
                 </div>
                 <span style={{ fontSize: 13, fontWeight: 800, color: barColor }}>{pct}%</span>
               </div>
@@ -110,13 +110,12 @@ export default function Budget() {
         })}
       </div>
 
-      {/* WIZARD MODAL */}
       {showWizard && (
         <div style={{ position: 'fixed', inset: 0, background: 'rgba(13,33,55,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 999, padding: 24 }}>
-          <div style={{ background: 'var(--card)', borderRadius: 'var(--radius-xl)', width: 500, maxWidth: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column', animation: 'scaleIn 0.2s ease' }}>
-            {/* Wizard header */}
+          <div style={{ background: 'var(--card)', borderRadius: 'var(--radius-xl)', width: 500, maxWidth: '100%', maxHeight: '90vh', display: 'flex', flexDirection: 'column' }}>
+            {/* Steps */}
             <div style={{ padding: '20px 24px', borderBottom: '0.5px solid var(--border)' }}>
-              <div style={{ display: 'flex', gap: 6, marginBottom: 12 }}>
+              <div style={{ display: 'flex', gap: 6 }}>
                 {['Metode', 'Penghasilan', 'Atur Limit'].map((s, i) => (
                   <div key={s} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
                     <div style={{ width: 24, height: 24, borderRadius: '50%', background: wizardStep >= i ? 'var(--navy)' : 'var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: wizardStep >= i ? 'var(--mint)' : 'var(--text-muted)' }}>
@@ -128,7 +127,6 @@ export default function Budget() {
               </div>
             </div>
 
-            {/* Step content */}
             <div style={{ flex: 1, overflow: 'auto', padding: '20px 24px' }}>
               {/* Step 0: Method */}
               {wizardStep === 0 && (
@@ -137,16 +135,16 @@ export default function Budget() {
                   <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 20 }}>Kamu bisa pakai persentase otomatis atau atur manual.</p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                     {[
-                      { id: 'percentage', icon: '📊', title: 'Persentase (50/30/20)', desc: 'Budget otomatis dihitung dari penghasilan kamu' },
-                      { id: 'custom', icon: '✏️', title: 'Atur Manual', desc: 'Tentukan sendiri limit tiap kategori' },
+                      { id: 'percentage', icon: '📊', title: 'Persentase otomatis', desc: 'Budget dihitung dari penghasilan kamu' },
+                      { id: 'custom', icon: '✏️', title: 'Atur Manual', desc: 'Tentukan sendiri limit tiap kategori dari nol' },
                     ].map(m => (
                       <div key={m.id} onClick={() => setMethod(m.id)} style={{ padding: '16px', border: `1.5px solid ${method === m.id ? 'var(--mint)' : 'var(--border)'}`, borderRadius: 'var(--radius-lg)', cursor: 'pointer', background: method === m.id ? 'var(--mint-dim)' : 'var(--white)', display: 'flex', alignItems: 'center', gap: 14 }}>
                         <span style={{ fontSize: 22 }}>{m.icon}</span>
-                        <div>
+                        <div style={{ flex: 1 }}>
                           <p style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)', marginBottom: 2 }}>{m.title}</p>
                           <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>{m.desc}</p>
                         </div>
-                        {method === m.id && <Check size={16} color="var(--mint-text)" style={{ marginLeft: 'auto' }} />}
+                        {method === m.id && <Check size={16} color="var(--mint-text)" />}
                       </div>
                     ))}
                   </div>
@@ -156,21 +154,32 @@ export default function Budget() {
               {/* Step 1: Income */}
               {wizardStep === 1 && (
                 <div>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text)', marginBottom: 6 }}>Berapa penghasilan bulananmu?</h3>
-                  <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 20 }}>Ini dipakai untuk menghitung budget tiap kategori.</p>
-                  <div style={{ position: 'relative' }}>
+                  <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text)', marginBottom: 6 }}>
+                    {method === 'percentage' ? 'Berapa penghasilan bulananmu?' : 'Penghasilan bulanan (opsional)'}
+                  </h3>
+                  <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 20 }}>
+                    {method === 'percentage' ? 'Budget otomatis dihitung dari penghasilan kamu.' : 'Dipakai untuk menampilkan sisa budget yang bisa dialokasikan.'}
+                  </p>
+                  <div style={{ position: 'relative', marginBottom: 16 }}>
                     <span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', fontSize: 14, color: 'var(--text-muted)', fontWeight: 600 }}>Rp</span>
                     <input type="text" value={income} onChange={e => { const raw = e.target.value.replace(/\D/g,''); setIncome(raw ? parseInt(raw).toLocaleString('id-ID') : '') }}
-                      placeholder="0" style={{ width: '100%', padding: '12px 14px 12px 48px', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', fontSize: 22, fontWeight: 700, color: 'var(--text)', background: 'var(--white)', fontFamily: 'var(--font)', outline: 'none' }} />
+                      placeholder="0" autoFocus style={{ width: '100%', padding: '12px 14px 12px 48px', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', fontSize: 22, fontWeight: 700, color: 'var(--text)', background: 'var(--white)', fontFamily: 'var(--font)', outline: 'none', boxSizing: 'border-box' }} />
                   </div>
-                  {method === 'percentage' && income && (
-                    <div style={{ marginTop: 16, padding: 14, background: 'var(--mint-dim)', borderRadius: 'var(--radius-md)', border: '0.5px solid var(--mint)' }}>
-                      <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--mint-text)', marginBottom: 8 }}>Preview budget otomatis:</p>
-                      {ALL_CATS.slice(0,5).map(c => {
-                        const pcts = { Makan: 0.3, Transportasi: 0.1, Belanja: 0.1, Hiburan: 0.05, Tagihan: 0.15 }
-                        const inc = parseInt(income.replace(/\D/g,'')) || 0
-                        return <p key={c.label} style={{ fontSize: 12, color: 'var(--mint-text)', marginBottom: 3 }}>{c.icon} {c.label}: {fmtFull(Math.round(inc * pcts[c.label]))}</p>
-                      })}
+                  {income && (
+                    <div style={{ padding: 14, background: 'var(--mint-dim)', borderRadius: 'var(--radius-md)', border: '0.5px solid rgba(0,230,118,0.3)' }}>
+                      <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--mint-text)', marginBottom: 8 }}>
+                        {method === 'percentage' ? 'Preview budget otomatis:' : 'Sisa budget yang bisa dialokasikan:'}
+                      </p>
+                      {method === 'percentage' ? (
+                        ALL_CATS.map(c => {
+                          const inc = parseInt(income.replace(/\D/g,'')) || 0
+                          return <p key={c.label} style={{ fontSize: 12, color: 'var(--mint-text)', marginBottom: 3 }}>{c.icon} {c.label}: {fmtFull(Math.round(inc * (PCTS[c.label] || 0.05)))}</p>
+                        })
+                      ) : (
+                        <p style={{ fontSize: 18, fontWeight: 800, color: 'var(--mint-text)' }}>
+                          {fmtFull(parseInt(income.replace(/\D/g,'')) || 0)} tersedia untuk dialokasikan
+                        </p>
+                      )}
                     </div>
                   )}
                 </div>
@@ -179,8 +188,19 @@ export default function Budget() {
               {/* Step 2: Edit limits */}
               {wizardStep === 2 && (
                 <div>
-                  <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text)', marginBottom: 6 }}>Atur limit tiap kategori</h3>
-                  <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 16 }}>Edit atau hapus sesuai kebutuhanmu.</p>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+                    <h3 style={{ fontSize: 16, fontWeight: 700, color: 'var(--text)' }}>Atur limit tiap kategori</h3>
+                    {income && (
+                      <div style={{ textAlign: 'right' }}>
+                        <p style={{ fontSize: 10, color: 'var(--text-muted)' }}>Sisa dari penghasilan</p>
+                        <p style={{ fontSize: 14, fontWeight: 800, color: (parseInt(income.replace(/\D/g,'')) - draftTotal) >= 0 ? 'var(--mint-text)' : 'var(--danger)' }}>
+                          {fmtFull(Math.abs(parseInt(income.replace(/\D/g,'')) - draftTotal))}
+                          {(parseInt(income.replace(/\D/g,'')) - draftTotal) < 0 ? ' (over)' : ''}
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                  <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 16 }}>Total dialokasikan: <strong style={{ color: 'var(--text)' }}>{fmtFull(draftTotal)}</strong></p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 16 }}>
                     {draft.map((b, idx) => (
                       <div key={b.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', background: 'var(--white)', borderRadius: 'var(--radius-md)', border: '0.5px solid var(--border)' }}>
@@ -188,7 +208,7 @@ export default function Budget() {
                         <span style={{ fontSize: 13, fontWeight: 600, color: 'var(--text)', flex: 1 }}>{b.category}</span>
                         <div style={{ position: 'relative', width: 150 }}>
                           <span style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', fontSize: 11, color: 'var(--text-muted)' }}>Rp</span>
-                          <input type="text" value={b.limit.toLocaleString('id-ID')} onChange={e => updateDraftLimit(idx, e.target.value)}
+                          <input type="text" value={b.limit > 0 ? b.limit.toLocaleString('id-ID') : ''} placeholder="0" onChange={e => updateDraftLimit(idx, e.target.value)}
                             style={{ width: '100%', padding: '7px 10px 7px 30px', border: '0.5px solid var(--border)', borderRadius: 8, fontSize: 13, fontWeight: 600, color: 'var(--text)', background: 'var(--card)', fontFamily: 'var(--font)', outline: 'none' }} />
                         </div>
                         <button onClick={() => removeDraft(idx)} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--border)', padding: 4 }}
@@ -211,7 +231,6 @@ export default function Budget() {
               )}
             </div>
 
-            {/* Wizard footer */}
             <div style={{ padding: '16px 24px', borderTop: '0.5px solid var(--border)', display: 'flex', gap: 10 }}>
               {wizardStep > 0 && <button onClick={() => setWizardStep(s => s - 1)} style={{ padding: '11px 20px', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-md)', background: 'var(--white)', color: 'var(--text-sub)', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font)' }}>← Kembali</button>}
               <button onClick={() => setShowWizard(false)} style={{ padding: '11px 20px', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-md)', background: 'transparent', color: 'var(--text-muted)', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'var(--font)' }}>Batal</button>
