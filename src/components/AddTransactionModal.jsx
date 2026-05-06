@@ -2,11 +2,18 @@ import { useState } from 'react'
 import { X } from 'lucide-react'
 import { useData } from '../context/DataContext'
 
-const CATEGORIES = [
+const EXPENSE_CATEGORIES = [
   { label: 'Makan', icon: '🍜' }, { label: 'Transportasi', icon: '🚗' },
   { label: 'Belanja', icon: '🛒' }, { label: 'Hiburan', icon: '🎬' },
   { label: 'Tagihan', icon: '⚡' }, { label: 'Kesehatan', icon: '💊' },
   { label: 'Pendidikan', icon: '📚' }, { label: 'Lainnya', icon: '📦' },
+]
+
+const INCOME_CATEGORIES = [
+  { label: 'Gaji', icon: '💼' }, { label: 'Freelance', icon: '💻' },
+  { label: 'Bisnis', icon: '🏪' }, { label: 'Investasi', icon: '📈' },
+  { label: 'Hadiah', icon: '🎁' }, { label: 'Bonus', icon: '🤑' },
+  { label: 'Dividen', icon: '📊' }, { label: 'Lainnya', icon: '📦' },
 ]
 
 export default function AddTransactionModal({ onClose }) {
@@ -19,6 +26,15 @@ export default function AddTransactionModal({ onClose }) {
   const [category, setCategory] = useState('Makan')
   const [date, setDate] = useState(new Date().toISOString().split('T')[0])
 
+  const activeCategories = type === 'income' ? INCOME_CATEGORIES : EXPENSE_CATEGORIES
+
+  const handleTypeChange = (newType) => {
+    setType(newType)
+    // Reset category ke default sesuai type
+    if (newType === 'income') setCategory('Gaji')
+    else setCategory('Makan')
+  }
+
   const handleAmount = (e) => {
     const raw = e.target.value.replace(/\D/g, '')
     setAmount(raw ? parseInt(raw).toLocaleString('id-ID') : '')
@@ -27,7 +43,7 @@ export default function AddTransactionModal({ onClose }) {
   const handleSubmit = () => {
     const raw = parseInt(amount.replace(/\D/g, ''))
     if (!raw) return
-    const cat = CATEGORIES.find(c => c.label === category)
+    const cat = activeCategories.find(c => c.label === category)
     addTransaction({ type, name: note || category, amount: raw, category, wallet, date, icon: cat?.icon || '📦' })
     onClose()
   }
@@ -54,7 +70,7 @@ export default function AddTransactionModal({ onClose }) {
           {/* Type tabs */}
           <div style={{ display: 'flex', gap: 6, marginBottom: 16, background: 'var(--white)', padding: 4, borderRadius: 'var(--radius-md)', border: '0.5px solid var(--border)' }}>
             {tabs.map(t => (
-              <button key={t.key} onClick={() => setType(t.key)} style={{
+              <button key={t.key} onClick={() => handleTypeChange(t.key)} style={{
                 flex: 1, padding: '7px 0', borderRadius: 6, border: 'none', cursor: 'pointer', fontSize: 12, fontWeight: 600, fontFamily: 'var(--font)', transition: 'all 0.15s',
                 background: type === t.key ? (t.key === 'income' ? 'var(--mint-dim)' : t.key === 'expense' ? 'var(--navy)' : 'var(--white)') : 'transparent',
                 color: type === t.key ? (t.key === 'income' ? 'var(--mint-text)' : t.key === 'expense' ? 'var(--mint)' : 'var(--text)') : 'var(--text-muted)',
@@ -83,8 +99,7 @@ export default function AddTransactionModal({ onClose }) {
             <div>
               <label style={lbl}>Dompet</label>
               <select style={inp} value={wallet} onChange={e => setWallet(e.target.value)}>
-                {wallets.map(w => <option key={w.id}>{w.name}</option>)}
-                <option>Cash</option>
+                {wallets.map(w => <option key={w?.id}>{w?.name}</option>)}
               </select>
             </div>
             <div>
@@ -98,7 +113,7 @@ export default function AddTransactionModal({ onClose }) {
             <div style={{ marginBottom: 4 }}>
               <label style={lbl}>Kategori</label>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 6 }}>
-                {CATEGORIES.map(c => (
+                {activeCategories.map(c => (
                   <button key={c.label} onClick={() => setCategory(c.label)} style={{
                     padding: '8px 4px', borderRadius: 'var(--radius-md)', border: `0.5px solid ${category === c.label ? 'var(--mint)' : 'var(--border)'}`,
                     background: category === c.label ? 'var(--mint-dim)' : 'var(--white)',
@@ -126,4 +141,4 @@ export default function AddTransactionModal({ onClose }) {
 }
 
 const lbl = { display: 'block', fontSize: 10, fontWeight: 600, color: 'var(--text-sub)', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.5 }
-const inp = { width: '100%', padding: '10px 13px', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', fontSize: 13, color: 'var(--text)', background: 'var(--white)', fontFamily: 'var(--font)', outline: 'none' }
+const inp = { width: '100%', padding: '10px 13px', border: '1px solid var(--border)', borderRadius: 'var(--radius-md)', fontSize: 13, color: 'var(--text)', background: 'var(--white)', fontFamily: 'var(--font)', outline: 'none', boxSizing: 'border-box' }
