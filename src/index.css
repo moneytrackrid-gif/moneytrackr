@@ -254,3 +254,7 @@ body { font-family: var(--font); background: var(--white); color: var(--text); -
   }
 }
 
+
+.recharts-tooltip-item { color: var(--text) !important; }
+.recharts-tooltip-item-name { color: var(--text) !important; }
+.recharts-tooltip-item-value { color: var(--text) !important; }
