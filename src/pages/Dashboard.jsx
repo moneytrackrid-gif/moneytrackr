@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import { useData } from '../context/DataContext'
-import { Plus, TrendingUp, TrendingDown, PiggyBank, Crown, Camera } from 'lucide-react'
+import { Plus, TrendingUp, TrendingDown, Minus, Camera } from 'lucide-react'
 import AddTransactionModal from '../components/AddTransactionModal'
 import BudgetAlert from '../components/BudgetAlert'
 import ReceiptScanner from '../components/ReceiptScanner'
@@ -12,7 +12,7 @@ const fmt = (n) => n >= 1000000 ? `Rp ${(n/1000000).toFixed(1)} jt` : n >= 1000 
 const fmtFull = (n) => `Rp ${n.toLocaleString('id-ID')}`
 
 export default function Dashboard() {
-  const { user, isPro } = useAuth()
+  const { user } = useAuth()
   const { wallet, totalIncome, totalExpense, transactions, budgets, getBudgetUsed } = useData()
   const totalBalance = wallet?.balance || 0
   const wallets = wallet ? [wallet] : []
@@ -40,29 +40,30 @@ export default function Dashboard() {
   const recentTx = transactions.slice(0, 5)
   const now = new Date()
   const timeGreet = now.getHours() < 12 ? 'Selamat pagi' : now.getHours() < 17 ? 'Selamat siang' : 'Selamat malam'
+  const selisih = totalIncome - totalExpense
 
   return (
-    <div style={{ flex: 1, overflow: 'auto', padding: '24px 28px 120px' }}>
+    <div style={{ flex: 1, overflow: 'auto', padding: '28px 32px 120px' }}>
       <style>{`
         @media (max-width: 768px) {
-          .db-wrap { padding: 16px 14px 120px !important; }
+          .db-page { padding: 16px 14px 120px !important; }
           .db-chart-budget { grid-template-columns: 1fr !important; }
           .db-tx-wallet { grid-template-columns: 1fr !important; }
-          .db-balance { font-size: 26px !important; letter-spacing: -1px !important; }
-          .db-fab { bottom: 78px !important; right: 14px !important; font-size: 12px !important; padding: 11px 16px !important; }
+          .db-balance { font-size: 28px !important; }
+          .db-fab { bottom: 78px !important; right: 14px !important; }
           .db-scan { display: none !important; }
           .db-wallet-section { display: none !important; }
         }
       `}</style>
 
       {/* Header */}
-      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16 }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 20 }}>
         <div>
-          <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 2 }}>{timeGreet}, {user?.name?.split(' ')[0]} 👋</p>
-          <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--text)', letterSpacing: -0.5 }}>Dashboard</h1>
+          <p style={{ fontSize: 13, color: 'var(--text-muted)', marginBottom: 3 }}>{timeGreet}, {user?.name?.split(' ')[0]} 👋</p>
+          <h1 style={{ fontSize: 24, fontWeight: 800, color: 'var(--text)', letterSpacing: -0.5 }}>Dashboard</h1>
         </div>
         <button className="db-scan" onClick={() => setShowScanner(true)} style={{
-          padding: '7px 14px', borderRadius: 20, border: '0.5px solid var(--border)',
+          padding: '8px 16px', borderRadius: 20, border: '0.5px solid var(--border)',
           background: 'var(--card)', fontSize: 12, color: 'var(--text)', fontWeight: 500,
           cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6, fontFamily: 'var(--font)',
         }}>
@@ -73,85 +74,91 @@ export default function Dashboard() {
       <BudgetAlert />
 
       {/* Balance card */}
-      <div style={{ background: 'var(--navy)', borderRadius: 'var(--radius-xl)', padding: '20px 22px', marginBottom: 14, position: 'relative', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: -30, right: -30, width: 130, height: 130, background: 'rgba(0,230,118,0.07)', borderRadius: '50%' }} />
-        <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.45)', marginBottom: 4, position: 'relative' }}>Total Saldo</p>
-        <p className="db-balance" style={{ fontSize: 32, fontWeight: 800, color: '#fff', letterSpacing: -1.5, marginBottom: 12, position: 'relative' }}>{fmtFull(totalBalance)}</p>
-        <div style={{ display: 'flex', gap: 8, position: 'relative', flexWrap: 'wrap' }}>
+      <div style={{ background: 'var(--navy)', borderRadius: 16, padding: '28px 28px', marginBottom: 16, position: 'relative', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', top: -40, right: -40, width: 160, height: 160, background: 'rgba(0,230,118,0.06)', borderRadius: '50%' }} />
+        <div style={{ position: 'absolute', bottom: -50, right: 80, width: 100, height: 100, background: 'rgba(0,230,118,0.04)', borderRadius: '50%' }} />
+        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', marginBottom: 8, position: 'relative', letterSpacing: 0.5, textTransform: 'uppercase', fontWeight: 500 }}>Total Saldo</p>
+        <p className="db-balance" style={{ fontSize: 40, fontWeight: 800, color: '#fff', letterSpacing: -2, marginBottom: 20, position: 'relative', lineHeight: 1 }}>{fmtFull(totalBalance)}</p>
+        <div style={{ display: 'flex', gap: 10, position: 'relative', flexWrap: 'wrap' }}>
           {[
-            { label: 'Pemasukan', value: totalIncome, dot: 'var(--mint)' },
-            { label: 'Pengeluaran', value: totalExpense, dot: 'rgba(255,255,255,0.3)' },
+            { label: 'Pemasukan', value: totalIncome, dot: '#00e676' },
+            { label: 'Pengeluaran', value: totalExpense, dot: 'rgba(255,255,255,0.25)' },
           ].map(p => (
-            <div key={p.label} style={{ background: 'rgba(255,255,255,0.08)', borderRadius: 20, padding: '4px 12px', display: 'flex', alignItems: 'center', gap: 5 }}>
-              <div style={{ width: 5, height: 5, borderRadius: '50%', background: p.dot, flexShrink: 0 }} />
-              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.7)' }}>{p.label} {fmt(p.value)}</span>
+            <div key={p.label} style={{ background: 'rgba(255,255,255,0.07)', borderRadius: 20, padding: '6px 14px', display: 'flex', alignItems: 'center', gap: 6, backdropFilter: 'blur(4px)' }}>
+              <div style={{ width: 6, height: 6, borderRadius: '50%', background: p.dot, flexShrink: 0 }} />
+              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.75)', fontWeight: 500 }}>{p.label} {fmt(p.value)}</span>
             </div>
           ))}
         </div>
       </div>
 
       {/* Stat cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gap: 10, marginBottom: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0,1fr))', gap: 12, marginBottom: 16 }}>
         {[
-          { label: 'Pemasukan', value: totalIncome, icon: TrendingUp, bg: 'var(--mint-dim)', iconColor: 'var(--mint-text)' },
-          { label: 'Pengeluaran', value: totalExpense, icon: TrendingDown, bg: 'var(--white)', iconColor: 'var(--text-sub)' },
-          { label: 'Selisih', value: Math.abs(totalIncome - totalExpense), icon: PiggyBank, bg: totalIncome >= totalExpense ? 'var(--mint-dim)' : 'var(--warn-bg)', iconColor: totalIncome >= totalExpense ? 'var(--mint-text)' : 'var(--warn)' },
+          { label: 'Pemasukan', value: totalIncome, icon: TrendingUp, color: '#00c853', bg: 'rgba(0,200,83,0.08)', desc: 'bulan ini' },
+          { label: 'Pengeluaran', value: totalExpense, icon: TrendingDown, color: 'var(--text-sub)', bg: 'var(--white)', desc: 'bulan ini' },
+          { label: 'Selisih', value: Math.abs(selisih), icon: Minus, color: selisih >= 0 ? '#00c853' : '#ff5252', bg: selisih >= 0 ? 'rgba(0,200,83,0.08)' : 'rgba(255,82,82,0.08)', desc: selisih >= 0 ? 'surplus' : 'defisit' },
         ].map(s => (
-          <div key={s.label} style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '12px 10px' }}>
-            <div style={{ width: 26, height: 26, borderRadius: 7, background: s.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 8 }}>
-              <s.icon size={13} color={s.iconColor} />
+          <div key={s.label} style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 14, padding: '16px 18px' }}>
+            <div style={{ width: 34, height: 34, borderRadius: 10, background: s.bg, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 12 }}>
+              <s.icon size={16} color={s.color} />
             </div>
-            <p style={{ fontSize: 10, color: 'var(--text-muted)', marginBottom: 2 }}>{s.label}</p>
-            <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)' }}>{fmt(s.value)}</p>
+            <p style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 4, fontWeight: 500 }}>{s.label}</p>
+            <p style={{ fontSize: 18, fontWeight: 700, color: 'var(--text)', letterSpacing: -0.5, marginBottom: 2 }}>{fmt(s.value)}</p>
+            <p style={{ fontSize: 10, color: 'var(--text-muted)' }}>{s.desc}</p>
           </div>
         ))}
       </div>
 
       {/* Chart + Budget */}
       <div className="db-chart-budget" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.5fr) minmax(0,1fr)', gap: 12, marginBottom: 12 }}>
-        <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '14px 16px' }}>
-          <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 12 }}>Pengeluaran 7 Hari</p>
+        <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 14, padding: '18px 20px' }}>
+          <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}>Pengeluaran 7 Hari</p>
           {chartData.every(d => d.expense === 0) ? (
-            <div style={{ height: 100, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <p style={{ fontSize: 12, color: 'var(--text-muted)' }}>Belum ada transaksi</p>
+            <div style={{ height: 110, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              <p style={{ fontSize: 28 }}>📊</p>
+              <p style={{ fontSize: 12, color: 'var(--text-muted)', fontWeight: 500 }}>Belum ada data minggu ini</p>
             </div>
           ) : (
-            <ResponsiveContainer width="100%" height={100}>
+            <ResponsiveContainer width="100%" height={110}>
               <AreaChart data={chartData} margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
                 <defs>
                   <linearGradient id="gMint" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#00e676" stopOpacity={0.2} />
+                    <stop offset="5%" stopColor="#00e676" stopOpacity={0.15} />
                     <stop offset="95%" stopColor="#00e676" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <XAxis dataKey="day" tick={{ fontSize: 11, fill: 'var(--text)' }} axisLine={false} tickLine={false} />
+                <XAxis dataKey="day" tick={{ fontSize: 11, fill: 'var(--text-muted)', fontFamily: 'Inter, sans-serif' }} axisLine={false} tickLine={false} />
                 <YAxis hide />
-                <Tooltip formatter={(v) => [fmtFull(v), 'Pengeluaran']} contentStyle={{ fontSize: 12, borderRadius: 8, border: '0.5px solid var(--border)', background: 'var(--card)', color: 'var(--text)' }} />
-                <Area type="monotone" dataKey="expense" stroke="var(--mint)" strokeWidth={2} fill="url(#gMint)" dot={false} activeDot={{ r: 3, fill: 'var(--mint)' }} />
+                <Tooltip formatter={(v) => [fmtFull(v), 'Pengeluaran']} contentStyle={{ fontSize: 12, borderRadius: 8, border: '0.5px solid var(--border)', background: 'var(--card)', color: 'var(--text)', fontFamily: 'Inter, sans-serif' }} />
+                <Area type="monotone" dataKey="expense" stroke="#00e676" strokeWidth={2} fill="url(#gMint)" dot={false} activeDot={{ r: 4, fill: '#00e676' }} />
               </AreaChart>
             </ResponsiveContainer>
           )}
         </div>
 
-        <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)' }}>
-          <div style={{ padding: '12px 14px 8px', borderBottom: '0.5px solid var(--border)' }}>
+        <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 14 }}>
+          <div style={{ padding: '14px 18px 10px', borderBottom: '0.5px solid var(--border)' }}>
             <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)' }}>Budget</p>
           </div>
-          <div style={{ padding: '8px 14px', display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <div style={{ padding: '10px 18px', display: 'flex', flexDirection: 'column', gap: 10 }}>
             {budgets.length === 0 ? (
-              <p style={{ fontSize: 11, color: 'var(--text-muted)', textAlign: 'center', padding: '8px 0' }}>Belum ada budget</p>
+              <div style={{ padding: '16px 0', textAlign: 'center' }}>
+                <p style={{ fontSize: 20, marginBottom: 6 }}>🎯</p>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', fontWeight: 500 }}>Belum ada budget</p>
+              </div>
             ) : budgets.slice(0, 4).map(b => {
               const used = getBudgetUsed(b.category)
               const pct = Math.min(100, Math.round((used / b.limit) * 100))
-              const color = pct >= 100 ? 'var(--danger)' : pct >= 80 ? 'var(--warn)' : 'var(--mint)'
+              const color = pct >= 100 ? '#ff5252' : pct >= 80 ? '#ffb300' : '#00e676'
               return (
                 <div key={b.id}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 3 }}>
-                    <span style={{ fontSize: 10, fontWeight: 600, color: 'var(--text)' }}>{b.category}</span>
-                    <span style={{ fontSize: 9, color: 'var(--text-muted)' }}>{pct}%</span>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 4 }}>
+                    <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--text)' }}>{b.category}</span>
+                    <span style={{ fontSize: 10, color: 'var(--text-muted)', fontWeight: 500 }}>{pct}%</span>
                   </div>
-                  <div style={{ height: 4, background: 'var(--white)', borderRadius: 3, overflow: 'hidden' }}>
-                    <div style={{ width: `${pct}%`, height: '100%', background: color, borderRadius: 3 }} />
+                  <div style={{ height: 4, background: 'var(--white)', borderRadius: 4, overflow: 'hidden' }}>
+                    <div style={{ width: `${pct}%`, height: '100%', background: color, borderRadius: 4, transition: 'width 0.5s ease' }} />
                   </div>
                 </div>
               )
@@ -162,59 +169,57 @@ export default function Dashboard() {
 
       {/* Transactions + Wallets */}
       <div className="db-tx-wallet" style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.5fr) minmax(0,1fr)', gap: 12 }}>
-        <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)' }}>
-          <div style={{ padding: '12px 14px 8px', borderBottom: '0.5px solid var(--border)' }}>
+        <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 14 }}>
+          <div style={{ padding: '14px 18px 10px', borderBottom: '0.5px solid var(--border)' }}>
             <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)' }}>Transaksi Terakhir</p>
           </div>
           {recentTx.length === 0 ? (
-            <p style={{ fontSize: 12, color: 'var(--text-muted)', textAlign: 'center', padding: '20px' }}>Belum ada transaksi</p>
+            <div style={{ padding: '40px 20px', textAlign: 'center' }}>
+              <p style={{ fontSize: 36, marginBottom: 10 }}>💸</p>
+              <p style={{ fontSize: 14, fontWeight: 600, color: 'var(--text)', marginBottom: 6 }}>Belum ada transaksi</p>
+              <p style={{ fontSize: 12, color: 'var(--text-muted)', marginBottom: 16 }}>Mulai catat pemasukan atau pengeluaranmu</p>
+              <button onClick={() => setShowModal(true)} style={{
+                background: 'var(--mint)', color: 'var(--navy)', border: 'none', borderRadius: 10,
+                padding: '8px 18px', fontSize: 12, fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font)',
+              }}>+ Catat Transaksi</button>
+            </div>
           ) : recentTx.map((tx, i) => (
-            <div key={tx.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '9px 14px', borderBottom: i < recentTx.length - 1 ? '0.5px solid var(--border-light)' : 'none' }}>
-              <div style={{ width: 30, height: 30, borderRadius: 8, background: tx.type === 'income' ? 'var(--mint-dim)' : 'var(--white)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, flexShrink: 0 }}>{tx.icon}</div>
+            <div key={tx.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '11px 18px', borderBottom: i < recentTx.length - 1 ? '0.5px solid var(--border-light)' : 'none' }}>
+              <div style={{ width: 36, height: 36, borderRadius: 10, background: tx.type === 'income' ? 'rgba(0,200,83,0.1)' : 'var(--white)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, flexShrink: 0 }}>{tx.icon}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tx.name}</p>
-                <p style={{ fontSize: 10, color: 'var(--text-muted)' }}>{tx.category}</p>
+                <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tx.name}</p>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 1 }}>{tx.category}</p>
               </div>
-              <span style={{ fontSize: 11, fontWeight: 700, color: tx.type === 'income' ? 'var(--mint-text)' : 'var(--text)', flexShrink: 0 }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: tx.type === 'income' ? '#00c853' : 'var(--text)', flexShrink: 0 }}>
                 {tx.type === 'income' ? '+' : '−'}{fmt(tx.amount)}
               </span>
             </div>
           ))}
         </div>
 
-        <div className="db-wallet-section" style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)' }}>
-          <div style={{ padding: '12px 14px 8px', borderBottom: '0.5px solid var(--border)' }}>
+        <div className="db-wallet-section" style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 14 }}>
+          <div style={{ padding: '14px 18px 10px', borderBottom: '0.5px solid var(--border)' }}>
             <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)' }}>Dompet</p>
           </div>
           {wallets.map(w => (
-            <div key={w.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px' }}>
-              <div style={{ width: 30, height: 30, borderRadius: 8, background: 'var(--mint-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, flexShrink: 0 }}>{w.icon}</div>
+            <div key={w.id} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 18px' }}>
+              <div style={{ width: 38, height: 38, borderRadius: 10, background: 'rgba(0,200,83,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, flexShrink: 0 }}>{w.icon || '💰'}</div>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <p style={{ fontSize: 12, fontWeight: 600, color: 'var(--text)' }}>{w.name}</p>
-                <p style={{ fontSize: 10, color: 'var(--text-muted)' }}>{w.type}</p>
+                <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text)' }}>{w.name}</p>
+                <p style={{ fontSize: 11, color: 'var(--text-muted)' }}>{w.type}</p>
               </div>
-              <span style={{ fontSize: 12, fontWeight: 700, color: 'var(--text)' }}>{fmt(w.balance)}</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: 'var(--text)' }}>{fmt(w.balance)}</span>
             </div>
           ))}
-          {!isPro && (
-            <div style={{ margin: '8px 10px 10px', background: 'linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%)', borderRadius: 10, padding: '10px 12px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 4 }}>
-                <Crown size={11} color="var(--mint)" />
-                <span style={{ fontSize: 10, fontWeight: 700, color: 'var(--mint)' }}>Upgrade PRO</span>
-              </div>
-              <p style={{ fontSize: 9, color: 'rgba(255,255,255,0.5)', marginBottom: 6, lineHeight: 1.4 }}>AI Advisor, Goals, dan semua fitur premium</p>
-              <button style={{ background: 'var(--mint)', color: 'var(--navy)', border: 'none', borderRadius: 5, padding: '4px 10px', fontSize: 9, fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font)' }}>Lihat →</button>
-            </div>
-          )}
         </div>
       </div>
 
       {/* FAB */}
       <button className="db-fab" onClick={() => setShowModal(true)} style={{
         position: 'fixed', bottom: 28, right: 28, background: 'var(--mint)', color: 'var(--navy)',
-        border: 'none', borderRadius: 28, padding: '12px 22px', fontSize: 13, fontWeight: 800,
+        border: 'none', borderRadius: 28, padding: '13px 24px', fontSize: 13, fontWeight: 700,
         cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 8,
-        boxShadow: '0 4px 20px rgba(0,230,118,0.35)', fontFamily: 'var(--font)', zIndex: 150,
+        boxShadow: '0 4px 24px rgba(0,230,118,0.3)', fontFamily: 'var(--font)', zIndex: 150,
       }}>
         <Plus size={16} /> Catat Transaksi
       </button>
