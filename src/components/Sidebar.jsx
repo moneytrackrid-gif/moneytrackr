@@ -1,7 +1,7 @@
 import { useTheme } from '../context/ThemeContext'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { LayoutDashboard, ArrowUpDown, Target, Wallet, Flag, Sparkles, BarChart2, Settings, LogOut, Crown, RefreshCw } from 'lucide-react'
+import { LayoutDashboard, ArrowUpDown, Target, Wallet, Flag, Sparkles, BarChart2, Settings, LogOut, RefreshCw } from 'lucide-react'
 
 const navItems = [
   { to: '/dashboard', icon: LayoutDashboard, label: 'Dashboard' },
@@ -16,11 +16,11 @@ const sidebarItems = [
   { to: '/transactions', icon: ArrowUpDown, label: 'Transaksi' },
   { to: '/budget', icon: Target, label: 'Budget' },
   { to: '/wallets', icon: Wallet, label: 'Dompet' },
-  { to: '/goals', icon: Flag, label: 'Goals', pro: true },
+  { to: '/goals', icon: Flag, label: 'Goals' },
 ]
 
 const sidebarBottom = [
-  { to: '/ai-advisor', icon: Sparkles, label: 'AI Advisor', pro: true },
+  { to: '/ai-advisor', icon: Sparkles, label: 'AI Advisor' },
   { to: '/reports', icon: BarChart2, label: 'Laporan' },
   { to: '/recurring', icon: RefreshCw, label: 'Recurring' },
   { to: '/settings', icon: Settings, label: 'Pengaturan' },
@@ -28,7 +28,7 @@ const sidebarBottom = [
 
 export default function Sidebar() {
   const { dark, toggleTheme } = useTheme()
-  const { user, logout, isPro, daysLeft } = useAuth()
+  const { user, logout } = useAuth()
   const navigate = useNavigate()
   const handleLogout = () => { logout(); navigate('/login') }
 
@@ -48,38 +48,18 @@ export default function Sidebar() {
 
         {/* Nav */}
         <nav style={{ padding: '0 10px', flex: 1, overflow: 'hidden auto' }}>
-          <NavSection label="Menu" items={sidebarItems} isPro={isPro} />
-          <NavSection label="Lainnya" items={sidebarBottom} isPro={isPro} />
+          <NavSection label="Menu" items={sidebarItems} />
+          <NavSection label="Lainnya" items={sidebarBottom} />
         </nav>
-
-        {/* Pro banner */}
-        {!isPro && (
-          <div style={{ margin: '0 10px 12px', background: 'rgba(0,230,118,0.1)', border: '0.5px solid rgba(0,230,118,0.25)', borderRadius: 'var(--radius-md)', padding: '12px 14px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6 }}>
-              <Crown size={13} color="var(--mint)" />
-              <span style={{ fontSize: 15, fontWeight: 700, color: 'var(--mint)' }}>Upgrade ke PRO</span>
-            </div>
-            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.5)', marginBottom: 8, lineHeight: 1.4 }}>Unlock AI Advisor, Goals, dan semua fitur premium</p>
-            <NavLink to="/pricing" style={{ display: 'block', background: 'var(--mint)', color: 'var(--navy)', borderRadius: 6, padding: '6px 0', fontSize: 15, fontWeight: 700, textAlign: 'center', textDecoration: 'none' }}>
-              Lihat Harga →
-            </NavLink>
-          </div>
-        )}
 
         {/* User */}
         <div style={{ padding: '12px 10px 0', borderTop: '0.5px solid rgba(255,255,255,0.08)' }}>
-          {isPro && daysLeft <= 30 && (
-            <div style={{ padding: '6px 10px', background: 'rgba(0,230,118,0.08)', borderRadius: 6, marginBottom: 8 }}>
-              <p style={{ fontSize: 14, color: 'var(--mint)', opacity: 0.8 }}>PRO aktif · {daysLeft} hari lagi</p>
-            </div>
-          )}
           <div style={{ display: 'flex', alignItems: 'center', gap: 9, padding: '8px 10px', borderRadius: 'var(--radius-md)' }}>
             <div style={{ width: 30, height: 30, borderRadius: '50%', background: 'var(--mint)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, color: 'var(--navy)', flexShrink: 0 }}>
               {user?.avatar || user?.name?.[0]}
             </div>
             <div style={{ flex: 1, minWidth: 0 }}>
               <div style={{ fontSize: 16, fontWeight: 600, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name}</div>
-              <div style={{ fontSize: 14, color: 'var(--mint)', opacity: 0.8 }}>{user?.plan?.toUpperCase()}</div>
             </div>
             <button onClick={toggleTheme} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'flex', color: 'rgba(255,255,255,0.3)', flexShrink: 0 }} title="Dark mode">{dark ? '☀️' : '🌙'}</button>
             <button onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'flex', color: 'rgba(255,255,255,0.3)', flexShrink: 0 }} title="Logout">
@@ -138,11 +118,11 @@ export default function Sidebar() {
   )
 }
 
-function NavSection({ label, items, isPro }) {
+function NavSection({ label, items }) {
   return (
     <>
       <p style={{ fontSize: 13, fontWeight: 600, color: 'rgba(255,255,255,0.3)', textTransform: 'uppercase', letterSpacing: 1.2, padding: '0 8px', margin: '10px 0 3px' }}>{label}</p>
-      {items.map(({ to, icon: Icon, label, pro }) => (
+      {items.map(({ to, icon: Icon, label }) => (
         <NavLink key={to} to={to} style={({ isActive }) => ({
           display: 'flex', alignItems: 'center', gap: 10, padding: '7px 10px',
           borderRadius: 'var(--radius-sm)', marginBottom: 1, textDecoration: 'none',
@@ -153,7 +133,6 @@ function NavSection({ label, items, isPro }) {
         })}>
           <Icon size={15} />
           <span style={{ flex: 1 }}>{label}</span>
-          {pro && !isPro && <span style={{ fontSize: 11, fontWeight: 700, background: 'rgba(0,230,118,0.2)', color: 'var(--mint)', padding: '1px 6px', borderRadius: 4 }}>PRO</span>}
         </NavLink>
       ))}
     </>
