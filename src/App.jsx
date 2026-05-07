@@ -7,7 +7,6 @@ import Sidebar from './components/Sidebar'
 import Login from './pages/Login'
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
-import Pricing from './pages/Pricing'
 import Transactions from './pages/Transactions'
 import Budget from './pages/Budget'
 import Goals from './pages/Goals'
@@ -37,7 +36,7 @@ function RequireAuth() {
   useEffect(() => {
     if (!user) { setSubLoading(false); return }
     supabase.from('profiles')
-      .select('subscription_status, subscription_end_date')
+      .select('subscription_status')
       .eq('id', user.id)
       .single()
       .then(({ data }) => {
@@ -56,7 +55,7 @@ function RequireAuth() {
     </div>
   )
   if (!user) return <Navigate to="/login" replace />
-  if (!isSubscribed) return <Navigate to="/pricing" replace />
+  if (!isSubscribed) return <Navigate to="/" replace />
   return <Outlet />
 }
 
@@ -82,7 +81,6 @@ function App() {
                 <Route path="/ai-advisor" element={<AiAdvisor />} />
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/settings" element={<Settings />} />
-                <Route path="/pricing" element={<Pricing />} />
                 <Route path="/recurring" element={<Recurring />} />
               </Route>
             </Route>
