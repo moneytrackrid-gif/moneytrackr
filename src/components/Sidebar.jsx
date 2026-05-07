@@ -31,7 +31,6 @@ export default function Sidebar() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const handleLogout = () => { logout(); navigate('/login') }
-
   const initials = user?.name?.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase() || '?'
 
   return (
@@ -55,18 +54,33 @@ export default function Sidebar() {
 
         {/* User */}
         <div style={{ padding: '12px 10px 0', borderTop: '0.5px solid rgba(255,255,255,0.08)' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 10px', borderRadius: 'var(--radius-md)' }}>
-            <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--mint)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: 'var(--navy)', flexShrink: 0 }}>
-              {initials}
+          <div style={{ padding: '8px 10px', borderRadius: 'var(--radius-md)' }}>
+            {/* Avatar + Nama + Logout */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
+              <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'var(--mint)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: 'var(--navy)', flexShrink: 0 }}>
+                {initials}
+              </div>
+              <div style={{ flex: 1, minWidth: 0 }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name || 'User'}</div>
+                <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.email || ''}</div>
+              </div>
+              <button onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'flex', color: 'rgba(255,255,255,0.25)', flexShrink: 0 }} title="Logout">
+                <LogOut size={13} />
+              </button>
             </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: '#fff', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.name || 'User'}</div>
-              <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.4)', marginTop: 1 }}>{user?.email || ''}</div>
-            </div>
-            <div style={{ display: 'flex', gap: 2, flexShrink: 0 }}>
-              <button onClick={toggleTheme} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 6, display: 'flex', color: 'rgba(255,255,255,0.3)', borderRadius: 6 }} title="Dark mode">{dark ? '☀️' : '🌙'}</button>
-              <button onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 6, display: 'flex', color: 'rgba(255,255,255,0.3)', borderRadius: 6 }} title="Logout">
-                <LogOut size={14} />
+            {/* Dark mode toggle */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '4px 2px' }}>
+              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', fontWeight: 500 }}>Dark mode</span>
+              <button onClick={toggleTheme} style={{
+                width: 36, height: 20, borderRadius: 20, border: 'none', cursor: 'pointer',
+                background: dark ? 'var(--mint)' : 'rgba(255,255,255,0.12)',
+                position: 'relative', transition: 'background 0.2s', flexShrink: 0, padding: 0,
+              }}>
+                <div style={{
+                  width: 14, height: 14, borderRadius: '50%', background: '#fff',
+                  position: 'absolute', top: 3, transition: 'left 0.2s',
+                  left: dark ? 19 : 3,
+                }} />
               </button>
             </div>
           </div>
@@ -85,8 +99,18 @@ export default function Sidebar() {
           <span style={{ fontSize: 14, fontWeight: 800, color: '#fff' }}>money<span style={{ color: 'var(--mint)' }}>trackr</span></span>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <button onClick={toggleTheme} style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: 16 }}>{dark ? '☀️' : '🌙'}</button>
-          <button onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.5)' }}>
+          <button onClick={toggleTheme} style={{
+            width: 32, height: 18, borderRadius: 18, border: 'none', cursor: 'pointer',
+            background: dark ? 'var(--mint)' : 'rgba(255,255,255,0.15)',
+            position: 'relative', transition: 'background 0.2s', padding: 0,
+          }}>
+            <div style={{
+              width: 12, height: 12, borderRadius: '50%', background: '#fff',
+              position: 'absolute', top: 3, transition: 'left 0.2s',
+              left: dark ? 17 : 3,
+            }} />
+          </button>
+          <button onClick={handleLogout} style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.4)' }}>
             <LogOut size={16} />
           </button>
         </div>
