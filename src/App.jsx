@@ -28,6 +28,12 @@ function AppLayout() {
   )
 }
 
+function SmartHome() {
+  const { user, loading } = useAuth()
+  if (loading) return null
+  return user ? <Navigate to="/dashboard" replace /> : <Landing />
+}
+
 function RequireAuth() {
   const { user, loading } = useAuth()
   const [subLoading, setSubLoading] = useState(true)
@@ -69,7 +75,7 @@ function App() {
       <DataProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Landing />} />
+            <Route path="/" element={<SmartHome />} />
             <Route path="/login" element={<Login />} />
             <Route element={<RequireAuth />}>
               <Route element={<AppLayout />}>
