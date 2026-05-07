@@ -85,16 +85,10 @@ export default function Landing() {
           <div style={{ width: 32, height: 32, background: '#0d2137', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, color: '#00e676' }}>mt</div>
           <span style={{ fontSize: 16, fontWeight: 800, color: '#0d2137', letterSpacing: -0.5 }}>money<span style={{ color: '#00e676' }}>trackr</span></span>
         </div>
-        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-          <button onClick={() => navigate('/login')} style={{ padding: '9px 20px', borderRadius: 20, border: '1.5px solid #0d2137', background: 'transparent', fontSize: 13, fontWeight: 600, color: '#0d2137', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 6 }}>
+        <button onClick={() => navigate('/login')} style={{ padding: '9px 20px', borderRadius: 20, border: 'none', background: '#0d2137', fontSize: 13, fontWeight: 700, color: '#00e676', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 6 }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
             Masuk
           </button>
-          <button onClick={() => navigate('/register')} style={{ padding: '9px 20px', borderRadius: 20, border: 'none', background: '#0d2137', fontSize: 13, fontWeight: 700, color: '#00e676', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 6 }}>
-            Coba Gratis
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </button>
-        </div>
       </nav>
 
       {/* HERO */}
