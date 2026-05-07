@@ -12,7 +12,6 @@ import Transactions from './pages/Transactions'
 import Budget from './pages/Budget'
 import Goals from './pages/Goals'
 import Reports from './pages/Reports'
-import ProGate from './components/ProGate'
 import { Settings } from './pages/Other'
 import Syarat from './pages/Syarat'
 import Privasi from './pages/Privasi'
@@ -62,15 +61,12 @@ function RequireAuth() {
 }
 
 function AiAdvisor() {
-  const { isPro } = useAuth()
-  return isPro
-    ? <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center' }}><p style={{ color:'var(--text-muted)' }}>AI Advisor — coming soon</p></div>
-    : <ProGate feature="AI Financial Advisor" />
+  return <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center' }}><p style={{ color:'var(--text-muted)' }}>AI Advisor — coming soon</p></div>
 }
 
 function App() {
   return (
-    <ThemeProvider><ThemeProvider><AuthProvider>
+    <ThemeProvider><AuthProvider>
       <DataProvider>
         <BrowserRouter>
           <Routes>
@@ -87,6 +83,7 @@ function App() {
                 <Route path="/reports" element={<Reports />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/pricing" element={<Pricing />} />
+                <Route path="/recurring" element={<Recurring />} />
               </Route>
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />
@@ -96,7 +93,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </DataProvider>
-    </AuthProvider></ThemeProvider></ThemeProvider>
+    </AuthProvider></ThemeProvider>
   )
 }
 

@@ -1,6 +1,3 @@
-import { useAuth } from '../context/AuthContext'
-import ProGate from '../components/ProGate'
-
 const comingSoon = (title) => () => (
   <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 40 }}>
     <div style={{ textAlign: 'center' }}>
@@ -11,18 +8,13 @@ const comingSoon = (title) => () => (
   </div>
 )
 
-export const Transactions = comingSoon('Transaksi')
-export const Budget = comingSoon('Budget')
 export const Wallets = comingSoon('Dompet')
-export const Reports = comingSoon('Laporan')
 export const Settings = comingSoon('Pengaturan')
 
 export function Goals() {
-  const { isPro } = useAuth()
-  return isPro ? comingSoon('Goals')() : <ProGate feature="Goals dengan deadline" />
+  return comingSoon('Goals')()
 }
 
 export function AiAdvisor() {
-  const { isPro } = useAuth()
-  return isPro ? comingSoon('AI Advisor')() : <ProGate feature="AI Financial Advisor" />
+  return comingSoon('AI Advisor')()
 }
