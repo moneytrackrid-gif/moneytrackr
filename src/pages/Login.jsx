@@ -35,7 +35,7 @@ export default function Login() {
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <div style={{ width: 72, height: 72, background: 'var(--mint)', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 26, color: 'var(--navy)', margin: '0 auto 16px', boxShadow: '0 8px 24px rgba(0,230,118,0.3)' }}>mt</div>
           <h1 style={{ fontSize: 28, fontWeight: 800, color: '#0d1b2a', letterSpacing: -0.5, marginBottom: 6 }}>moneytrackr.</h1>
-          <p style={{ color: '#999', fontSize: 14 }}>Aplikasi kelola keuangan pribadi.</p>
+          <p style={{ color: '#999', fontSize: 14 }}>Kontrol keuanganmu dari satu tempat.</p>
         </div>
 
         {/* Card */}
