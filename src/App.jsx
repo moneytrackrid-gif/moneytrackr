@@ -39,6 +39,7 @@ function RequireAuth() {
   const [isSubscribed, setIsSubscribed] = useState(false)
 
   useEffect(() => {
+    if (loading) return
     if (!user) { setSubLoading(false); return }
     supabase.from('profiles')
       .select('subscription_status')
@@ -49,7 +50,7 @@ function RequireAuth() {
         setIsSubscribed(active)
         setSubLoading(false)
       })
-  }, [user])
+  }, [user, loading])
 
   if (loading || subLoading) return (
     <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--navy)' }}>
@@ -59,8 +60,8 @@ function RequireAuth() {
       </div>
     </div>
   )
-  if (!user && !loading && !subLoading) return <Navigate to="/login" replace />
-  if (user && !subLoading && !isSubscribed) return <Navigate to="/" replace />
+  if (!user) return <Navigate to="/login" replace />
+  if (!isSubscribed) return <Navigate to="/" replace />
   return <Outlet />
 }
 
