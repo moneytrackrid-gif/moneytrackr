@@ -12,6 +12,7 @@ import Budget from './pages/Budget'
 import Goals from './pages/Goals'
 import Reports from './pages/Reports'
 import { Settings } from './pages/Other'
+import AiAdvisorPage from './pages/AiAdvisor'
 import Syarat from './pages/Syarat'
 import Privasi from './pages/Privasi'
 import Register from './pages/Register'
@@ -66,7 +67,7 @@ function RequireAuth() {
 }
 
 function AiAdvisor() {
-  return <div style={{ flex:1, display:'flex', alignItems:'center', justifyContent:'center' }}><p style={{ color:'var(--text-muted)' }}>AI Advisor — coming soon</p></div>
+  return <AiAdvisorPage />
 }
 
 function App() {
