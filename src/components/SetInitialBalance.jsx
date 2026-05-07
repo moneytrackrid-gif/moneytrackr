@@ -45,7 +45,7 @@ export default function SetInitialBalance({ onClose }) {
           <button onClick={handleSave} disabled={saving} style={{ flex: 1, padding: 14, background: 'var(--mint)', border: 'none', borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: 'pointer', color: 'var(--navy)', fontFamily: 'var(--font)' }}>
             {saving ? 'Menyimpan...' : 'Simpan Saldo'}
           </button>
-          <button onClick={onClose} style={{ padding: '14px 18px', background: 'var(--white)', border: '1px solid var(--border)', borderRadius: 12, fontSize: 13, cursor: 'pointer', color: 'var(--text-muted)', fontFamily: 'var(--font)' }}>Lewati</button>
+
         </div>
       </div>
     </div>
