@@ -43,7 +43,7 @@ export default function Sidebar() {
         {/* Logo */}
         <div style={{ padding: '0 18px 24px', display: 'flex', alignItems: 'center', gap: 9 }}>
           <div style={{ width: 30, height: 30, background: 'var(--mint)', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, fontWeight: 800, color: 'var(--navy)', flexShrink: 0 }}>mt</div>
-          <span style={{ fontSize: 19, fontWeight: 800, color: '#fff', letterSpacing: -0.3 }}>money<span style={{ color: 'var(--mint)' }}>trackr</span></span>
+          <span style={{ fontSize: 15, fontWeight: 800, color: '#fff', letterSpacing: -0.3 }}>money<span style={{ color: 'var(--mint)' }}>trackr</span></span>
         </div>
 
         {/* Nav */}
@@ -126,7 +126,7 @@ function NavSection({ label, items }) {
         <NavLink key={to} to={to} style={({ isActive }) => ({
           display: 'flex', alignItems: 'center', gap: 10, padding: '7px 10px',
           borderRadius: 'var(--radius-sm)', marginBottom: 1, textDecoration: 'none',
-          fontSize: 17, fontWeight: isActive ? 600 : 400,
+          fontSize: 13, fontWeight: isActive ? 600 : 400,
           background: isActive ? 'rgba(0,230,118,0.15)' : 'transparent',
           color: isActive ? 'var(--mint)' : 'rgba(255,255,255,0.5)',
           transition: 'all 0.15s',
