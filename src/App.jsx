@@ -59,8 +59,8 @@ function RequireAuth() {
       </div>
     </div>
   )
-  if (!user) return <Navigate to="/login" replace />
-  if (!isSubscribed) return <Navigate to="/" replace />
+  if (!user && !loading && !subLoading) return <Navigate to="/login" replace />
+  if (user && !subLoading && !isSubscribed) return <Navigate to="/" replace />
   return <Outlet />
 }
 
