@@ -11,7 +11,7 @@ import Transactions from './pages/Transactions'
 import Budget from './pages/Budget'
 import Goals from './pages/Goals'
 import Reports from './pages/Reports'
-import { Settings } from './pages/Other'
+import SettingsPage from './pages/Settings'
 import AiAdvisorPage from './pages/AiAdvisor'
 import Syarat from './pages/Syarat'
 import Privasi from './pages/Privasi'
@@ -86,7 +86,7 @@ function App() {
                 <Route path="/goals" element={<Goals />} />
                 <Route path="/ai-advisor" element={<AiAdvisor />} />
                 <Route path="/reports" element={<Reports />} />
-                <Route path="/settings" element={<Settings />} />
+                <Route path="/settings" element={<SettingsPage />} />
                 <Route path="/recurring" element={<Recurring />} />
               </Route>
             </Route>

@@ -1,3 +1,4 @@
+import Settings from './Settings'
 const comingSoon = (title) => () => (
   <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 40 }}>
     <div style={{ textAlign: 'center' }}>
@@ -9,7 +10,8 @@ const comingSoon = (title) => () => (
 )
 
 export const Wallets = comingSoon('Dompet')
-export const Settings = comingSoon('Pengaturan')
+export { Settings as default } from './Settings'
+export const SettingsPage = Settings
 
 export function Goals() {
   return comingSoon('Goals')()

@@ -1,3 +1,4 @@
+import HealthScore from '../components/HealthScore'
 import { useData } from '../context/DataContext'
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend, AreaChart, Area } from 'recharts'
 
@@ -34,6 +35,7 @@ export default function Reports() {
         <p style={{ fontSize: 13, color: 'var(--text-muted)', marginTop: 2 }}>Ringkasan keuangan {currentMonth}</p>
       </div>
 
+      <HealthScore />
       {/* KPI cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0,1fr))', gap: 12, marginBottom: 20 }}>
         {[
