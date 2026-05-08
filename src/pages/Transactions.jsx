@@ -109,6 +109,9 @@ export default function Transactions() {
               {new Date(day).toLocaleDateString('id-ID', { weekday: 'long', day: 'numeric', month: 'long' })}
             </span>
             <div style={{ flex: 1, height: '0.5px', background: 'var(--border)' }} />
+            <span style={{ fontSize: 11, fontWeight: 600, color: 'var(--text-muted)' }}>
+              {txs.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0) > 0 && '−' + fmt(txs.filter(t => t.type === 'expense').reduce((s, t) => s + t.amount, 0))}
+            </span>
           </div>
           <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', overflow: 'hidden' }}>
             {txs.map((tx, i) => (
