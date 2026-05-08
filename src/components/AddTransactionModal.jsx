@@ -51,7 +51,6 @@ export default function AddTransactionModal({ onClose }) {
   const tabs = [
     { key: 'expense', label: 'Pengeluaran' },
     { key: 'income', label: 'Pemasukan' },
-    { key: 'transfer', label: 'Transfer' },
   ]
 
   return (
@@ -132,7 +131,7 @@ export default function AddTransactionModal({ onClose }) {
         {/* Footer */}
         <div style={{ padding: '14px 20px 18px', borderTop: '0.5px solid var(--border)', background: 'var(--white)', borderRadius: '0 0 var(--radius-xl) var(--radius-xl)' }}>
           <button onClick={handleSubmit} style={{ width: '100%', padding: 13, background: 'var(--navy)', color: 'var(--mint)', border: 'none', borderRadius: 'var(--radius-md)', fontSize: 14, fontWeight: 700, cursor: 'pointer', fontFamily: 'var(--font)' }}>
-            Simpan {type === 'income' ? 'Pemasukan' : type === 'transfer' ? 'Transfer' : 'Pengeluaran'}
+            Simpan {type === 'income' ? 'Pemasukan' : 'Pengeluaran'}
           </button>
         </div>
       </div>
