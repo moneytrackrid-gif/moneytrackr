@@ -190,7 +190,7 @@ export default function Dashboard() {
                 <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{tx.name}</p>
                 <p style={{ fontSize: 11, color: 'var(--text-muted)', marginTop: 1 }}>{tx.category}</p>
               </div>
-              <span style={{ fontSize: 13, fontWeight: 700, color: tx.type === 'income' ? '#00c853' : 'var(--text)', flexShrink: 0 }}>
+              <span style={{ fontSize: 13, fontWeight: 700, color: tx.type === 'income' ? '#00c853' : '#e53935', flexShrink: 0 }}>
                 {tx.type === 'income' ? '+' : '−'}{fmt(tx.amount)}
               </span>
             </div>
