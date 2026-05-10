@@ -68,8 +68,17 @@ export default function Aktivasi() {
         await new Promise(r => setTimeout(r, 500))
       } else {
         // Login akun yang sudah ada
-        const { error: loginError } = await supabase.auth.signInWithPassword({ email, password })
+        const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({ email, password })
         if (loginError) throw new Error('Password salah. Coba lagi.')
+        // Aktifkan subscription
+        const expiredAt = new Date()
+        expiredAt.setMonth(expiredAt.getMonth() + 3)
+        await supabase.from('profiles').update({
+          subscription_status: 'active',
+          plan: 'pro',
+          subscription_expires_at: expiredAt.toISOString(),
+        }).eq('id', loginData.user.id)
+        await new Promise(r => setTimeout(r, 500))
       }
       navigate('/dashboard')
     } catch (err) {
