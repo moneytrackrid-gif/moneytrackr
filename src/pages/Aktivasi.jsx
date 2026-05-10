@@ -65,6 +65,7 @@ export default function Aktivasi() {
           plan: 'pro',
           subscription_expires_at: expiredAt.toISOString(),
         }).eq('id', loginData.user.id)
+        await new Promise(r => setTimeout(r, 500))
       } else {
         // Login akun yang sudah ada
         const { error: loginError } = await supabase.auth.signInWithPassword({ email, password })
