@@ -9,14 +9,11 @@ export default function Register() {
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
-  const orderId = localStorage.getItem('mt_order_id')
-
   useEffect(() => {
     // Pre-fill email dari Midtrans
     const savedEmail = localStorage.getItem('mt_email')
     if (savedEmail) setEmail(savedEmail)
-    // Kalau ga ada order_id, redirect ke landing
-    if (!localStorage.getItem('mt_order_id')) navigate('/')
+    // Scalev flow - tidak perlu order_id check
   }, [])
 
   const handleRegister = async (e) => {
