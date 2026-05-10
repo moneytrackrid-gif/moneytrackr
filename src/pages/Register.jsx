@@ -38,20 +38,12 @@ export default function Register() {
       // Tunggu sebentar agar trigger Supabase selesai
       await new Promise(r => setTimeout(r, 1000))
 
-      // Aktifkan subscription
-      const endDate = new Date()
-      endDate.setMonth(endDate.getMonth() + 3)
-      await supabase.from('profiles').update({
-        subscription_status: 'active',
-        subscription_end_date: endDate.toISOString()
-      }).eq('id', userId)
-
       // Bersihkan localStorage
       localStorage.removeItem('mt_order_id')
       localStorage.removeItem('mt_email')
 
-      // Masuk dashboard
-      navigate('/dashboard')
+      // Redirect ke halaman tunggu aktivasi
+      navigate('/menunggu-aktivasi')
 
     } catch (err) {
       setError(err.message)
