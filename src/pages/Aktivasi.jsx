@@ -20,8 +20,10 @@ export default function Aktivasi() {
     try {
       // Cek apakah email sudah bayar (ada di profiles dengan status active)
       const { data, error: fnError } = await supabase.functions.invoke('check-payment', {
-        body: { email }
+        body: { email },
+        headers: { 'Content-Type': 'application/json' }
       })
+      console.log('check-payment result:', data, fnError)
 
       if (fnError || !data?.paid) {
         setError('Email ini belum melakukan pembayaran. Silakan bayar dulu di moneytrackr.id')
