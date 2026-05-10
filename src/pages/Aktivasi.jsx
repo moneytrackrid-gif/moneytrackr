@@ -80,7 +80,7 @@ export default function Aktivasi() {
         }).eq('id', loginData.user.id)
         await new Promise(r => setTimeout(r, 500))
       }
-      navigate('/dashboard')
+      window.location.href = '/dashboard'
     } catch (err) {
       setError(err.message)
     }
