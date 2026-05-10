@@ -25,13 +25,14 @@ export default function Aktivasi() {
       })
       console.log('check-payment result:', data, fnError)
 
-      if (fnError || !data?.paid) {
+      const result = typeof data === 'string' ? JSON.parse(data) : data
+      if (fnError || !result?.paid) {
         setError('Email ini belum melakukan pembayaran. Silakan bayar dulu di moneytrackr.id')
         setLoading(false)
         return
       }
 
-      setIsNewUser(data.isNewUser)
+      setIsNewUser(result.isNewUser)
     } catch (err) {
       setError('Terjadi kesalahan. Coba lagi.')
     }
