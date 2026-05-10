@@ -20,28 +20,38 @@ serve(async (req) => {
     )
 
     const email = data?.customer?.email || data?.buyer_email || data?.email
-
     if (!email) return new Response(JSON.stringify({ message: 'no email' }), { headers: corsHeaders })
 
-    const { data: userData } = await supabase.auth.admin.listUsers()
-    const user = userData?.users?.find(u => u.email === email)
-
-    if (!user) return new Response(JSON.stringify({ message: 'user not found' }), { headers: corsHeaders })
-
     if (['payment.received', 'subscription.activated', 'subscription.renewed', 'order.payment_status_changed'].includes(event)) {
-      const expiredAt = new Date()
-      expiredAt.setMonth(expiredAt.getMonth() + 3)
-      await supabase.from('profiles').update({
-        subscription_status: 'active',
-        plan: 'pro',
-        subscription_expires_at: expiredAt.toISOString(),
-      }).eq('id', user.id)
+      // Simpan email ke paid_emails
+      await supabase.from('paid_emails').upsert({ email }).eq('email', email)
+
+      // Cek apakah user sudah ada
+      const { data: { users } } = await supabase.auth.admin.listUsers()
+      const user = users.find(u => u.email === email)
+
+      if (user) {
+        // Aktifkan subscription
+        const expiredAt = new Date()
+        expiredAt.setMonth(expiredAt.getMonth() + 3)
+        await supabase.from('profiles').update({
+          subscription_status: 'active',
+          plan: 'pro',
+          subscription_expires_at: expiredAt.toISOString(),
+        }).eq('id', user.id)
+      }
     }
 
     if (['subscription.canceled', 'subscription.expired'].includes(event)) {
-      await supabase.from('profiles').update({
-        subscription_status: 'inactive',
-      }).eq('id', user.id)
+      const { data: { users } } = await supabase.auth.admin.listUsers()
+      const user = users.find(u => u.email === email)
+      if (user) {
+        await supabase.from('profiles').update({
+          subscription_status: 'inactive',
+        }).eq('id', user.id)
+      }
+      // Hapus dari paid_emails
+      await supabase.from('paid_emails').delete().eq('email', email)
     }
 
     return new Response(JSON.stringify({ success: true }), { headers: corsHeaders })

@@ -17,6 +17,7 @@ import Syarat from './pages/Syarat'
 import Privasi from './pages/Privasi'
 import Register from './pages/Register'
 import Waiting from './pages/Waiting'
+import Aktivasi from './pages/Aktivasi'
 import { ThemeProvider } from './context/ThemeContext'
 import Recurring from './pages/Recurring'
 import './index.css'
@@ -94,6 +95,7 @@ function App() {
             <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="/register" element={<Register />} />
             <Route path="/menunggu-aktivasi" element={<Waiting />} />
+            <Route path="/aktivasi" element={<Aktivasi />} />
             <Route path="/syarat" element={<Syarat />} />
             <Route path="/privasi" element={<Privasi />} />
           </Routes>
