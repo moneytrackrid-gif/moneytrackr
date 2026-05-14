@@ -239,7 +239,7 @@ export default function Landing() {
               ))}
             </div>
             <button onClick={handleBayar}  style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
-              {paying ? 'Memproses...' : 'Coba Sekarang'}
+              'Coba Sekarang'
             </button>
           </div>
 
