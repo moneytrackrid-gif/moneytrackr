@@ -6,44 +6,17 @@ import { supabase } from '../lib/supabase'
 export default function Pricing() {
   const { user } = useAuth()
   const navigate = useNavigate()
-  const [loading, setLoading] = useState(false)
+  
   const [error, setError] = useState(null)
 
-  const handleBayar = async () => {
-    if (!user) { navigate('/login'); return }
-    setLoading(true)
-    setError(null)
-    try {
-      const { data: { session } } = await supabase.auth.getSession()
-      const res = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/midtrans`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${session.access_token}`
-          }
-        }
-      )
-      const data = await res.json()
-      if (!data.token) throw new Error(data.error || 'Gagal membuat transaksi')
-      window.snap.pay(data.token, {
-        onSuccess: () => navigate('/dashboard'),
-        onPending: () => navigate('/dashboard'),
-        onError: () => { setError('Pembayaran gagal. Coba lagi.'); setLoading(false) },
-        onClose: () => setLoading(false),
-      })
-    } catch (err) {
-      setError(err.message)
-      setLoading(false)
-    }
+  const handleBayar = () => {
+    window.open('https://moneytrackr.myr.id/m/moneytrackr-3-month', '_blank')
   }
 
   return (
     <div style={{ fontFamily: "'Plus Jakarta Sans', sans-serif", minHeight: '100vh', background: '#f8faff', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 5vw', color: '#0d2137' }}>
       <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-      <script src="https://app.midtrans.com/snap/snap.js" data-client-key={import.meta.env.VITE_MIDTRANS_CLIENT_KEY} />
-
+      
       <div onClick={() => navigate('/')} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 48, cursor: 'pointer' }}>
         <div style={{ width: 32, height: 32, background: '#0d2137', borderRadius: 8, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, fontWeight: 800, color: '#00e676' }}>mt</div>
         <span style={{ fontSize: 16, fontWeight: 800 }}>money<span style={{ color: '#00e676' }}>trackr</span></span>
@@ -68,7 +41,7 @@ export default function Pricing() {
           <div style={{ fontSize: 12, color: '#064a22', lineHeight: 1.6 }}>Kalau ga bermanfaat dalam 7 hari, refund penuh. Tidak ada pertanyaan.</div>
         </div>
         {error && <div style={{ background: 'rgba(255,0,0,0.1)', border: '1px solid rgba(255,0,0,0.2)', borderRadius: 10, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: '#c00' }}>{error}</div>}
-        <button onClick={handleBayar} disabled={loading} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: loading ? 'rgba(13,33,55,0.5)' : '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'inherit' }}>
+        <button onClick={handleBayar}  style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
           {loading ? 'Memproses...' : 'Bayar Sekarang — Rp 147.000 →'}
         </button>
       </div>

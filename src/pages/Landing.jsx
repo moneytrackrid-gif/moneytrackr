@@ -31,44 +31,10 @@ export default function Landing() {
   const { user } = useAuth()
   const [openFaq, setOpenFaq] = useState(null)
   const [scrolled, setScrolled] = useState(false)
-  const [paying, setPaying] = useState(false)
+  
 
-  const handleBayar = async () => {
-    setPaying(true)
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/midtrans`,
-        { method: 'POST', headers: { 
-          'Content-Type': 'application/json',
-          'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
-        }}
-      )
-      const data = await res.json()
-      if (!data.token) throw new Error('Gagal membuat transaksi')
-      window.snap.pay(data.token, {
-        onSuccess: (result) => {
-          // Simpan order_id dan email ke localStorage
-          localStorage.setItem('mt_order_id', result.order_id)
-          if (result.customer_details?.email) {
-            localStorage.setItem('mt_email', result.customer_details.email)
-          }
-          navigate('/register')
-        },
-        onPending: (result) => {
-          localStorage.setItem('mt_order_id', result.order_id)
-          if (result.customer_details?.email) {
-            localStorage.setItem('mt_email', result.customer_details.email)
-          }
-          navigate('/register')
-        },
-        onError: () => setPaying(false),
-        onClose: () => setPaying(false),
-      })
-    } catch (err) {
-      alert(err.message)
-      setPaying(false)
-    }
+  const handleBayar = () => {
+    window.open('https://moneytrackr.myr.id/m/moneytrackr-3-month', '_blank')
   }
 
   useEffect(() => {
@@ -272,7 +238,7 @@ export default function Landing() {
                 </div>
               ))}
             </div>
-            <button onClick={handleBayar} disabled={paying} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: paying ? 'rgba(13,33,55,0.5)' : '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: paying ? 'not-allowed' : 'pointer', fontFamily: 'inherit' }}>
+            <button onClick={handleBayar}  style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
               {paying ? 'Memproses...' : 'Coba Sekarang'}
             </button>
           </div>
