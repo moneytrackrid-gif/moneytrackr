@@ -28,8 +28,8 @@ export default async function handler(req, res) {
     const { error } = await supabase
       .from('profiles')
       .update({
-        subscription_status: 'active',
-        subscription_end_date: expiresAt.toISOString(),
+        plan: 'pro',
+        subscription_end: expiresAt.toISOString(),
         mayar_order_id: payload.data?.id ?? null
       })
       .eq('email', customerEmail)
