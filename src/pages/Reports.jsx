@@ -112,7 +112,7 @@ export default function Reports() {
               <>
                 <ResponsiveContainer width="100%" height={200}>
                   <PieChart>
-                    <Pie data={catBreakdown} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="value" nameKey="name" paddingAngle={2} label={({ name, percent }) => `${(percent*100).toFixed(0)}%`} labelLine={false}>
+                    <Pie data={catBreakdown} cx="50%" cy="50%" innerRadius={50} outerRadius={80} dataKey="value" nameKey="name" paddingAngle={2} label={false} labelLine={false}>
                       {catBreakdown.map((_, i) => <Cell key={i} fill={CAT_COLORS[i % CAT_COLORS.length]} />)}
                     </Pie>
                     <Tooltip formatter={v => fmtFull(v)} contentStyle={{ fontSize: 11, borderRadius: 8, border: '0.5px solid var(--border)' }} />
@@ -147,10 +147,13 @@ export default function Reports() {
 
         {/* Trend 6 bulan */}
         <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 16, padding: '16px', marginBottom: 16 }}>
-          <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}>Tren 6 Bulan Terakhir</p>
-          <div style={{ paddingBottom: 24 }}>
-            <ResponsiveContainer width="100%" height={160}>
-              <BarChart data={monthly} margin={{ top: 5, right: 5, bottom: 5, left: -15 }}>
+          <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 8 }}>Tren 6 Bulan Terakhir</p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginBottom: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><div style={{ width: 10, height: 10, borderRadius: 2, background: '#00e676' }} /><span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Pemasukan</span></div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><div style={{ width: 10, height: 10, borderRadius: 2, background: '#0d2137' }} /><span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Pengeluaran</span></div>
+          </div>
+          <ResponsiveContainer width="100%" height={180}>
+              <BarChart data={monthly} margin={{ top: 5, right: 5, bottom: 20, left: -15 }}>
                 <XAxis dataKey="month" tick={{ fontSize: 10, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
                 <YAxis tickFormatter={fmt} tick={{ fontSize: 9, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} width={38} />
                 <Tooltip formatter={(v, n) => [fmtFull(v), n]} contentStyle={{ fontSize: 11, borderRadius: 8 }} />
@@ -158,11 +161,7 @@ export default function Reports() {
                 <Bar dataKey="expense" name="Pengeluaran" fill="#0d2137" radius={[3,3,0,0]} />
               </BarChart>
             </ResponsiveContainer>
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 20 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><div style={{ width: 10, height: 10, borderRadius: 2, background: '#00e676' }} /><span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Pemasukan</span></div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><div style={{ width: 10, height: 10, borderRadius: 2, background: '#0d2137' }} /><span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Pengeluaran</span></div>
-          </div>
+
         </div>
 
       </div>
