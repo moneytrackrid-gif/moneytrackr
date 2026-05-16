@@ -99,8 +99,8 @@ export default function Reports() {
         {catBreakdown.length === 0 ? (
           <p style={{ fontSize: 13, color: 'var(--text-muted)', textAlign: 'center', paddingTop: 40 }}>Belum ada data</p>
         ) : (
-          <ResponsiveContainer width="100%" height={200}>
-            <PieChart>
+          <ResponsiveContainer width="100%" height={220}>
+            <PieChart margin={{top: 0, right: 0, bottom: 20, left: 0}}>
               <Pie data={catBreakdown} cx="50%" cy="50%" innerRadius={40} outerRadius={65} dataKey="value" nameKey="name" paddingAngle={2}>
                 {catBreakdown.map((_, i) => <Cell key={i} fill={CAT_COLORS[i % CAT_COLORS.length]} />)}
               </Pie>
