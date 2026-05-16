@@ -246,7 +246,7 @@ export default function Landing() {
                 🔥 HEMAT 16%
               </div>
               <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 8 }}>6 Bulan</div>
-              <div style={{ fontSize: 15, color: '#064a22', textDecoration: 'line-through', opacity: 0.6, marginBottom: 4 }}>Harga Normal: Rp 294.000</div>
+              <div style={{ fontSize: 15, color: '#064a22', textDecoration: 'line-through', opacity: 0.6, marginBottom: 4 }}>Rp 294.000</div>
               <div style={{ fontSize: 52, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1, marginBottom: 6 }}>Rp 247.000</div>
               <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 28 }}>= Rp 1.372/hari · Hemat Rp 47.000</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24, textAlign: 'left' }}>
