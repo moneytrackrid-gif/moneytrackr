@@ -55,8 +55,8 @@ export default function Reports() {
       {/* Bar chart */}
       <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '16px', marginBottom: 12 }}>
         <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 12 }}>Pemasukan vs Pengeluaran — 6 Bulan</p>
-        <ResponsiveContainer width="100%" height={180}>
-          <BarChart data={monthly} barGap={4} barCategoryGap="35%" margin={{ top: 5, right: 5, bottom: 5, left: -10 }}>
+        <ResponsiveContainer width="100%" height={210}>
+          <BarChart data={monthly} barGap={4} barCategoryGap="35%" margin={{ top: 5, right: 5, bottom: 25, left: -10 }}>
             <XAxis dataKey="month" tick={{ fontSize: 10, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
             <YAxis tickFormatter={fmt} tick={{ fontSize: 9, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} width={40} />
             <Tooltip content={<CustomTooltip />} />
@@ -73,8 +73,8 @@ export default function Reports() {
       {/* Trend */}
       <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '16px', marginBottom: 12 }}>
         <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 12 }}>Tren Pengeluaran</p>
-        <ResponsiveContainer width="100%" height={140}>
-          <AreaChart data={monthly} margin={{ top: 5, right: 5, bottom: 5, left: -10 }}>
+        <ResponsiveContainer width="100%" height={170}>
+          <AreaChart data={monthly} margin={{ top: 5, right: 5, bottom: 25, left: -10 }}>
             <defs>
               <linearGradient id="gExp" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#0d2137" stopOpacity={0.2} />
@@ -95,7 +95,7 @@ export default function Reports() {
         {catBreakdown.length === 0 ? (
           <p style={{ fontSize: 13, color: 'var(--text-muted)', textAlign: 'center', paddingTop: 40 }}>Belum ada data</p>
         ) : (
-          <ResponsiveContainer width="100%" height={160}>
+          <ResponsiveContainer width="100%" height={200}>
             <PieChart>
               <Pie data={catBreakdown} cx="50%" cy="50%" innerRadius={40} outerRadius={65} dataKey="value" nameKey="name" paddingAngle={2}>
                 {catBreakdown.map((_, i) => <Cell key={i} fill={CAT_COLORS[i % CAT_COLORS.length]} />)}
