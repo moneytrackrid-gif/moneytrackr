@@ -245,10 +245,10 @@ export default function Landing() {
               <div style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', background: '#fff', color: '#0d2137', fontSize: 10, fontWeight: 800, padding: '5px 16px', borderRadius: 20, whiteSpace: 'nowrap', letterSpacing: 1 }}>
                 🔥 HEMAT 16%
               </div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 4 }}>6 Bulan</div>
-              <div style={{ fontSize: 48, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1 }}>Rp 247.000</div>
-              <div style={{ fontSize: 14, color: '#064a22', marginBottom: 6 }}>untuk 6 bulan penuh</div>
-              <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 28 }}>= Rp 1.372/hari · <span style={{textDecoration:'line-through', color:'#064a22', opacity:0.6, fontWeight:800, fontSize:14}}>Rp 294.000</span></div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 8 }}>6 Bulan</div>
+              <div style={{ fontSize: 15, color: '#064a22', textDecoration: 'line-through', opacity: 0.6, marginBottom: 4 }}>Harga Normal: Rp 294.000</div>
+              <div style={{ fontSize: 52, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1, marginBottom: 6 }}>Rp 247.000</div>
+              <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 28 }}>= Rp 1.372/hari · Hemat Rp 47.000</div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24, textAlign: 'left' }}>
                 {['Budget otomatis', 'AI Financial Advisor', 'Laporan visual', 'Scan struk otomatis', 'Goals dengan deadline', 'Financial Health Score'].map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
