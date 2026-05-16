@@ -113,7 +113,7 @@ export default function Reports() {
                 <div style={{ width: '100%', height: 180, marginBottom: 16 }}>
                 <ResponsiveContainer width="100%" height={180}>
                   <PieChart>
-                    <Pie data={catBreakdown} cx="50%" cy="50%" innerRadius={45} outerRadius={70} dataKey="value" nameKey="name" paddingAngle={2} label={false} labelLine={false}>
+                    <Pie data={catBreakdown} cx="50%" cy="50%" innerRadius={45} outerRadius={70} dataKey="value" nameKey="name" paddingAngle={2} label={({ percent }) => `${(percent*100).toFixed(0)}%`} labelLine={true}>
                       {catBreakdown.map((_, i) => <Cell key={i} fill={CAT_COLORS[i % CAT_COLORS.length]} />)}
                     </Pie>
                     <Tooltip formatter={v => fmtFull(v)} contentStyle={{ fontSize: 11, borderRadius: 8, border: '0.5px solid var(--border)' }} />
