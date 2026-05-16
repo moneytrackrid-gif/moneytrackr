@@ -249,7 +249,7 @@ export default function Landing() {
               <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 4 }}>6 Bulan</div>
               <div style={{ fontSize: 48, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1 }}>Rp 247.000</div>
               <div style={{ fontSize: 14, color: '#064a22', marginBottom: 6 }}>untuk 6 bulan penuh</div>
-              <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 28 }}>= Rp 1.372/hari · <s>Rp 294.000</s></div>
+              <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 28 }}>= Rp 1.372/hari · <span style={{textDecoration:'line-through', color:'#064a22', opacity:0.5, fontWeight:700}}>Rp 294.000</span></div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24, textAlign: 'left' }}>
                 {['Budget otomatis', 'AI Financial Advisor', 'Laporan visual', 'Scan struk otomatis', 'Goals dengan deadline', 'Financial Health Score'].map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -263,7 +263,13 @@ export default function Landing() {
               </button>
             </div>
           </div>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)' }}>Garansi refund 7 hari · Tidak perlu kartu kredit · Cancel kapan aja</p>
+          <div style={{ marginTop: 24, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 16, padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 16, textAlign: 'left' }}>
+            <div style={{ fontSize: 32, flexShrink: 0 }}>🛡️</div>
+            <div>
+              <div style={{ fontSize: 14, fontWeight: 800, color: '#fff', marginBottom: 4 }}>Garansi Refund 7 Hari</div>
+              <div style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.5 }}>Kalau dalam 7 hari kamu merasa Moneytrackr tidak bermanfaat sama sekali, kami kembalikan uangmu. Tidak ada pertanyaan.</div>
+            </div>
+          </div>
         </div>
       </section>
 
