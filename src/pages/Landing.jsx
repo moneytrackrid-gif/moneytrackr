@@ -34,7 +34,7 @@ export default function Landing() {
   
 
   const handleBayar = () => {
-    window.open('https://moneytrackr.myr.id/m/moneytrackr-3-month', '_blank')
+    window.open('https://moneytrackr.myr.id/m/moneytrackr?tier=27b0e340-2a4b-486d-999e-9d9bbff4ceb3', '_blank')
   }
 
   useEffect(() => {
@@ -257,7 +257,7 @@ export default function Landing() {
                   </div>
                 ))}
               </div>
-              <button onClick={() => window.open('https://moneytrackr.myr.id/m/moneytrackr-3-month', '_blank')} style={{ width: '100%', padding: '14px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
+              <button onClick={() => window.open('https://moneytrackr.myr.id/m/moneytrackr?tier=0441c99c-7dd0-48b4-8c74-b3e1cf43c5f0', '_blank')} style={{ width: '100%', padding: '14px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
                 Mulai 6 Bulan
               </button>
             </div>
