@@ -53,7 +53,7 @@ export default function Reports() {
       </div>
 
       {/* Monthly bar chart */}
-      <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '18px 20px', marginBottom: 14 }}>
+      <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '18px 20px', marginBottom: 14, overflow: 'hidden' }}>
         <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}>Pemasukan vs Pengeluaran — 6 Bulan Terakhir</p>
         <ResponsiveContainer width="100%" height={200}>
           <BarChart data={monthly} barGap={4} barCategoryGap="30%">
@@ -71,7 +71,7 @@ export default function Reports() {
       </div>
 
       {/* Trend + Pie */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14, marginBottom: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 14, marginBottom: 14 }}>
         {/* Trend area */}
         <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '18px 20px' }}>
           <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}>Tren Pengeluaran</p>
