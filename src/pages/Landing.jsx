@@ -217,32 +217,52 @@ export default function Landing() {
 
       {/* PRICING — 1 PLAN ONLY */}
       <section id='harga' style={{ padding: '100px 5vw', background: '#0d2137' }}>
-        <div style={{ maxWidth: 520, margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ maxWidth: 760, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 12, fontWeight: 700, color: '#00e676', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 16 }}>Harga</p>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#fff', letterSpacing: -1, marginBottom: 12 }}>Satu harga.<br />Semua fitur.</h2>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#fff', letterSpacing: -1, marginBottom: 12 }}>Pilih paketmu.<br />Semua fitur aktif.</h2>
           <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.45)', marginBottom: 48 }}>Tidak ada hidden fee. Bayar sekali, nikmati semua fiturnya.</p>
-
-          <div style={{ background: '#00e676', borderRadius: 24, padding: '36px 32px', position: 'relative', marginBottom: 20 }}>
-            <div style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', background: '#0d2137', color: '#00e676', fontSize: 10, fontWeight: 800, padding: '5px 16px', borderRadius: 20, whiteSpace: 'nowrap', letterSpacing: 1 }}>
-              ☕ LEBIH MURAH DARI ES KOPSU
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 20 }}>
+            <div style={{ background: '#00e676', borderRadius: 24, padding: '36px 28px', position: 'relative' }}>
+              <div style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', background: '#0d2137', color: '#00e676', fontSize: 10, fontWeight: 800, padding: '5px 16px', borderRadius: 20, whiteSpace: 'nowrap', letterSpacing: 1 }}>
+                ☕ LEBIH MURAH DARI ES KOPSU
+              </div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 4 }}>3 Bulan</div>
+              <div style={{ fontSize: 48, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1 }}>Rp 147.000</div>
+              <div style={{ fontSize: 14, color: '#064a22', marginBottom: 6 }}>untuk 3 bulan penuh</div>
+              <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 28 }}>= Rp 1.633/hari</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24, textAlign: 'left' }}>
+                {['Budget otomatis', 'AI Financial Advisor', 'Laporan visual', 'Scan struk otomatis', 'Goals dengan deadline', 'Financial Health Score'].map(f => (
+                  <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ color: '#0d2137', fontSize: 14, fontWeight: 700 }}>✓</span>
+                    <span style={{ fontSize: 13, color: '#0d2137', fontWeight: 500 }}>{f}</span>
+                  </div>
+                ))}
+              </div>
+              <button onClick={handleBayar} style={{ width: '100%', padding: '14px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
+                Mulai 3 Bulan
+              </button>
             </div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 4 }}>moneytrackr</div>
-            <div style={{ fontSize: 56, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1 }}>Rp 147.000</div>
-            <div style={{ fontSize: 14, color: '#064a22', marginBottom: 6 }}>untuk 3 bulan penuh</div>
-            <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 32 }}>= Rp 1.633/hari · Lebih murah dari es kopsu</div>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 28, textAlign: 'left' }}>
-              {['Budget otomatis', 'Goals dengan deadline', 'AI Financial Advisor', 'Scan struk otomatis', 'Laporan visual', 'Financial Health Score', 'Data privat & aman', 'Akses semua platform'].map(f => (
-                <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ color: '#0d2137', fontSize: 14, fontWeight: 700 }}>✓</span>
-                  <span style={{ fontSize: 13, color: '#0d2137', fontWeight: 500 }}>{f}</span>
-                </div>
-              ))}
+            <div style={{ background: '#00e676', borderRadius: 24, padding: '36px 28px', position: 'relative', border: '3px solid #fff' }}>
+              <div style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', background: '#fff', color: '#0d2137', fontSize: 10, fontWeight: 800, padding: '5px 16px', borderRadius: 20, whiteSpace: 'nowrap', letterSpacing: 1 }}>
+                🔥 HEMAT 16%
+              </div>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 4 }}>6 Bulan</div>
+              <div style={{ fontSize: 48, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1 }}>Rp 247.000</div>
+              <div style={{ fontSize: 14, color: '#064a22', marginBottom: 6 }}>untuk 6 bulan penuh</div>
+              <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 28 }}>= Rp 1.372/hari · <s>Rp 294.000</s></div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24, textAlign: 'left' }}>
+                {['Budget otomatis', 'AI Financial Advisor', 'Laporan visual', 'Scan struk otomatis', 'Goals dengan deadline', 'Financial Health Score'].map(f => (
+                  <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                    <span style={{ color: '#0d2137', fontSize: 14, fontWeight: 700 }}>✓</span>
+                    <span style={{ fontSize: 13, color: '#0d2137', fontWeight: 500 }}>{f}</span>
+                  </div>
+                ))}
+              </div>
+              <button onClick={() => window.open('https://moneytrackr.myr.id/m/moneytrackr-3-month', '_blank')} style={{ width: '100%', padding: '14px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 14, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
+                Mulai 6 Bulan
+              </button>
             </div>
-            <button onClick={handleBayar}  style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 15, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit' }}>
-              'Coba Sekarang'
-            </button>
           </div>
-
           <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.3)' }}>Garansi refund 7 hari · Tidak perlu kartu kredit · Cancel kapan aja</p>
         </div>
       </section>
