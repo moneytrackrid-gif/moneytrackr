@@ -55,8 +55,9 @@ export default function Reports() {
       {/* Bar chart */}
       <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '16px', marginBottom: 12 }}>
         <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 12 }}>Pemasukan vs Pengeluaran — 6 Bulan</p>
-        <ResponsiveContainer width="100%" height={210}>
-          <BarChart data={monthly} barGap={4} barCategoryGap="35%" margin={{ top: 5, right: 5, bottom: 25, left: -10 }}>
+        <div style={{ width: '100%', paddingBottom: 30 }}>
+        <ResponsiveContainer width="100%" height={180}>
+          <BarChart data={monthly} barGap={4} barCategoryGap="35%" margin={{ top: 5, right: 5, bottom: 5, left: -10 }}>
             <XAxis dataKey="month" tick={{ fontSize: 10, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} />
             <YAxis tickFormatter={fmt} tick={{ fontSize: 9, fill: 'var(--text-muted)' }} axisLine={false} tickLine={false} width={40} />
             <Tooltip content={<CustomTooltip />} />
@@ -64,6 +65,7 @@ export default function Reports() {
             <Bar dataKey="expense" name="Pengeluaran" fill="var(--navy)" radius={[4,4,0,0]} />
           </BarChart>
         </ResponsiveContainer>
+        </div>
         <div style={{ display: 'flex', justifyContent: 'center', gap: 20, marginTop: 4 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><div style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--mint)' }} /><span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Pemasukan</span></div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}><div style={{ width: 10, height: 10, borderRadius: 2, background: 'var(--navy)' }} /><span style={{ fontSize: 11, color: 'var(--text-muted)' }}>Pengeluaran</span></div>
@@ -73,8 +75,9 @@ export default function Reports() {
       {/* Trend */}
       <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '16px', marginBottom: 12 }}>
         <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 12 }}>Tren Pengeluaran</p>
-        <ResponsiveContainer width="100%" height={170}>
-          <AreaChart data={monthly} margin={{ top: 5, right: 5, bottom: 25, left: -10 }}>
+        <div style={{ width: '100%', paddingBottom: 30 }}>
+        <ResponsiveContainer width="100%" height={150}>
+          <AreaChart data={monthly} margin={{ top: 5, right: 5, bottom: 5, left: -10 }}>
             <defs>
               <linearGradient id="gExp" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#0d2137" stopOpacity={0.2} />
@@ -87,6 +90,7 @@ export default function Reports() {
             <Area type="monotone" dataKey="expense" name="Pengeluaran" stroke="var(--navy)" strokeWidth={2} fill="url(#gExp)" dot={false} activeDot={{ r: 4, fill: 'var(--navy)' }} />
           </AreaChart>
         </ResponsiveContainer>
+        </div>
       </div>
 
       {/* Pie */}
