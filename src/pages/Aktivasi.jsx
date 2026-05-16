@@ -91,7 +91,7 @@ export default function Aktivasi() {
     <div style={{ minHeight: '100vh', background: '#f5f5f7', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, fontFamily: 'Inter, sans-serif' }}>
       <div style={{ width: '100%', maxWidth: 380 }}>
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <div style={{ width: 72, height: 72, background: '#00e676', borderRadius: 20, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 900, fontSize: 26, color: '#0d2137', margin: '0 auto 16px', boxShadow: '0 8px 24px rgba(0,230,118,0.3)' }}>mt</div>
+          <img src="/logo.png" alt="moneytrackr" style={{ height: 48, objectFit: 'contain', margin: '0 auto 16px', display: 'block' }} />
           <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0d2137', letterSpacing: -0.5, marginBottom: 6 }}>
             {isNewUser === null ? 'Aktivasi Akun' : isNewUser ? 'Buat Password' : 'Masuk'}
           </h1>
