@@ -72,7 +72,7 @@ export function AuthProvider({ children }) {
     setProfile(prev => ({ ...prev, plan, subscription_end: end }))
   }
 
-  const isPro = profile?.plan === 'pro'
+  const isPro = profile?.subscription_end ? new Date(profile.subscription_end) > new Date() : false
   const isStarter = profile?.plan === 'starter' || isPro
   const daysLeft = profile?.subscription_end
     ? Math.max(0, Math.ceil((new Date(profile.subscription_end) - Date.now()) / 86400000))
