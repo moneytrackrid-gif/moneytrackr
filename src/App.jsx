@@ -33,6 +33,12 @@ function AppLayout() {
 }
 
 function SmartHome() {
+  useEffect(() => {
+    const hash = window.location.hash
+    if (hash && hash.includes('type=recovery')) {
+      window.location.href = '/reset-password' + hash
+    }
+  }, [])
   return <Landing />
 }
 
