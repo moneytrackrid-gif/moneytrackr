@@ -93,10 +93,10 @@ export default function Aktivasi() {
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <img src="/logo.png" alt="moneytrackr" style={{ height: 48, objectFit: 'contain', margin: '0 auto 16px', display: 'block' }} />
           <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0d2137', letterSpacing: -0.5, marginBottom: 6 }}>
-            {isNewUser === null ? 'Aktivasi Akun' : isNewUser ? 'Buat Password' : 'Masuk'}
+            {isNewUser === null ? 'Aktivasi Akun' : isNewUser ? 'Selamat Datang! 🎉' : 'Masuk ke Akun'}
           </h1>
           <p style={{ color: '#999', fontSize: 14 }}>
-            {isNewUser === null ? 'Masukkan email yang dipakai saat bayar di Scalev' : isNewUser ? 'Satu langkah lagi untuk masuk ke dashboard!' : 'Masukkan password akunmu'}
+            {isNewUser === null ? 'Masukkan email yang kamu pakai saat pembayaran' : isNewUser ? 'Akunmu sudah aktif! Buat password untuk mulai kelola keuanganmu.' : 'Selamat kembali! Masukkan password untuk lanjut ke dashboard.'}
           </p>
         </div>
 
@@ -107,7 +107,7 @@ export default function Aktivasi() {
             <input
               type="email" value={email}
               onChange={e => { setEmail(e.target.value); setIsNewUser(null); setError('') }}
-              placeholder="Email yang dipakai di Scalev"
+              placeholder="Email yang dipakai saat bayar"
               disabled={isNewUser !== null}
               style={{ width: '100%', padding: '13px 14px 13px 42px', border: 'none', borderRadius: 12, fontSize: 14, color: '#0d2137', background: isNewUser !== null ? '#f0f0f0' : '#f5f5f5', fontFamily: 'Inter, sans-serif', outline: 'none', boxSizing: 'border-box', cursor: isNewUser !== null ? 'not-allowed' : 'text' }}
             />
