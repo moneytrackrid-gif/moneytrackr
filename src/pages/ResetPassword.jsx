@@ -7,14 +7,36 @@ export default function ResetPassword() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [done, setDone] = useState(false)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    // Supabase otomatis handle token dari URL hash
-    supabase.auth.onAuthStateChange(async (event) => {
-      if (event === 'PASSWORD_RECOVERY') {
-        // User sudah terverifikasi, siap set password baru
+    // Handle token dari URL hash
+    const hash = window.location.hash
+    if (hash) {
+      const params = new URLSearchParams(hash.substring(1))
+      const accessToken = params.get('access_token')
+      const refreshToken = params.get('refresh_token')
+
+      if (accessToken) {
+        supabase.auth.setSession({
+          access_token: accessToken,
+          refresh_token: refreshToken || ''
+        }).then(({ error }) => {
+          if (error) {
+            setError('Link tidak valid atau sudah expired. Minta reset password lagi.')
+          } else {
+            setReady(true)
+          }
+        })
       }
+    }
+
+    // Juga listen auth state change
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+      if (event === 'PASSWORD_RECOVERY') setReady(true)
     })
+
+    return () => subscription.unsubscribe()
   }, [])
 
   const handleReset = async () => {
@@ -39,7 +61,7 @@ export default function ResetPassword() {
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
           <img src="/logo.png" alt="moneytrackr" style={{ height: 48, objectFit: 'contain', margin: '0 auto 16px', display: 'block' }} />
           <h1 style={{ fontSize: 24, fontWeight: 800, color: '#0d2137', letterSpacing: -0.5, marginBottom: 6 }}>
-            {done ? 'Password Berhasil Diubah! 🎉' : 'Buat Password Baru'}
+            {done ? 'Password Berhasil! 🎉' : 'Buat Password Baru'}
           </h1>
           <p style={{ color: '#999', fontSize: 14 }}>
             {done ? 'Mengalihkan ke dashboard...' : 'Masukkan password baru untuk akunmu'}
@@ -61,10 +83,10 @@ export default function ResetPassword() {
             {error && <p style={{ fontSize: 12, color: '#e53935', marginBottom: 12 }}>{error}</p>}
             <button
               onClick={handleReset}
-              disabled={loading}
-              style={{ width: '100%', padding: 14, background: '#0d2137', color: '#00e676', border: 'none', borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'Inter, sans-serif', opacity: loading ? 0.7 : 1 }}
+              disabled={loading || !ready}
+              style={{ width: '100%', padding: 14, background: ready ? '#0d2137' : '#ccc', color: '#00e676', border: 'none', borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: (loading || !ready) ? 'not-allowed' : 'pointer', fontFamily: 'Inter, sans-serif' }}
             >
-              {loading ? 'Menyimpan...' : 'Simpan Password →'}
+              {loading ? 'Menyimpan...' : !ready ? 'Memverifikasi...' : 'Simpan Password →'}
             </button>
           </div>
         )}
