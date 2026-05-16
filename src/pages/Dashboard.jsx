@@ -18,8 +18,13 @@ export default function Dashboard() {
   const wallets = wallet ? [wallet] : []
   const [showModal, setShowModal] = useState(false)
   const [showScanner, setShowScanner] = useState(false)
-  const [showInitialBalance, setShowInitialBalance] = useState(() => !localStorage.getItem('mt-balance-set'))
-  const handleInitialBalanceClose = () => { localStorage.setItem('mt-balance-set', '1'); setShowInitialBalance(false) }
+  const [showInitialBalance, setShowInitialBalance] = useState(false)
+  useEffect(() => {
+    if (wallet && wallet.balance === 0 && transactions.length === 0) {
+      setShowInitialBalance(true)
+    }
+  }, [wallet, transactions])
+  const handleInitialBalanceClose = () => { setShowInitialBalance(false) }
 
   const chartData = (() => {
     const days = []
