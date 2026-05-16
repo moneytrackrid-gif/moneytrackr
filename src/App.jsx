@@ -93,8 +93,9 @@ function App() {
                 <Route path="/recurring" element={<Recurring />} />
               </Route>
             </Route>
-            <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/reset-password" element={<ResetPassword />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
             <Route path="/menunggu-aktivasi" element={<Waiting />} />
             <Route path="/aktivasi" element={<Aktivasi />} />
             <Route path="/syarat" element={<Syarat />} />
