@@ -10,8 +10,10 @@ export default function Register() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   useEffect(() => {
-    // Pre-fill email dari Midtrans
-    const savedEmail = localStorage.getItem('mt_email')
+    // Pre-fill email dari URL param atau localStorage
+    const params = new URLSearchParams(window.location.search)
+    const urlEmail = params.get('email')
+    const savedEmail = urlEmail || localStorage.getItem('mt_email')
     if (savedEmail) setEmail(savedEmail)
     // Scalev flow - tidak perlu order_id check
   }, [])

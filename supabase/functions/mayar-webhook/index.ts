@@ -30,28 +30,30 @@ serve(async (req) => {
     const expiresAt = new Date()
     expiresAt.setDate(expiresAt.getDate() + 90)
 
-    // Cek apakah user sudah ada
-    const { data: existingUser } = await supabase.auth.admin.getUserByEmail(customerEmail)
+    // Cek apakah user sudah ada via listUsers filter
+    const { data: listData } = await supabase.auth.admin.listUsers()
+    const existingUser = listData?.users?.find(u => u.email === customerEmail)
 
-    if (existingUser?.user) {
+    if (existingUser) {
       // Sudah ada akun → update plan langsung
       await supabase.from('profiles').update({
         plan: 'pro',
         subscription_end: expiresAt.toISOString(),
         mayar_order_id: orderId
-      }).eq('id', existingUser.user.id)
+      }).eq('id', existingUser.id)
     } else {
-      // Belum ada akun → buat akun baru tanpa password (email_confirm = true)
-      const { data: newUser } = await supabase.auth.admin.createUser({
+      // Belum ada akun → buat akun baru
+      const { data: newUser, error: createError } = await supabase.auth.admin.createUser({
         email: customerEmail,
         email_confirm: true,
         user_metadata: { plan: 'pro' }
       })
 
+      if (createError) throw createError
+
       if (newUser?.user) {
         await supabase.from('profiles').upsert({
           id: newUser.user.id,
-          email: customerEmail,
           plan: 'pro',
           subscription_end: expiresAt.toISOString(),
           mayar_order_id: orderId
@@ -59,10 +61,13 @@ serve(async (req) => {
       }
     }
 
-    return new Response(JSON.stringify({ success: true }), { status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
+    return new Response(JSON.stringify({ success: true, email: customerEmail }), {
+      status: 200,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' }
+    })
 
   } catch (err) {
     console.error(err)
-    return new Response(JSON.stringify({ error: 'Internal server error' }), { status: 500, headers: corsHeaders })
+    return new Response(JSON.stringify({ error: 'Internal server error', detail: err.message }), { status: 500, headers: corsHeaders })
   }
 })
