@@ -51,11 +51,11 @@ function RequireAuth() {
     if (loading) return
     if (!user) { setSubLoading(false); return }
     supabase.from('profiles')
-      .select('subscription_status')
+      .select('subscription_end')
       .eq('id', user.id)
       .single()
       .then(({ data }) => {
-        const active = data?.subscription_status === 'active'
+        const active = data?.subscription_end ? new Date(data.subscription_end) > new Date() : false
         setIsSubscribed(active)
         setSubLoading(false)
       })
