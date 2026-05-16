@@ -70,7 +70,7 @@ export default function Budget() {
         </button>
       </div>
 
-      <div style={{ background: 'var(--navy)', borderRadius: 'var(--radius-xl)', padding: '22px 26px', marginBottom: 20, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+      <div style={{ background: 'var(--navy)', borderRadius: 'var(--radius-xl)', padding: '22px 26px', marginBottom: 20, display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: 12 }}>
         {[
           { label: 'Total Budget', value: totalBudget, color: '#fff' },
           { label: 'Sudah Dipakai', value: totalUsed, color: totalUsed > totalBudget ? '#ff6b6b' : 'var(--mint)' },
@@ -83,7 +83,7 @@ export default function Budget() {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0,1fr))', gap: 12 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 12 }}>
         {budgets.map(b => {
           const used = getBudgetUsed(b.category)
           const pct = b.limit > 0 ? Math.min(100, Math.round((used / b.limit) * 100)) : 0

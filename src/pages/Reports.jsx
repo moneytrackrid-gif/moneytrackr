@@ -37,7 +37,7 @@ export default function Reports() {
 
       <HealthScore />
       {/* KPI cards */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0,1fr))', gap: 12, marginBottom: 20 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: 12, marginBottom: 20 }}>
         {[
           { label: 'Pemasukan', value: fmtFull(totalIncome), sub: 'bulan ini', color: 'var(--mint-text)', bg: 'var(--mint-dim)' },
           { label: 'Pengeluaran', value: fmtFull(totalExpense), sub: 'bulan ini', color: 'var(--navy)', bg: 'var(--white)' },
@@ -71,7 +71,7 @@ export default function Reports() {
       </div>
 
       {/* Trend + Pie */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1.3fr) minmax(0,1fr)', gap: 14, marginBottom: 14 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 14, marginBottom: 14 }}>
         {/* Trend area */}
         <div style={{ background: 'var(--card)', border: '0.5px solid var(--border)', borderRadius: 'var(--radius-lg)', padding: '18px 20px' }}>
           <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 16 }}>Tren Pengeluaran</p>
