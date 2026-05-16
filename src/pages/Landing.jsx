@@ -248,7 +248,7 @@ export default function Landing() {
               <div style={{ fontSize: 13, fontWeight: 700, color: '#064a22', marginBottom: 4 }}>6 Bulan</div>
               <div style={{ fontSize: 48, fontWeight: 800, color: '#0d2137', letterSpacing: -2, lineHeight: 1 }}>Rp 247.000</div>
               <div style={{ fontSize: 14, color: '#064a22', marginBottom: 6 }}>untuk 6 bulan penuh</div>
-              <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 28 }}>= Rp 1.372/hari · <span style={{textDecoration:'line-through', color:'#064a22', opacity:0.5, fontWeight:700}}>Rp 294.000</span></div>
+              <div style={{ fontSize: 12, color: '#064a22', opacity: 0.7, marginBottom: 28 }}>= Rp 1.372/hari · <span style={{textDecoration:'line-through', color:'#064a22', opacity:0.6, fontWeight:800, fontSize:14}}>Rp 294.000</span></div>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginBottom: 24, textAlign: 'left' }}>
                 {['Budget otomatis', 'AI Financial Advisor', 'Laporan visual', 'Scan struk otomatis', 'Goals dengan deadline', 'Financial Health Score'].map(f => (
                   <div key={f} style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
