@@ -84,7 +84,7 @@ export default function Landing() {
         </p>
 
         <p style={{ fontSize: 14, color: '#00b85c', fontWeight: 700, marginBottom: 40 }}>
-          Rp 147.000 / 3 bulan · Semua fitur · Garansi 7 hari
+          
         </p>
 
         <button onClick={() => document.getElementById('harga').scrollIntoView({behavior:'smooth'})} style={{ padding: '16px 40px', borderRadius: 30, border: 'none', background: '#0d2137', color: '#00e676', fontSize: 16, fontWeight: 800, cursor: 'pointer', fontFamily: 'inherit', boxShadow: '0 8px 32px rgba(13,33,55,0.2)', transition: 'transform 0.15s, box-shadow 0.15s' }}
