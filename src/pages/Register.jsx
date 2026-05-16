@@ -32,16 +32,26 @@ export default function Register() {
         password,
         options: { data: { full_name: name } }
       })
+      // Kalau sudah registered, langsung login
+      if (signUpError?.message?.includes('already registered') || signUpError?.message?.includes('User already registered')) {
+        const { error: loginError } = await supabase.auth.signInWithPassword({ email, password })
+        if (loginError) {
+          setError('Akun sudah ada. Login dengan password yang benar atau klik Lupa Password.')
+          setLoading(false)
+          return
+        }
+        localStorage.removeItem('mt_order_id')
+        localStorage.removeItem('mt_email')
+        window.location.href = '/dashboard'
+        return
+      }
       if (signUpError) throw signUpError
-
       const userId = data.user?.id
       if (!userId) throw new Error('Gagal membuat akun')
-
-      // Tunggu sebentar agar trigger Supabase selesai
       await new Promise(r => setTimeout(r, 1000))
-
-      // Bersihkan localStorage
       localStorage.removeItem('mt_order_id')
+      localStorage.removeItem('mt_email')
+      window.location.href = '/dashboard'
       localStorage.removeItem('mt_email')
 
       // Redirect ke halaman tunggu aktivasi
